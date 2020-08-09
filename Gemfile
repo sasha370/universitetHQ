@@ -39,7 +39,7 @@ gem "bootstrap" # основное оформление
 gem 'jquery-rails' # поддержка событий JS
 gem 'haml-rails', "~> 2.0" # формат для создания страниц
 gem 'font-awesome-sass' # набор значков для оформления
-gem 'simple_form'
+gem 'simple_form' # создает формы поддерживаемые bootstrap
 gem 'faker'
 gem 'devise'
 gem 'friendly_id'
