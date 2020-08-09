@@ -35,3 +35,33 @@ group :production do
 end
 
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'haml-rails', "~> 2.0"
+gem 'font-awesome-sass'
+gem 'simple_form'
+gem 'faker'
+gem 'devise'
+gem 'friendly_id'
+gem 'ransack'
+gem 'public_activity'
+gem 'rolify'
+gem 'pundit'
+gem 'exception_notification', group: :production
+gem 'pagy'
+gem 'chartkick'
+gem 'groupdate'
+gem 'rails-erd', group: :development # sudo apt-get install graphviz
+gem 'ranked-model'
+gem 'aws-sdk-s3', require: false
+gem 'active_storage_validations'
+gem 'image_processing'
+gem 'recaptcha'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary', group: :development
+gem 'wkhtmltopdf-heroku', group: :production
+gem 'wicked'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
+gem 'omniauth-facebook'
+gem 'cocoon'
+gem 'stripe'
+
