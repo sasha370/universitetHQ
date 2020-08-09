@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#
+#
+30.times do
+  # Создать rehc
+  Course.create!([{
+                      # в котором названия генерируются из папки Обучение
+                      title: Faker::Educator.course_name,
+                      # а описания из папки текстовок
+                      description: Faker::TvShows::GameOfThrones.quote
+                  }])
+end
