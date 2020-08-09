@@ -35,6 +35,8 @@ group :production do
 end
 
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "bootstrap"
+gem 'jquery-rails'
 gem 'haml-rails', "~> 2.0"
 gem 'font-awesome-sass'
 gem 'simple_form'
