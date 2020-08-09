@@ -35,10 +35,10 @@ group :production do
 end
 
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem "bootstrap"
-gem 'jquery-rails'
-gem 'haml-rails', "~> 2.0"
-gem 'font-awesome-sass'
+gem "bootstrap" # основное оформление
+gem 'jquery-rails' # поддержка событий JS
+gem 'haml-rails', "~> 2.0" # формат для создания страниц
+gem 'font-awesome-sass' # набор значков для оформления
 gem 'simple_form'
 gem 'faker'
 gem 'devise'
