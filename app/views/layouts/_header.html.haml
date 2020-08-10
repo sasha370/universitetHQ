@@ -19,11 +19,13 @@
             = link_to courses_path, class: 'nav-link' do
               .fa.fa-book
               Courses
-        / Поле для строки поиска
+        / ПОИСК
         .form-inline.my-2.my-lg-0
-          = form_tag(root_path, method: :get) do
+          / отправляем поиск на страницу курсов
+          = form_tag(courses_path, method: :get) do
             .input-group
-              = text_field_tag :name, params[:name], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
+              / искать будем по полю Заголовок, но Сам поиск  прописаy CoursesController
+              = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
               %span.input-group-append
                 %button.btn.btn-primary.btn-sm{:type => "submit"}
                   %span.fa.fa-search{"aria-hidden" => "true"}
