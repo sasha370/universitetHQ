@@ -8,10 +8,11 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    / добавляем строчку с логином и кнопка вход.выход
     = render 'layouts/header'
-    / добавляем объявления по требованию Devise
-    %p.notice= notice
-    %p.alert= alert
+    / добавляем всплывающие сообщения
+    = render 'layouts/messages'
+
 
   .container
     = yield
