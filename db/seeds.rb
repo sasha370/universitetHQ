@@ -6,13 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 #
-#
+# Создаем тестового юзера
+User.create!(email: 'test@test.ru', password: '123456')
+
+
 30.times do
-  # Создать rehc
+  # Создает 30 курсов  курс
   Course.create!([{
                       # в котором названия генерируются из папки Обучение
                       title: Faker::Educator.course_name,
                       # а описания из папки текстовок
-                      description: Faker::TvShows::GameOfThrones.quote
+                      description: Faker::TvShows::GameOfThrones.quote,
+                      #  навешиваем все курсы к тестовому юзеру
+                      user_id: User.first.id
                   }])
 end
