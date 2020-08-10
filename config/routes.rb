@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  # Пути для Users провисанные через Devise ( автоматически при установке)
+  devise_for :users
+  # все пути для Курсов проаиснные генератором ысфаащдв
   resources :courses
+
   root 'home#index'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
