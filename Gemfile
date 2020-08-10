@@ -42,7 +42,7 @@ gem 'font-awesome-sass' # набор значков для оформления
 gem 'simple_form' # создает формы поддерживаемые bootstrap
 gem 'faker' # создает seeds в БД по шаблонам быстро и просто
 gem 'devise' # для аутентификации пользователй
-gem 'friendly_id'
+gem 'friendly_id' # дружественное тображение ссылок
 gem 'ransack'
 gem 'public_activity'
 gem 'rolify'

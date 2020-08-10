@@ -62,7 +62,8 @@ class CoursesController < ApplicationController
   private
 
   def set_course
-    @course = Course.find(params[:id])
+    # Поиск по базе производим не по полю ID, а по дружественному ID
+    @course = Course.friendly.find(params[:id])
   end
 
 
