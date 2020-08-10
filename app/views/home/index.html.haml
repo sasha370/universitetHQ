@@ -1,4 +1,75 @@
+.jumbotron
+  .display-4
+    What do you want to learn today?
+  .p-4
+  .form-inline.my-2.my-lg-0
+    / отправляем поиск на страницу курсов
+    = form_tag(courses_path, method: :get) do
+      .input-group
+        / искать будем по полю Заголовок, но Сам поиск  прописаy CoursesController
+        = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
+        %span.input-group-append
+          %button.btn.btn-primary.btn-sm{:type => "submit"}
+            %span.fa.fa-search{"aria-hidden" => "true"}
 
+/ вводная информация о количестве курсов и ичеников
+.card-group
+  .card.card-body
+    %h1
+      .fa.fa-graduation-cap
+    = Course.count
+    online courses
+    .row
+    Explore a variety of fresh topics
+  .card.card-body
+    %h1
+      .fa.fa-chalkboard-teacher
+      /.fa.fa-brain
+    = Course.distinct.count(:user_id)
+    expert instructors
+    .row
+    Find the right instructor for you
+  .card.card-body
+    %h1
+      .fa.fa-user-graduate
+    = User.count
+    active learners
+    .row
+    Join the knowledge sharing community
+  .card.card-body
+    %h1
+      .fa.fa-infinity
+    Lifetime access
+    .row
+    Learn on your schedule
+
+
+
+
+
+
+
+/ отображаем различные списки курсов, переменную @courses задаем в home_controller
+%hr
+  %h2
+    Popular courses
+.card-columns
+  - @courses.each do |course|
+    = render 'courses/course', course: course
+
+%hr
+  %h2
+    Top rated courses
+.card-columns
+  - @courses.each do |course|
+    = render 'courses/course', course: course
+%hr
+  %h2
+    Latest courses
+.card-columns
+  - @latest_courses.each do |course|
+    = render 'courses/course', course: course
+%hr
 = link_to courses_path, class: 'btn btn-success' do
   .fa.fa-book
   Курсы
