@@ -9,5 +9,7 @@
 
 
 
-
 body { background: #fcf8f4; }
+
+.form-control.is-invalid{background-image: none;}
+.form-control.is-valid{background-image: none;}

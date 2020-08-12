@@ -17,7 +17,7 @@
           / Кнопка антивна, если мы на странице Курсов
           %li.nav-item{class: "#{'active font-weight-bold' if current_page?(courses_path)}"}
             = link_to courses_path, class: 'nav-link' do
-              .fa.fa-book
+              .fa.fa-graduation-cap
               Courses
           %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
             = link_to new_course_path, class: 'nav-link' do

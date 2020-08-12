@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 # Создаем тестового юзера
-User.create!(email: 'test@test.ru', password: '123456')
+# User.create!(email: 'test1@test.ru', password: '123456')
 
 
 30.times do
@@ -18,6 +18,10 @@ User.create!(email: 'test@test.ru', password: '123456')
                       # а описания из папки текстовок
                       description: Faker::TvShows::GameOfThrones.quote,
                       #  навешиваем все курсы к тестовому юзеру
-                      user_id: User.first.id
+                      user_id: User.first.id,
+                      short_description: Faker::Quote.famous_last_words,
+                      language: Faker::ProgrammingLanguage.name,
+                      level: "Beginner",
+                      price: Faker::Number.between(from:1000, to: 20000)
                   }])
 end
