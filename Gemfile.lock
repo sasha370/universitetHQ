@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/activerecord-hackery/ransack.git
+  revision: c9cc20de9e0f7bab92e0579c85bed64d614d23de
+  specs:
+    ransack (2.3.2)
+      activerecord (>= 5.2.1)
+      activesupport (>= 5.2.1)
+      i18n
+
+GIT
   remote: https://github.com/omniauth/omniauth-github.git
   revision: d001ed274276bf50e1e756bf38bce75509aa25ec
   branch: master
@@ -209,8 +218,6 @@ GEM
     orm_adapter (0.5.0)
     pagy (3.8.3)
     pg (1.2.3)
-    polyamorous (2.3.2)
-      activerecord (>= 5.2.1)
     popper_js (1.16.0)
     public_activity (1.6.4)
       actionpack (>= 3.0.0)
@@ -261,11 +268,6 @@ GEM
     rake (13.0.1)
     ranked-model (0.4.6)
       activerecord (>= 4.2)
-    ransack (2.3.2)
-      activerecord (>= 5.2.1)
-      activesupport (>= 5.2.1)
-      i18n
-      polyamorous (= 2.3.2)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -385,7 +387,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-erd
   ranked-model
-  ransack
+  ransack!
   recaptcha
   rolify
   sass-rails (>= 6)

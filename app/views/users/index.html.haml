@@ -1,3 +1,38 @@
 .card-columns
   - @users.each do |user|
     = render 'users/user', user: user
+
+-#Форма поиска для gem ransack
+= search_form_for @q do |f|
+  / метод _cont для строк  -  "содержит"
+  = f.search_field :email_cont, placeholder: "Email"
+  / метод _eq для чисел - "равен"
+  -# = f.search_field :sign_in_count_eq, placeholder: "sign_in_count"
+  -# = f.search_field :email_or_sign_in_count_cont, placeholder: "email or sign_in_count"
+  = f.submit
+  -#.кнопка обновления, сделаная как редирект на новую страницу
+= link_to users_path, class: 'btn btn-sm btn-secondary' do
+  .fa.fa-sync
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th id
+      %th= sort_link(@q, :email)
+      %th= sort_link(@q, :created_at)
+      %th= sort_link(@q, :sign_in_count)
+      %th= "current_sign_in".humanize
+      %th= "last_sign_in_at".humanize
+      %th= "current_sign_in_ip".humanize
+      %th= "last_sign_in_ip".humanize
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.id
+        %td= user.email
+        %td= user.created_at
+        %td= user.sign_in_count
+        %td= user.current_sign_in_at
+        %td= user.last_sign_in_at
+        %td= user.current_sign_in_ip
+        %td= user.last_sign_in_ip

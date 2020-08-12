@@ -43,7 +43,7 @@ gem 'simple_form' # создает формы поддерживаемые boots
 gem 'faker' # создает seeds в БД по шаблонам быстро и просто
 gem 'devise' # для аутентификации пользователй
 gem 'friendly_id' # дружественное тображение ссылок
-gem 'ransack'
+gem 'ransack', github: 'activerecord-hackery/ransack' # поиск и сортировка по любым полям
 gem 'public_activity'
 gem 'rolify'
 gem 'pundit'
