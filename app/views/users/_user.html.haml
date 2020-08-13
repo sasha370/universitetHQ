@@ -30,3 +30,8 @@
       .badge.badge-success Yes
     - else
       .badge.badge-danger No
+  / показываем текущую роль пользователя
+  .card-footer
+    - user.roles.each do |role|
+      .badge.badge-info
+        = role.name

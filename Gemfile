@@ -45,8 +45,8 @@ gem 'devise' # для аутентификации пользователй
 gem 'friendly_id' # дружественное тображение ссылок
 gem 'ransack', github: 'activerecord-hackery/ransack' # поиск и сортировка по любым полям
 gem 'public_activity' # отслеживание всех действий пользователей на сайте
-gem 'rolify'
-gem 'pundit'
+gem 'rolify'  # для создания ролей у User-ов
+gem 'pundit' # для создания прав на различные роли
 gem 'exception_notification', group: :production
 gem 'pagy'
 gem 'chartkick'
