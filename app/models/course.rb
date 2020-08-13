@@ -9,6 +9,8 @@ class Course < ApplicationRecord
 
   # Курс принадлежит только одному пользователю
   belongs_to :user
+  # Курс имеет множество уроков, которые удаляются вместе с курсом
+  has_many :lessons, dependent:  :destroy
 
   # Подключаем гем для отвлеживания событий в модели Курсы
   include PublicActivity::Model

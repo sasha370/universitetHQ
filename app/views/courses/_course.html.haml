@@ -11,6 +11,9 @@
       / метод отображающий число в виде ценника
       = number_to_currency(course.price)
   .card-footer
+    .fa.fa-book
+      = pluralize(course.lessons.count, 'lesson')
+  .card-footer
     .row
       .col-md-6
         .fa.fa-globe-africa
