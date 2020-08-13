@@ -27,12 +27,6 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  # Если использовать данную запись то будут генерироваться рандомные названия для статей в URL
-  # friendly_id :generated_slug, use: :slugged
-  # def generated_slag
-  #   require 'securerandom'
-  #   @random_slug ||= persisted? ? friendly_id : SecureRandom.hex(4)
-  # end
 
   LANGUAGES = ["English", "Russian", "France", "Spanish"]
   def self.languages
