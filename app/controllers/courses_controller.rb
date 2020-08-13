@@ -33,6 +33,8 @@ class CoursesController < ApplicationController
 
 
   def edit
+    # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
+    authorize @course
   end
 
 

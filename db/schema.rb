@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2020_08_13_100753) do
   end
 
 # Could not dump table "users" because of following StandardError
-#   Unknown type '' for column 'current_sign_in_ip'
+#   Unknown type 'inet' for column 'current_sign_in_ip'
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"

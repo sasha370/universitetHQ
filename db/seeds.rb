@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 # Создаем тестового юзера
-# User.create!(email: 'test1@test.ru', password: '123456')
+# User.create!(email: 'admin@admin.ru', password: '123456')
 
 
 30.times do
