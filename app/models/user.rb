@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   has_many :courses # Юзер может иметь несколько Курсов
 
+  # Проверяем, чтобы при редактировании у пользователя была хотябы одна роль
+  validate :must_have_a_role, on: :update
 
   # Расширяем наш класс дополнением для отображения дружественных ссылок
   extend FriendlyId
@@ -42,8 +44,11 @@ class User < ApplicationRecord
     end
   end
 
-  # Проверяем, чтобы при редактировании у пользователя была хотябы одна роль
-  validate :must_have_a_role, on: :update
+  # Проверяем он-лайн ли еще пользователь
+  def online?
+    updated_at > 5.minutes.ago
+  end
+
 
   private
 

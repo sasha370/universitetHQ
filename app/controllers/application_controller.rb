@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   # Перед посещением любой страницы мы должны аутентифицировать ползователя
   before_action :authenticate_user!
 
+  # После любого действия "трогаем запись" в БД, чтобы обновить время
+  # далее используем это, чтобы отслеживать он-лайн ли пользователь
+  after_action :user_activity
+
   # подключаем гем для раздачи прав на просмотр контента
   include Pundit
   protect_from_forgery
@@ -23,6 +27,11 @@ class ApplicationController < ActionController::Base
   def user_not_authorized  #pundit
     flash[:alert] =  " You are not authorized to perfome this action"
     redirect_to(request.referrer || root_path)
+  end
+
+  # Трогаем запись в БД , чтобы обновить время updated_at
+  def user_activity
+    current_user.try :touch
   end
 
 end
