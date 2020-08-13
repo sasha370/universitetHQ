@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   # все пути для Курсов проаиснные генератором ысфаащдв
   resources :courses
-  resources :users, only: [:index]
+  resources :users, only: [:index, :edit, :show, :update]
 
   root 'home#index'
 
