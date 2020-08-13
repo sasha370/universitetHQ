@@ -6,13 +6,16 @@ class LessonsController < ApplicationController
   end
 
   def show
+    authorize @lesson
   end
 
   def new
     @lesson = Lesson.new
+
   end
 
   def edit
+    authorize @lesson
   end
 
   def create
@@ -28,6 +31,7 @@ class LessonsController < ApplicationController
   end
 
   def update
+    authorize @lesson
     respond_to do |format|
       if @lesson.update(lesson_params)
         format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
@@ -38,6 +42,7 @@ class LessonsController < ApplicationController
   end
 
   def destroy
+    authorize @lesson
     @lesson.destroy
     respond_to do |format|
       format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }

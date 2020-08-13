@@ -9,6 +9,7 @@
     = render 'courses/course', course: @course
   .col-lg-6
     -#добавляем кнопку для создания урока, при пересылке нужно передать ID курса в params
+      -#TODO  ccskre должен видеть только владелец статьи
     = link_to "Add lesson", new_lesson_path(course_id: @course.id)
     - @lessons.each do |lesson|
       =  render "lessons/lesson",  lesson: lesson
