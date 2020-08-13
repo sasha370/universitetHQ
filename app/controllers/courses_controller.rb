@@ -4,19 +4,24 @@ class CoursesController < ApplicationController
 # В Экшене прописываем дополнительно поиск
   def index
     # Если в параметрах передан заголовок, то ищем все курсыБ содержащие его
-    if params[:title]
-      # Запрос прописыывается вручную т.к. нужно частичное совпадение
-      @courses = Course.where("title LIKE ?", "%#{params[:title]}%") # нечувствительно к заглавным
-    else
-      # Если параметров нет, то выводим полный список курсов
-      @courses = Course.all
+    # работет только БЕЗ поиска в Навбаре
+    # if params[:title]
+    #   # Запрос прописыывается вручную т.к. нужно частичное совпадение
+    #   @courses = Course.where("title LIKE ?", "%#{params[:title]}%") # нечувствительно к заглавным
+    # else
+    #   # Если параметров нет, то выводим полный список курсов
+    #   @courses = Course.all
+    #
+    #   # Выбираем всех узеров и сортируем по дате создания
+    #   # Методы из gem ransack, которые формирует поисковую выдачу
+    #   # @q = Course.ransack(params[:q])
+    #    # добавляем в результаты поиска userov
+    #   # @courses = @q.result.includes(:user)
+    # end
 
-      # Выбираем всех узеров и сортируем по дате создания
-      # Методы из gem ransack, которые формирует поисковую выдачу
-      @q = Course.ransack(params[:q])
-       # добавляем в результаты поиска userov
-      @courses = @q.result.includes(:user)
-    end
+      # Переменная для Поиска в навбаре ( повторяется в AppController)
+      @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
+      @courses = @ransack_courses.result.includes(:user)
   end
 
   def show

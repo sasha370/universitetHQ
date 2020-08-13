@@ -5,21 +5,22 @@
 .row
   / отделяем слева отдельную колонку, чтобы разместить в ней поисковую строчку
   .col-md-2
-    -#Форма поиска для gem ransack
-    = search_form_for @q do |f|
+    -#Форма поиска для gem ransack/ Первая только для бокового меню, вторая для  Навбара + боковое
+    / = search_form_for @q do |f|
+    = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
       / метод _cont для строк  -  "содержит"
-      = f.label :title
+      = f.label :title,  class: "col-form-label"
       = f.search_field :title_cont, placeholder: "Title", class: "form-control form-control-sm"
       / метод _eq для чисел - "равен"
-      = f.label :description
+      = f.label :description,  class: "col-form-label"
       = f.search_field :short_description_cont, placeholder: "Short-description", class: "form-control form-control-sm"
-      = f.label :language
+      = f.label :language,  class: "col-form-label"
       = f.select :language_cont,  Course.languages,  include_blank: true
-      = f.label :level
+      = f.label :level,  class: "col-form-label"
       = f.select :level_cont,  Course.levels, include_blank: true
-      = f.label :price
+      = f.label :price,  class: "col-form-label"
       = f.search_field :price_eq, placeholder: "Price", class: "form-control form-control-sm"
-      = f.label :teacher
+      = f.label :teacher,  class: "col-form-label"
       = f.search_field :user_email_cont, placeholder: "User Email", class: "form-control form-control-sm"
       = f.submit
       /кнопка обновления, сделаная как редирект на новую страницу
