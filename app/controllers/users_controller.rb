@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update]
+  before_action :set_user, only: [:edit, :update, :show]
 
   def index
     # Выбираем всех узеров и сортируем по дате создания
@@ -9,6 +9,10 @@ class UsersController < ApplicationController
     @users = @q.result(distinct: true)
   end
 
+
+  def show
+
+  end
 
   def edit
     authorize @user
@@ -28,7 +32,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
   end
 
   def user_params

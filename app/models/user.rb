@@ -12,6 +12,11 @@ class User < ApplicationRecord
   has_many :courses # Юзер может иметь несколько Курсов
 
 
+  # Расширяем наш класс дополнением для отображения дружественных ссылок
+  extend FriendlyId
+  friendly_id :email, use: :slugged
+
+
   def to_s # Метод для конвертации в строку полейБ возвращенных из БД (массивом)
     email
   end
