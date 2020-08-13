@@ -9,8 +9,8 @@
     -#%small= f.error :description, class: 'text-danger'
     = f.input :short_description
     -#/ параметром collextion можно пересичлить необходимые наборы ( см. справку по gem simple-form)
-    = f.input :language, collection: ["English", "Russian", "France"]
-    = f.input :level, collection: ["Beginner", "Intermediate", "Advance"]
+    = f.input :language, collection: Course.languages
+    = f.input :level, collection: Course.levels
     = f.input :price
 
   .form-actions

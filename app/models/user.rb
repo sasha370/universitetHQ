@@ -15,4 +15,9 @@ class User < ApplicationRecord
     email
   end
 
+  # Метод обрезает email до собакиБ чтобы сделать из него логин для отображения в карточке
+  def username
+      self.email.split(/@/).first
+  end
+
 end

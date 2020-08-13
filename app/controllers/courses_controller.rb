@@ -10,6 +10,12 @@ class CoursesController < ApplicationController
     else
       # Если параметров нет, то выводим полный список курсов
       @courses = Course.all
+
+      # Выбираем всех узеров и сортируем по дате создания
+      # Методы из gem ransack, которые формирует поисковую выдачу
+      @q = Course.ransack(params[:q])
+       # добавляем в результаты поиска userov
+      @courses = @q.result.includes(:user)
     end
   end
 
