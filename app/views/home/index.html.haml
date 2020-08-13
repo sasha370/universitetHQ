@@ -2,15 +2,16 @@
   .display-4
     What do you want to learn today?
   .p-4
-  .form-inline.my-2.my-lg-0
-    / отправляем поиск на страницу курсов
-    = form_tag(courses_path, method: :get) do
-      .input-group
-        / искать будем по полю Заголовок, но Сам поиск  прописаy CoursesController
-        = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
-        %span.input-group-append
-          %button.btn.btn-primary.btn-sm{:type => "submit"}
-            %span.fa.fa-search{"aria-hidden" => "true"}
+    -#.form-inline.my-2.my-lg-0
+    / ПОИСК в Jumbotrone
+    - if current_user
+      = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+        .input-group
+          / поиск по Заголовку
+          = f.search_field :title_or_short_description_cont, class: 'form-control-sm', style: 'float: left; width: 150 px;', placeholder: 'Find a course', :autocomplete => :off
+          %span.input-group-append
+            %button.btn.btn-primary.btn-sm{type: 'submit'}
+              %span.fa.fa-search{'aria-hidden' => 'true'}
 
 / вводная информация о количестве курсов и ичеников
 .card-group

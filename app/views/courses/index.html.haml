@@ -1,7 +1,9 @@
-%h1
-  Сourses:
-  = @courses.count
-
+%h3
+  .text-center
+    Courses
+    .badge.badge-info
+      = @courses.count
+%p
 .row
   / отделяем слева отдельную колонку, чтобы разместить в ней поисковую строчку
   .col-md-2
