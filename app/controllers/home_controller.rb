@@ -9,4 +9,9 @@ class HomeController < ApplicationController
     # Список самых свежих курсов
     @latest_courses = Course.all.limit(3).order(created_at: :desc)
   end
+
+  # Собираем все активностипо разделу статьи
+  def activity
+    @activities = PublicActivity::Activity.all
+  end
 end

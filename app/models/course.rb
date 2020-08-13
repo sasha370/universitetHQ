@@ -10,6 +10,11 @@ class Course < ApplicationRecord
   # Курс принадлежит только одному пользователю
   belongs_to :user
 
+  # Подключаем гем для отвлеживания событий в модели Курсы
+  include PublicActivity::Model
+
+  # Отслеживаем только активность текущего пользователя
+  tracked owner: Proc.new{|controller, model| controller.current_user}
 
   # Метод для конвертации в строку полейБ возвращенных из БД (массивом)
   def to_s
