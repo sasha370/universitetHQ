@@ -29,6 +29,7 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new
+    authorize @course
   end
 
 
@@ -41,6 +42,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     # У каждого курса должен быть User? поэтому берем текущего (зарегистрированного)
+    authorize @course
     @course.user = current_user
     respond_to do |format|
       if @course.save
@@ -55,6 +57,7 @@ class CoursesController < ApplicationController
 
 
   def update
+    authorize @course
     respond_to do |format|
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
@@ -66,6 +69,7 @@ class CoursesController < ApplicationController
 
 
   def destroy
+    authorize @course
     @course.destroy
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
