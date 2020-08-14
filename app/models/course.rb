@@ -11,6 +11,7 @@ class Course < ApplicationRecord
   belongs_to :user
   # Курс имеет множество уроков, которые удаляются вместе с курсом
   has_many :lessons, dependent:  :destroy
+  has_many :enrollments
 
   # Подключаем гем для отвлеживания событий в модели Курсы
   include PublicActivity::Model

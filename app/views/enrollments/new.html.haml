@@ -1,0 +1,15 @@
+-#Отображение названия статьи в заголовке страницы
+- content_for :title do
+  Universary
+  \|
+  New enrollment
+
+.card
+  .card-body
+    %h3
+      .fa.fa-lock-open
+        New enrollment
+  .card-body
+    = render 'form'
+  .card-footer
+    = link_to 'Back', enrollments_path

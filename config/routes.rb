@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :enrollments
   # Пути для Users провисанные через Devise ( автоматически при установке)
   devise_for :users
 
