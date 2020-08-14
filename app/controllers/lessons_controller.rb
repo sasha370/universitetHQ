@@ -6,7 +6,7 @@ class LessonsController < ApplicationController
   end
 
   def show
-    authorize @lesson
+    authorize @lesson # авторизация на просмотр  только у хозяина курса и админа
   end
 
   def new
@@ -15,7 +15,7 @@ class LessonsController < ApplicationController
   end
 
   def edit
-    authorize @lesson
+    authorize @lesson # авторизация на редактирование только у хозяина курса
     @course = Course.friendly.find(params[:course_id])
   end
 
@@ -23,9 +23,10 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @course = Course.friendly.find(params[:course_id])
     @lesson.course_id = @course.id
+    authorize @lesson # авторизация на создание только у хозяина курса
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Lesson was successfully created.' }
+        format.html { redirect_to course_lesson_url(@course, @lesson), notice: 'Lesson was successfully created.' }
       else
         format.html { render :new }
       end
@@ -33,11 +34,11 @@ class LessonsController < ApplicationController
   end
 
   def update
-    authorize @lesson
+    authorize @lesson # авторизация на редактирование только у хозяина курса
     @course = Course.friendly.find(params[:course_id])
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to course_lesson_url(@course, @lesson), notice: 'Lesson was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -45,7 +46,7 @@ class LessonsController < ApplicationController
   end
 
   def destroy
-    authorize @lesson
+    authorize @lesson # авторизация на удаление только у хозяина курса
     @lesson.destroy
     respond_to do |format|
       format.html { redirect_to course_url(@course), notice: 'Lesson was successfully destroyed.' }
@@ -59,6 +60,6 @@ class LessonsController < ApplicationController
     end
 
     def lesson_params
-      params.require(:lesson).permit(:title, :content, :course_id)
+      params.require(:lesson).permit(:title, :content)
     end
 end
