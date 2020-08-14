@@ -4,9 +4,9 @@
     .badge.badge-info
       = @users.count
 %p
-.card-columns
-  - @users.each do |user|
-    = render 'users/user', user: user
+-#.card-columns
+-#  - @users.each do |user|
+-#    = render 'users/user', user: user
 
 -#Форма поиска для gem ransack
 = search_form_for @q do |f|
@@ -17,8 +17,8 @@
   -# = f.search_field :email_or_sign_in_count_cont, placeholder: "email or sign_in_count"
   = f.submit
   -#.кнопка обновления, сделаная как редирект на новую страницу
-= link_to users_path, class: 'btn btn-sm btn-secondary' do
-  .fa.fa-sync
+  = link_to users_path, class: 'btn btn-sm btn-secondary' do
+    .fa.fa-sync
 
 %table.table.table-bordered
   %thead
@@ -31,6 +31,9 @@
       %th= "last_sign_in_at".humanize
       %th= "current_sign_in_ip".humanize
       %th= "last_sign_in_ip".humanize
+      %th Confirmed?
+      %th Roles
+
   %tbody
     - @users.each do |user|
       %tr
@@ -42,3 +45,14 @@
         %td= user.last_sign_in_at
         %td= user.current_sign_in_ip
         %td= user.last_sign_in_ip
+        %td
+          - if user.confirmed_at.present?
+            .badge.badge-success Yes
+          - else
+            .badge.badge-danger No
+        %td
+          - user.roles.each do |role|
+            .badge.badge-info
+              = role.name
+          - if policy(user).edit?
+            = link_to "Edit roles", edit_user_path(user), class: 'btn btn-warning'

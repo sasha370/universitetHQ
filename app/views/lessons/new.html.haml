@@ -1,6 +1,16 @@
+/Хлебные крошки в заголовке карточки
+
+= link_to 'Courses', courses_path
+\/
+= link_to @course, course_path(@course)
+\/
+New
+%p
 .card
   .card-header
-    %h1 New lesson
+    %h3
+      .far.fa.fa-check-square
+      New lesson
   .card-body
     = render 'form'
   .card-footer

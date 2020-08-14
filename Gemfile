@@ -47,7 +47,7 @@ gem 'ransack', github: 'activerecord-hackery/ransack' # поиск и сорти
 gem 'public_activity' # отслеживание всех действий пользователей на сайте
 gem 'rolify'  # для создания ролей у User-ов
 gem 'pundit' # для создания прав на различные роли
-gem 'exception_notification', group: :production
+gem 'exception_notification', group: :production # отправляет все ошибки Heroku на почту
 gem 'pagy'
 gem 'chartkick'
 gem 'groupdate'

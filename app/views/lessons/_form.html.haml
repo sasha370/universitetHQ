@@ -8,7 +8,8 @@
     = f.input :content, as: :rich_text_area
     -# = f.association :course
     -#при создании лекции нужно указать ID курса, берем или из params или из свойства лекции
-    = f.input :course_id, input_html: {value: @lesson.course_id || params[:course_id]}, as: :hidden
+    -#но в данном случае убираем, т.к. мы назначили все вручную в контроллере
+    -# = f.input :course_id, input_html: {value: @lesson.course_id || params[:course_id]}, as: :hidden
 
   .form-actions
     = f.button :submit

@@ -7,7 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 # Создаем тестового юзера
-# User.create!(email: 'admin@admin.ru', password: '123456')
+user = User.new(
+    email: 'admin@admin.ru',
+    password: '123456',
+    password_confirmation: '123456',
+)
+user.skip_confirmation!
+user.save!
 
 
 30.times do
@@ -22,6 +28,6 @@
                       short_description: Faker::Quote.famous_last_words,
                       language: Faker::ProgrammingLanguage.name,
                       level: "Beginner",
-                      price: Faker::Number.between(from:1000, to: 20000)
+                      price: Faker::Number.between(from: 1000, to: 20000)
                   }])
 end
