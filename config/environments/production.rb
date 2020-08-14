@@ -5,7 +5,14 @@ Rails.application.configure do
    config.action_mailer.raise_delivery_errors = true
    config.action_mailer.delivery_method = :smtp
 
-
+   # для остеживания всех ошибок
+   Rails.application.config.middleware.use ExceptionNotification::Rack,
+                                           email: {
+                                               deliver_with: :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
+                                               email_prefix: '[PREFIX] ',
+                                               sender_address: %{"universary error" <support@universary.com>},
+                                               exception_recipients: %w{budka52@bk.ru}
+                                           }
   # Code is not reloaded between requests.
   config.cache_classes = true
 
