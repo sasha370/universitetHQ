@@ -30,10 +30,14 @@
       .fa.fa-sync
 
   .col-md-10
+    != pagy_bootstrap_nav(@pagy)
     .card-columns
       / выводим все курсы в виде карточек колонками(3 шт)
       - @courses.each do |course|
         =render 'courses/course', course: course
+    != pagy_bootstrap_nav(@pagy)
+
+
   %br
 
 

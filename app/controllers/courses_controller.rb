@@ -21,7 +21,11 @@ class CoursesController < ApplicationController
 
       # Переменная для Поиска в навбаре ( повторяется в AppController)
       @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
-      @courses = @ransack_courses.result.includes(:user)
+      # @courses = @ransack_courses.result.includes(:user)
+
+      # подключаем пагинацию
+      #  вот в оригинале @pagy, @records = pagy(Product.some_scope)
+      @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
   end
 
   def show

@@ -7,17 +7,17 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 # Создаем тестового юзера
-user = User.new(
-    email: 'admin@admin.ru',
-    password: '123456',
-    password_confirmation: '123456',
-)
-user.skip_confirmation!
-user.save!
+# user = User.new(
+#     email: 'admin@admin.ru',
+#     password: '123456',
+#     password_confirmation: '123456',
+# )
+# user.skip_confirmation!
+# user.save!
 
-
+# отключавем т.к. он требует наличия current_user
+PublicActivity.enabled = false
 30.times do
-  # Создает 30 курсов  курс
   Course.create!([{
                       # в котором названия генерируются из папки Обучение
                       title: Faker::Educator.course_name,
@@ -30,4 +30,6 @@ user.save!
                       level: "Beginner",
                       price: Faker::Number.between(from: 1000, to: 20000)
                   }])
+  # ключаем обратно
 end
+  PublicActivity.enabled = true

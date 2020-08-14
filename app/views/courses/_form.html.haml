@@ -5,7 +5,7 @@
 
   .form-inputs
     = f.input :title
-    = f.input :description, as: :rich_text_area
+    = f.rich_text_area :description
     -#%small= f.error :description, class: 'text-danger'
     = f.input :short_description
     -#/ параметром collextion можно пересичлить необходимые наборы ( см. справку по gem simple-form)

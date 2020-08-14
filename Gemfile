@@ -48,7 +48,7 @@ gem 'public_activity' # отслеживание всех действий по�
 gem 'rolify'  # для создания ролей у User-ов
 gem 'pundit' # для создания прав на различные роли
 gem 'exception_notification', group: :production # отправляет все ошибки Heroku на почту
-gem 'pagy'
+gem 'pagy'  # пагинатор
 gem 'chartkick'
 gem 'groupdate'
 gem 'rails-erd', group: :development # sudo apt-get install graphviz

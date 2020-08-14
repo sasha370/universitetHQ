@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   # Перед посещением любой страницы мы должны аутентифицировать ползователя
   before_action :authenticate_user!
 
+  # подключаем пагинатор
+  include Pagy::Backend
+
+
   # После любого действия "трогаем запись" в БД, чтобы обновить время
   # далее используем это, чтобы отслеживать он-лайн ли пользователь
   after_action :user_activity
