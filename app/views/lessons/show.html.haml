@@ -1,3 +1,11 @@
+-#Отображение названия статьи в заголовке страницы
+- content_for :title do
+  Universary
+  \|
+  = @course.title
+  \/
+  = @lesson.title
+
 /Хлебные крошки в заголовке карточки
 
 = link_to 'Courses', courses_path

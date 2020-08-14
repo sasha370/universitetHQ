@@ -14,7 +14,6 @@ class Course < ApplicationRecord
 
   # Подключаем гем для отвлеживания событий в модели Курсы
   include PublicActivity::Model
-
   # Отслеживаем только активность текущего пользователя
   tracked owner: Proc.new{|controller, model| controller.current_user}
 

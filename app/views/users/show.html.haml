@@ -1,1 +1,8 @@
+-#Отображение названия статьи в заголовке страницы
+- content_for :title do
+  Universary
+  \|
+  = @user.username
+  profile
+
 = render "users/user", user: @user

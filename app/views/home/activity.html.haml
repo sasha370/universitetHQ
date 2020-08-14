@@ -2,6 +2,12 @@
 -#Cltkfyf c использование PublickActivity
 -#прописана в ApplicationController. HomeController и Course.rb
 
+-#Отображение названия статьи в заголовке страницы
+- content_for :title do
+  Universary
+  \|
+  Activity
+
 %h3
   .text-center
     Activity
@@ -15,7 +21,7 @@
       = activity.trackable_type
       = activity.trackable_id
       / ссылка на измененную статью
-      = link_to activity.trackable, activity.trackable
+      -# = link_to activity.trackable, course_lesson_path(activity.trackable.course, activity.trackable)
       = activity.key
       = activity.parameters
       = activity.owner
