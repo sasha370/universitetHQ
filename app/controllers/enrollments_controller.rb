@@ -6,7 +6,8 @@ class EnrollmentsController < ApplicationController
 
   def index
     @enrollments = Enrollment.all
-    @course = current_user.courses
+    # @course = current_user.courses
+    authorize @enrollments
   end
 
   def show
@@ -18,6 +19,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def edit
+    authorize @enrollment
   end
 
   def create
@@ -37,6 +39,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
+    authorize @enrollment
     respond_to do |format|
       if @enrollment.update(enrollment_params)
         format.html { redirect_to @enrollment, notice: 'Enrollment was successfully updated.' }
@@ -47,6 +50,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def destroy
+    authorize @enrollment
     @enrollment.destroy
     respond_to do |format|
       format.html { redirect_to enrollments_url, notice: 'Enrollment was successfully destroyed.' }
@@ -65,7 +69,7 @@ class EnrollmentsController < ApplicationController
 
   def enrollment_params
     # убрали из параметров user и course ID, т.к. они явно передаются в каждом методе
-    params.require(:enrollment).permit(:rating, :review)
+    params.require(:enrollment).permit(:rating, :rewiew)
   end
 
 end

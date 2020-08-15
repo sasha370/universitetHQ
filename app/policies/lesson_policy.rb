@@ -7,8 +7,9 @@ class LessonPolicy < ApplicationPolicy
 
 
   #Только админ и владелец могут видеть описание лекции
+  # Проверка покупки - выдает true? если записи нет? т.е. нам надо false
   def show?
-    @user.has_role?(:admin) || @record.course.user == @user
+    @user.has_role?(:admin) || @record.course.user_id == @user.id || @record.course.bought(@user) == false
   end
 
   def edit?

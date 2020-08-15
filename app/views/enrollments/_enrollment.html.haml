@@ -10,8 +10,12 @@
     .text-warning.fa.fa-star
     %b= enrollment.rating
     .fa.fa-comment
-    %small= enrollment.review
+    %small= enrollment.rewiew
+
   - if current_user
     .card-footer
+      -#если  у пользователя есть доступ на редактирование
       - if policy(enrollment).edit?
         = link_to 'Edit Review', edit_enrollment_path(enrollment)
+        \|
+        = link_to 'Back to course', course_path(@enrollment.course)

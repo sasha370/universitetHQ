@@ -5,6 +5,10 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    @user.has_role?(:admin)
+  end
+
   def edit?
     # Только админ и владелец могу редактировать
     # @record берется из application_policy и равна @course
@@ -14,6 +18,7 @@ class UserPolicy < ApplicationPolicy
   def update?
     @user.has_role?(:admin)
   end
+
 
 
 end

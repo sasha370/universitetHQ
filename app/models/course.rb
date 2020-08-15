@@ -41,7 +41,7 @@ class Course < ApplicationRecord
 
   # проверяем наличие записи, где user = ID , а курс текущему курсу
   def bought(user)
-    self.enrollments.where(user_id: user.id, course_id: self.id.empty? )
+    self.enrollments.where(user_id: user.id, course_id: self.id).empty?
   end
 
 end

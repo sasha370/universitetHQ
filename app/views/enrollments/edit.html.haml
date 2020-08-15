@@ -9,10 +9,10 @@
   .card-body
     %h3
       .fa.fa-lock-open
-        Editing enrollment
+        Add a rewiew
   .card-body
     = render 'form'
   .card-footer
-    = link_to 'Show', @enrollment
+    = link_to 'Show rewiew', @enrollment
     \|
-    = link_to 'Back', enrollments_path
+    = link_to 'Back to course', course_path(@enrollment.course)

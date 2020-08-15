@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     # Методы из gem ransack, которые формирует поисковую выдачу
     @q = User.ransack(params[:q])
     @users = @q.result(distinct: true)
+    authorize @users
   end
 
 

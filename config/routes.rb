@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :edit, :show, :update]
 
+  resources :enrollments
   get 'home/index'
   # Для отслеживания активности на сайте в разделе Courses
   get 'home/activity'
