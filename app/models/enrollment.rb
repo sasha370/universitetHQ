@@ -10,6 +10,11 @@ class Enrollment < ApplicationRecord
   validate :cant_subscribe_to_own_course # user не может подписаться на свой собственнй курс
 
 
+  # Расширяем наш класс дополнением для отображения дружественных ссылок
+  extend FriendlyId
+  friendly_id :to_s, use: :slugged
+
+
   def to_s
     user.to_s + ' ' + course.to_s
   end
@@ -18,8 +23,10 @@ class Enrollment < ApplicationRecord
 
   def cant_subscribe_to_own_course
     if self.new_record?
-      if user_id == course.user_id
-        errors.add(:base, "You can not subscribe to your oqn course")
+      if self.user_id.present?
+        if self.user_id == course.user_id
+          errors.add(:base, "You can not subscribe to your own course")
+        end
       end
     end
   end

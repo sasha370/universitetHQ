@@ -50,6 +50,10 @@ class User < ApplicationRecord
     updated_at > 5.minutes.ago
   end
 
+  # Покупка курса = создаем запись в которую передаем Id курса и цену
+  def buy_course(course)
+    self.enrollments.create(course: course, price: course.price)
+  end
 
   private
 
@@ -58,4 +62,6 @@ class User < ApplicationRecord
       errors.add(:roles, 'must have at least one role')
     end
   end
+
+
 end

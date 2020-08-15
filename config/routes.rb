@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :enrollments
   # Пути для Users провисанные через Devise ( автоматически при установке)
   devise_for :users
 
@@ -7,6 +6,8 @@ Rails.application.routes.draw do
   # Уроки идут в URL после курса в виде courses/lesson/22
   resources :courses do
     resources :lessons
+    # Подписка может быть только создана
+    resources :enrollments, only: [:new, :create, :index]
   end
 
   resources :users, only: [:index, :edit, :show, :update]

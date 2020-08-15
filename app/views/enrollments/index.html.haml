@@ -19,9 +19,9 @@
         %th Rating
         %th Rewiew
         %th Price
-        %th
-        %th
-        %th
+        -#%th
+        -#%th
+        -#%th
 
     %tbody
       - @enrollments.each do |enrollment|
@@ -31,10 +31,10 @@
           %td= enrollment.rating
           %td= enrollment.rewiew
           %td= number_to_currency(enrollment.price)
-          %td= link_to 'Show', enrollment
-          %td= link_to 'Edit', edit_enrollment_path(enrollment)
-          %td= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
+          -#%td= link_to 'Show', enrollment
+          -#%td= link_to 'Edit', edit_course_enrollment_path(enrollment)
+          -#%td= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Enrollment', new_enrollment_path
+-# = link_to 'New Enrollment', new_enrollment_path

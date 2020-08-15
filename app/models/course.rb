@@ -37,4 +37,11 @@ class Course < ApplicationRecord
   def self.levels
     LEVELS.map { |level| [level,level]}
   end
+
+
+  # проверяем наличие записи, где user = ID , а курс текущему курсу
+  def bought(user)
+    self.enrollments.where(user_id: user.id, course_id: self.id.empty? )
+  end
+
 end
