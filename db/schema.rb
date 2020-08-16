@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2020_08_15_091515) do
     t.integer "user_id", null: false
     t.integer "rating"
     t.integer "price"
-    t.text "rewiew"
+    t.text "review"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"

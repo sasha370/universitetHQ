@@ -69,7 +69,7 @@ class EnrollmentsController < ApplicationController
 
   def enrollment_params
     # убрали из параметров user и course ID, т.к. они явно передаются в каждом методе
-    params.require(:enrollment).permit(:rating, :rewiew)
+    params.require(:enrollment).permit(:rating, :review)
   end
 
 end

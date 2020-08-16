@@ -5,7 +5,7 @@ class CreateEnrollments < ActiveRecord::Migration[6.0]
       t.references :user, null: false, foreign_key: true
       t.integer :rating
       t.integer :price
-      t.text :rewiew
+      t.text :review
 
       t.timestamps
     end

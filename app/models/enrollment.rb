@@ -14,6 +14,8 @@ class Enrollment < ApplicationRecord
   extend FriendlyId
   friendly_id :to_s, use: :slugged
 
+  # Область поиска для проверки наличия отзыва или рейтинга
+  scope :pending_review, -> { where(rating: [0, nil, ""], review: [0, nil, ""]) }
 
   def to_s
     user.to_s + ' ' + course.to_s

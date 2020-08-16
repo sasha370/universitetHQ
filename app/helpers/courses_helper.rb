@@ -24,5 +24,22 @@ module CoursesHelper
     end
   end
 
-
+  def rewiew_button(course)
+    # выбираем все подписки у данного курса, где пользователь current_user
+    user_course = course.enrollments.where(user: current_user)
+    # только зарегистрированные могут видеть
+    if current_user
+      # если существует запись, где текущий пользователь имеет подписку на данный курс
+      if user_course.any?
+        # проверяем есть в этой подписки отзывы или оценки, если они пустые, то показываем кнопку
+        if user_course.pending_review.any?
+          # кнопка оставить отзыв
+          link_to "Add a review", edit_enrollment_path(user_course.first)
+        else
+          # если рейтинг уж проставле, то благодарим
+          link_to "Thanks for Review", enrollment_path(user_course.first)
+        end
+      end
+    end
+  end
 end
