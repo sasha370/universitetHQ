@@ -5,8 +5,12 @@ class EnrollmentsController < ApplicationController
   before_action :set_course, only: [:new, :create]
 
   def index
-    @enrollments = Enrollment.all
+
     # @course = current_user.courses
+
+    # подключаем пагинацию
+    #  вот в оригинале @pagy, @records = pagy(Product.some_scope)
+    @pagy, @enrollments = pagy(Enrollment.all)
     authorize @enrollments
   end
 

@@ -2,12 +2,15 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :show]
 
   def index
-    # Выбираем всех узеров и сортируем по дате создания
-    # @users = User.all.order(created_at: :desc)
     # Методы из gem ransack, которые формирует поисковую выдачу
     @q = User.ransack(params[:q])
-    @users = @q.result(distinct: true)
+    # @users = @q.result(distinct: true)   # отключили , т.к. перешли на пагинацию
+
+    # подключаем пагинацию
+    #  вот в оригинале @pagy, @records = pagy(Product.some_scope)
+    @pagy, @users = pagy(@q.result(distinct: true))
     authorize @users
+
   end
 
 

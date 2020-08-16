@@ -9,7 +9,8 @@
     Enrollments
     .badge.badge-info
       = @enrollments.count
-
+-#Пагинаци
+!= pagy_bootstrap_nav(@pagy)
 .table-responsive
   %table.table.table-bordered.table-striped.table-sm
     %thead
@@ -54,11 +55,12 @@
             - if  enrollment.rating.present?
               = enrollment.updated_at.strftime("%d/%b/%Y - %H:%M")
           %td= enrollment.rating
-          %td= enrollment.rewiew
+          %td= enrollment.review
           %td= link_to 'See rewiew', enrollment
           %td= link_to 'Add rewiew', edit_enrollment_path(enrollment)
           %td= link_to 'Delete enrollment', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
-
+  -#пагинация
+  != pagy_bootstrap_nav(@pagy)
 %br
 
 -# = link_to 'New Enrollment', new_enrollment_path
