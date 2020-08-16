@@ -19,45 +19,85 @@
             = link_to courses_path, class: 'nav-link' do
               .fa.fa-graduation-cap
               Courses
-          %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
-            = link_to new_course_path, class: 'nav-link' do
-              .fa.fa-plus
-              New Course
-          %li.nav-item{class: "#{'active font-weight-bold' if current_page?(users_path)}"}
-            = link_to users_path, class: 'nav-link' do
-              .fa.fa-users
-              Users
-          %li.nav-item
-            = link_to enrollments_path(@enrollment), class: "nav-link " do
-              .fa.fa-lock-open
-              Enrollments
+
+
+          / ПОИСК в Навбаре
+          .form-inline
+            = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+              .input-group
+                / поиск по Заголовку
+                = f.search_field :title_or_short_description_cont, class: 'form-control-sm', style: 'float: left; width: 150 px;', placeholder: 'Find a course', :autocomplete => :off
+                %span.input-group-append
+                  %button.btn.btn-primary.btn-sm{type: 'submit'}
+                    %span.fa.fa-search{'aria-hidden' => 'true'}
+
+          -#Перенесенов в подменю Teacher
+          -#%li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
+          -#  = link_to new_course_path, class: 'nav-link' do
+          -#    .fa.fa-plus
+          -#    New Course
+          -#.перенесено в Админскую вкладку
+          -#%li.nav-item{class: "#{'active font-weight-bold' if current_page?(users_path)}"}
+          -#  = link_to users_path, class: 'nav-link' do
+          -#    .fa.fa-users
+          -#    Users
+          -#%li.nav-item
+          -#  = link_to enrollments_path(@enrollment), class: "nav-link " do
+          -#    .fa.fa-lock-open
+          -#    Enrollments
+
+            / Выпадающее меню для Админа
+        %ul.navbar-nav.mr-auto
+          - if current_user.has_role?(:admin)
+            %li.nav-item.dropdown
+              %a#adminDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                .fa.fa-cog
+                Admin
+              .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "adminDropdown"}
+                = link_to users_path, class: "dropdown-item" do
+                  .fa.fa-users
+                  Users
+                = link_to enrollments_path(@enrollment), class: "dropdown-item" do
+                  .fa.fa-lock-open
+                  Enrollments
+                = link_to activity_path, class: "dropdown-item" do
+                  .fa.fa-bell
+                  Activity
+
+          / Выпадающее меню для Teacher
+          - if current_user.has_role?(:teacher)
+            %li.nav-item.dropdown
+              %a#teacherDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                .fa.fa-chalkboard-teacher
+                Teach
+              .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "teacherDropdown"}
+                = link_to new_course_path, class: "dropdown-item" do
+                  .fa.fa-plus
+                  .fa.fa-graduation-cap
+                  New Course
+
+          / Выпадающее меню для Student
+          - if current_user.has_role?(:student)
+            %li.nav-item.dropdown
+              %a#studentDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                .fa.fa-graduation-cap
+                Learn
+              .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "studentDropdown"}
+                -# = link_to new_course_path, class: "dropdown-item" do
+                -#   .fa.fa-plus
+                -#   New Course
 
 
 
-        / ПОИСК в Навбаре
-        = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
-          .input-group
-            / поиск по Заголовку
-            = f.search_field :title_or_short_description_cont, class: 'form-control-sm', style: 'float: left; width: 150 px;', placeholder: 'Find a course', :autocomplete => :off
-            %span.input-group-append
-              %button.btn.btn-primary.btn-sm{type: 'submit'}
-                %span.fa.fa-search{'aria-hidden' => 'true'}
 
-        -#.form-inline.my-2.my-lg-0
-        -#  / отправляем поиск на страницу курсов
-        -#  = form_tag(courses_path, method: :get) do
-        -#    .input-group
-        -#      / искать будем по полю Заголовок, но Сам поиск  прописаy CoursesController
-        -#      = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
-        -#      %span.input-group-append
-        -#        %button.btn.btn-primary.btn-sm{:type => "submit"}
-        -#          %span.fa.fa-search{"aria-hidden" => "true"}
+
 
         %ul.navbar-nav.mr-right
-          %li.nav-item{class: "#{'active font-weight-bold' if current_page?(home_activity_path)}"}
-            = link_to home_activity_path, class: 'nav-link' do
-              .fa.fa-bell
-              Activity
+          -#.перенесено в Админскую вкладку
+          -#%li.nav-item{class: "#{'active font-weight-bold' if current_page?(activity_path)}"}
+          -#  = link_to home_activity_path, class: 'nav-link' do
+          -#    .fa.fa-bell
+          -#    Activity
           / Выпадающее меню
           %li.nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}

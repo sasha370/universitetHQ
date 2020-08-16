@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   resources :enrollments
   get 'home/index'
   # Для отслеживания активности на сайте в разделе Courses
-  get 'home/activity'
+  get 'activity', to: 'home#activity'
   root 'home#index'
 end

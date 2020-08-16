@@ -8,7 +8,7 @@ class Enrollment < ApplicationRecord
   validates_presence_of :rating, if: :review?
   validates_presence_of :review, if: :rating?
 
-  
+
   # чтобы не было двойной подписки
   validates_uniqueness_of :user_id, scope: :course_id # у учащегося должен быть только один user привязанный к course
   validates_uniqueness_of :course_id, scope: :user_id # у учащегося должен быть только один course привязанный к  user
