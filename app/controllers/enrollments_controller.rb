@@ -5,12 +5,12 @@ class EnrollmentsController < ApplicationController
   before_action :set_course, only: [:new, :create]
 
   def index
+    # Методы из gem ransack, которые формирует поисковую выдачу
+    @q = Enrollment.ransack(params[:q])
 
-    # @course = current_user.courses
-
-    # подключаем пагинацию
+    # подключаем пагинацию и в нее вставляем массив, подготовленный для сортироваки в Ransack
     #  вот в оригинале @pagy, @records = pagy(Product.some_scope)
-    @pagy, @enrollments = pagy(Enrollment.all)
+    @pagy, @enrollments = pagy(@q.result.includes(:user))
     authorize @enrollments
   end
 
