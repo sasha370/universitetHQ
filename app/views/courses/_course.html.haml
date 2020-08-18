@@ -19,10 +19,12 @@
     .text-warning.fa.fa-star
       -#рейтинг курса
     = course.average_rating
+    Enrolments count:
+    = course.enrollments.count
   .card-footer
     .fa.fa-tasks
       -#кол-во лекций в курсе
-      = pluralize(course.lessons.count, 'lesson')
+      = course.lessons.count
   .card-footer
     .row
       .col-md-6
