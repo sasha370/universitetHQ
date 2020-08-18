@@ -23,13 +23,16 @@
     -#Enrolments count:
     -#= course.enrollments.count
     -#Кол-во подписчиков, которое хранится в БД и обновляется
-    Counter cache enrollments count:
+    (
+    .fa.fa-user-graduate
     = course.enrollments_count
+    )
 
   .card-footer
     .fa.fa-tasks
       -#кол-во лекций в курсе
-      = course.lessons.count
+      -# = course.lessons.count
+      = course.lessons_count
   .card-footer
     .row
       .col-md-6
@@ -39,7 +42,7 @@
       .col-md-6.text-right
         .fa.fa-signal
           -#Уровень курса
-        = course.level
+        %small= course.level
   .card-footer
 
     / дату показываем в форматированном виде
@@ -47,7 +50,7 @@
       .col-md-6
         .far.fa-clock
           -#Дата создания курса
-        = course.created_at.strftime('%d-%b-%Y')
+        %small= course.created_at.strftime('%d-%b-%Y')
       .col-md-6.text-right
         .fa.fa-chalkboard-teacher
           -#Автор курса

@@ -5,7 +5,8 @@ class Enrollment < ApplicationRecord
   # Для переназначения старых данных использовали
   # Course.find_each{ |c| Course.reset_counters(c.id, :enrollments)}
 
-  belongs_to :user
+
+  belongs_to :user, counter_cache: true
   validates :user, :course, presence: true
 
 
