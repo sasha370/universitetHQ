@@ -46,7 +46,7 @@ class CoursesController < ApplicationController
     @ransack_courses = Course.where(user: current_user).ransack(params[:courses_search], search_key: :courses_search)
 
     # Выбираем все курсы, где автор - текущий пользователь
-    @pagy, @courses = pagy(@ransack_courses)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
     render :index
   end
 

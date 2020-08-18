@@ -31,20 +31,7 @@
                   %button.btn.btn-primary.btn-sm{type: 'submit'}
                     %span.fa.fa-search{'aria-hidden' => 'true'}
 
-          -#Перенесенов в подменю Teacher
-          -#%li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
-          -#  = link_to new_course_path, class: 'nav-link' do
-          -#    .fa.fa-plus
-          -#    New Course
-          -#.перенесено в Админскую вкладку
-          -#%li.nav-item{class: "#{'active font-weight-bold' if current_page?(users_path)}"}
-          -#  = link_to users_path, class: 'nav-link' do
-          -#    .fa.fa-users
-          -#    Users
-          -#%li.nav-item
-          -#  = link_to enrollments_path(@enrollment), class: "nav-link " do
-          -#    .fa.fa-lock-open
-          -#    Enrollments
+
 
             / Выпадающее меню для Админа
         %ul.navbar-nav.mr-auto
@@ -57,9 +44,13 @@
                 = link_to users_path, class: "dropdown-item" do
                   .fa.fa-users
                   Users
+                  .badge.badge-danger
+                    = User.count
                 = link_to enrollments_path(@enrollment), class: "dropdown-item" do
                   .fa.fa-lock-open
                   Enrollments
+                  .badge.badge-danger
+                    = Enrollment.count
                 = link_to activity_path, class: "dropdown-item" do
                   .fa.fa-bell
                   Activity
@@ -78,9 +69,16 @@
                 = link_to created_courses_path, class: "dropdown-item" do
                   .fa.fa-graduation-cap
                   My Courses
+                  .badge.badge-danger
+                    /кол-во курсов у данного Teacher
+                    = current_user.courses.count
                 = link_to my_students_enrollments_path, class: "dropdown-item" do
                   .fa.fa-graduation-cap
                   My Studets
+                  -#кол-во Students у данного Teacher
+                  .badge.badge-danger
+                    -#В Подписках найти все Курсы, где автором является данный пользователь
+                    = Enrollment.joins(:course).where(courses: {user: current_user}).count
 
           / Выпадающее меню для Student
           - if current_user.has_role?(:student)
@@ -93,9 +91,15 @@
                 = link_to purchased_courses_path, class: "dropdown-item" do
                   .fa.fa-graduation-cap
                   Purchased Courses
+                  .badge.badge-danger
+                    /счетчик  оплаченых курсов = подписок
+                    = current_user.enrollments.count
                 = link_to pending_review_courses_path, class: "dropdown-item" do
                   .fa.fa-star
                   Pending Review
+                  .badge.badge-danger
+                    /счетчик  неоцененных курсов ( используем scope pending_review)
+                    = current_user.enrollments.pending_review.count
 
 
 
@@ -103,17 +107,12 @@
 
 
         %ul.navbar-nav.mr-right
-          /.перенесено в Админскую вкладку
-          -#%li.nav-item{class: "#{'active font-weight-bold' if current_page?(activity_path)}"}
-          -#  = link_to home_activity_path, class: 'nav-link' do
-          -#    .fa.fa-bell
-          -#    Activity
           / Выпадающее меню
           %li.nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               /отображаем Email пользователя в виде кнопки для раскрывающегося меню
               %b= current_user.email
-            /Кнопки ПРедактирования профиля и Выхода
+            /Кнопки Редактирования профиля и Выхода
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
               = link_to edit_user_registration_path, class: "dropdown-item #{'active' if current_page?(edit_user_registration_path)}" do
                 .fa.fa-cog
