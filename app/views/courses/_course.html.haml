@@ -19,8 +19,13 @@
     .text-warning.fa.fa-star
       -#рейтинг курса
     = course.average_rating
-    Enrolments count:
-    = course.enrollments.count
+    -#Кол-во подписчиков, которое считается налету ( и жрет ресурсы)
+    -#Enrolments count:
+    -#= course.enrollments.count
+    -#Кол-во подписчиков, которое хранится в БД и обновляется
+    Counter cache enrollments count:
+    = course.enrollments_count
+
   .card-footer
     .fa.fa-tasks
       -#кол-во лекций в курсе
