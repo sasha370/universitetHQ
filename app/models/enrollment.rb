@@ -27,6 +27,19 @@ class Enrollment < ApplicationRecord
     user.to_s + ' ' + course.to_s
   end
 
+  # После сохранения, нужно обновить рейтинг
+  after_save do
+    # Чтобы не обращатся к БД каждый раз когда рейтинга нет или поставлен 0
+    unless rating.nil? || rating.zero?
+      course.update_rating
+    end
+  end
+
+  # После удаления, обновтьи рейтинг
+  after_destroy do
+    course.update_rating
+  end
+
   protected
 
   def cant_subscribe_to_own_course
