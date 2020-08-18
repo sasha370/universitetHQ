@@ -32,6 +32,12 @@
     = user.last_sign_in_ip
 
   .card-footer
+    Courses created:
+    = user.courses_count
+    %br
+    Enrollments:
+    = user.enrollments_count
+  .card-footer
     -#отображаем значек, если пользователь подтвердил свою почту
     Confirmed email?
     - if user.confirmed_at.present?

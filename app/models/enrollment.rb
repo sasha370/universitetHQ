@@ -1,6 +1,12 @@
 class Enrollment < ApplicationRecord
-  belongs_to :course
-  belongs_to :user
+  # кешируем счетчик, каждый раз, когда создается или удаляетя enrollment< в ассоциированное поле в Course
+  # будет записано текущее значение счетчика
+  belongs_to :course, counter_cache: true
+  # Для переназначения старых данных использовали
+  # Course.find_each{ |c| Course.reset_counters(c.id, :enrollments)}
+
+
+  belongs_to :user, counter_cache: true
   validates :user, :course, presence: true
 
 
@@ -39,6 +45,9 @@ class Enrollment < ApplicationRecord
   after_destroy do
     course.update_rating
   end
+
+
+
 
   protected
 

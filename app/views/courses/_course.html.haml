@@ -19,10 +19,20 @@
     .text-warning.fa.fa-star
       -#рейтинг курса
     = course.average_rating
+    -#Кол-во подписчиков, которое считается налету ( и жрет ресурсы)
+    -#Enrolments count:
+    -#= course.enrollments.count
+    -#Кол-во подписчиков, которое хранится в БД и обновляется
+    (
+    .fa.fa-user-graduate
+    = course.enrollments_count
+    )
+
   .card-footer
     .fa.fa-tasks
       -#кол-во лекций в курсе
-      = pluralize(course.lessons.count, 'lesson')
+      -# = course.lessons.count
+      = course.lessons_count
   .card-footer
     .row
       .col-md-6
@@ -32,7 +42,7 @@
       .col-md-6.text-right
         .fa.fa-signal
           -#Уровень курса
-        = course.level
+        %small= course.level
   .card-footer
 
     / дату показываем в форматированном виде
@@ -40,7 +50,7 @@
       .col-md-6
         .far.fa-clock
           -#Дата создания курса
-        = course.created_at.strftime('%d-%b-%Y')
+        %small= course.created_at.strftime('%d-%b-%Y')
       .col-md-6.text-right
         .fa.fa-chalkboard-teacher
           -#Автор курса

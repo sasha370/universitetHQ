@@ -71,7 +71,7 @@
                   My Courses
                   .badge.badge-danger
                     /кол-во курсов у данного Teacher
-                    = current_user.courses.count
+                    = current_user.courses_count
                 = link_to my_students_enrollments_path, class: "dropdown-item" do
                   .fa.fa-graduation-cap
                   My Studets
@@ -93,7 +93,7 @@
                   Purchased Courses
                   .badge.badge-danger
                     /счетчик  оплаченых курсов = подписок
-                    = current_user.enrollments.count
+                    = current_user.enrollments_count
                 = link_to pending_review_courses_path, class: "dropdown-item" do
                   .fa.fa-star
                   Pending Review

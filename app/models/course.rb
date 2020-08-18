@@ -8,7 +8,7 @@ class Course < ApplicationRecord
 
 
   # Курс принадлежит только одному пользователю
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   # Курс имеет множество уроков, которые удаляются вместе с курсом
   has_many :lessons, dependent: :destroy
   has_many :enrollments

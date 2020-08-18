@@ -30,6 +30,7 @@
       = f.search_field :price_eq, placeholder: "Price", class: "form-control form-control-sm"
       = f.label :teacher,  class: "col-form-label"
       = f.search_field :user_email_cont, placeholder: "User Email", class: "form-control form-control-sm"
+      %br
       = f.submit
       /кнопка обновления, сделаная как редирект на новую страницу
     = link_to @ransack_path, class: 'btn btn-sm btn-secondary' do
