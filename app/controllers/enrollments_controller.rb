@@ -5,6 +5,9 @@ class EnrollmentsController < ApplicationController
   before_action :set_course, only: [:new, :create]
 
   def index
+    # Для корректного поиска задаем , по которому будет пересылаться запрос из формы @q
+    @ransack_path = enrollments_path
+
     # Методы из gem ransack, которые формирует поисковую выдачу
     @q = Enrollment.ransack(params[:q])
 
@@ -12,6 +15,17 @@ class EnrollmentsController < ApplicationController
     #  вот в оригинале @pagy, @records = pagy(Product.some_scope)
     @pagy, @enrollments = pagy(@q.result.includes(:user))
     authorize @enrollments
+  end
+
+  # Список всех студентов данного преподователя
+  def my_students
+    # Для корректного поиска задаем , по которому будет пересылаться запрос из формы @q
+    @ransack_path = my_students_enrollments_path
+    # Нужно найти все курсы преподователя и в Их подписках найти ID всех пользователей ( студентов)
+    # Мешанина из  Поиска и пагинации!!!!
+    @q = Enrollment.joins(:course).where(courses: { user: current_user }).ransack(params[:q])
+    @pagy, @enrollments = pagy(@q.result.includes(:user))
+    render :index
   end
 
   def show

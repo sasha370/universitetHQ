@@ -11,7 +11,9 @@
       = @enrollments.count
 
 -#Форма поиска для gem ransack
-= search_form_for @q do |f|
+-#в форму прописали url, чтобы разделить поиски на разных страницах ( для Админа и для Teacher)
+-#Чтобы поиск был только по ихним выборкам
+= search_form_for @q, url: @ransack_path do |f|
   / метод _eq для чисел - "равен"
   / метод _cont для строк  -  "содержит"
   = f.search_field :user_email_cont, placeholder: "User"
@@ -21,7 +23,7 @@
   = f.search_field :review_cont, placeholder: "Review"
   = f.submit
   -#.кнопка обновления, сделаная как редирект на общую  страницу
-  = link_to '', enrollments_path, class: 'btn btn-sm fa fa-sync'
+  = link_to '', @ransack_path, class: 'btn btn-sm fa fa-sync'
 %br
 -#Пагинаци
 != pagy_bootstrap_nav(@pagy)

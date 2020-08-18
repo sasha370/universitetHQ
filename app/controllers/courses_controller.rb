@@ -28,6 +28,28 @@ class CoursesController < ApplicationController
       @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
   end
 
+  # Купленные курсы. Объеденяем все курсы в которых есть  Подписка с текущим пользователем
+  def purchased
+    # И добавляем к выборке пагинацию
+    @pagy, @courses = pagy(Course.joins(:enrollments).where(enrollments: {user: current_user}))
+    render :index
+  end
+
+  # Ожидающие отзыва курсы
+  def pending_review
+    # В курсах выбрать все подписки в которых есть Подписки, в которых нет еще отзывов (scope из enrollment.rb) текущего пользователя
+    # И добавляем к выборке пагинацию
+    @pagy, @courses = pagy(Course.joins(:enrollments).merge(Enrollment.pending_review.where(user: current_user)))
+    render :index
+  end
+
+  # Курсы, которые создал пользователь
+  def created
+    # Выбираем все курсы, где автор - текущий пользователь
+    @pagy, @courses = pagy(Course.where(user: current_user))
+    render :index
+  end
+
   def show
     @lessons = @course.lessons
   end
