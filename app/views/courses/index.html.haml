@@ -32,11 +32,19 @@
       = f.select :language_cont,  Course.languages,  include_blank: true
       = f.label :level,  class: "col-form-label"
       = f.select :level_cont,  Course.levels, include_blank: true
-      = f.label :price,  class: "col-form-label"
+      -# = f.label :price,  class: "col-form-label"
       = f.search_field :price_eq, placeholder: "Price", class: "form-control form-control-sm"
       = f.label :teacher,  class: "col-form-label"
       = f.search_field :user_email_cont, placeholder: "User Email", class: "form-control form-control-sm"
-      %br
+      .row
+      = sort_link(@ransack_courses, :price )
+      .row
+      = sort_link(@ransack_courses, :average_rating, "Top rating" )
+      .row
+      = sort_link(@ransack_courses, :enrollments_count, " Most popular" )
+      .row
+      = sort_link(@ransack_courses, :created_at, "Fresh" )
+      .row
       = f.submit
       /кнопка обновления, сделаная как редирект на новую страницу
     = link_to @ransack_path, class: 'btn btn-sm btn-secondary' do
