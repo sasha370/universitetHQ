@@ -2,7 +2,7 @@ class Course < ApplicationRecord
   # Валидация для новых курсов, обязательно присутствие названия и описания не менее 5 символов
   validates :title, :short_description, :language, :level, :price, presence: true
   validates :description, presence: true, length: { minimum: 5 }
-
+  validates :title, uniqueness: true
   # Подключаем встроенный редактор текста для поля вуыскшзешщт
   has_rich_text :description
 
