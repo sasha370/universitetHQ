@@ -1,6 +1,7 @@
 class Lesson < ApplicationRecord
   belongs_to :course, counter_cache: true
   validates :title, :content, :course, presence: true
+  has_many :user_lessons
 
   # Подключаем встроенный редактор текста для поля вуыскшзешщт
   has_rich_text :content
@@ -15,6 +16,12 @@ class Lesson < ApplicationRecord
   tracked owner: Proc.new{|controller, model| controller.current_user}
   def to_s # преобразует массив выдачи в строчку
     title
+  end
+
+  # Показывает, что данный урок был просмотрен учеником ( т.е. имеется запись в UserLessons)
+  def viewed(user)
+    self.user_lessons.where(user: user).present?
+    # self.user_lessons.where(user_id: [user.id], lesson_id: [self.id]).empty?
   end
 
 

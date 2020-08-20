@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   has_many :courses # Юзер может иметь несколько Курсов
   has_many :enrollments
+  has_many :user_lessons
 
   # Проверяем, чтобы при редактировании у пользователя была хотябы одна роль
   validate :must_have_a_role, on: :update
@@ -54,6 +55,15 @@ class User < ApplicationRecord
   def buy_course(course)
     self.enrollments.create(course: course, price: course.price)
   end
+
+  # Метод создает запись о просмотренном уроке
+  def view_lesson(lesson)
+    # Но перед созданием проверяем, нет ли уже существующей записи
+    unless self.user_lessons.where(lesson: lesson).any?
+      self.user_lessons.create(lesson: lesson)
+    end
+  end
+
 
   private
 
