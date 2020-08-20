@@ -61,22 +61,25 @@
   %h2
     Popular courses
 .card-columns
-  - @courses.each do |course|
+  - @popular.each do |course|
     = render 'courses/course', course: course
 
 %hr
   %h2
     Top rated courses
 .card-columns
-  - @courses.each do |course|
+  - @top_rated.each do |course|
     = render 'courses/course', course: course
 %hr
   %h2
     Latest courses
 .card-columns
-  - @latest_courses.each do |course|
+  - @latest.each do |course|
     = render 'courses/course', course: course
 %hr
-= link_to courses_path, class: 'btn btn-success' do
-  .fa.fa-book
-  Курсы
+  %h2
+    .fa.fa-comment
+      What our student have to say
+.card-columns
+  - @latest_good_reviews.each do |enrollment|
+    = render 'enrollments/enrollment', enrollment: enrollment

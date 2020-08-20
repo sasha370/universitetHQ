@@ -18,6 +18,11 @@ class Course < ApplicationRecord
   # Отслеживаем только активность текущего пользователя
   tracked owner: Proc.new { |controller, model| controller.current_user }
 
+  # Перенесли логику из Home_Controller
+  scope :latest, -> { limit(3).order(created_at: :desc)}
+  scope :top_rated, -> {limit(3).order(average_rating: :desc, created_at: :desc)}
+  scope :popular, -> {limit(3).order(enrollments_count: :desc, created_at: :desc)}
+
   # Метод для конвертации в строку полейБ возвращенных из БД (массивом)
   def to_s
     title
