@@ -13,8 +13,6 @@
       .row
       / кнопка для отзыва
       = review_button(course)
-      / метод отображающий число в виде ценника ( заменено на см.выше)
-      -# = number_to_currency(course.price)
   .card-footer
 
     -#Кол-во подписчиков, которое считается налету ( и жрет ресурсы)
@@ -65,8 +63,11 @@
   - if current_user
     - if policy(course).edit?
       .card-footer
-        -#Кнопка редактирования будет отображаться только если есть права на редактирование
-        -#if policy(course).edit?
-        = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-warning"
-        -#if policy(course).edit?
-        = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"
+        / добавляем кнопку для создания урока, при пересылке нужно передать ID курса в params
+        - if policy(course).owner?
+          = link_to "Add lesson", new_course_lesson_path(course, @lesson), class: "btn btn-primary btn-sm "
+          /Кнопка редактирования будет отображаться только если есть права на редактирование
+          -#if policy(course).edit?
+          = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-warning"
+          -#if policy(course).edit?
+          = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"

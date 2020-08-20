@@ -17,7 +17,7 @@
 
 # отключавем т.к. он требует наличия current_user
 PublicActivity.enabled = false
-30.times do
+10.times do
   Course.create!([{
                       # в котором названия генерируются из папки Обучение
                       title: Faker::Educator.course_name,
