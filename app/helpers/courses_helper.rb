@@ -9,7 +9,11 @@ module CoursesHelper
         link_to "You created this course. View analitics", course_path(course)
         # если текущий пользователь уже имеет подписку
       elsif course.enrollments.where(user: current_user).any?
-        link_to " Keep leaning ", course_path(course)
+        # то отображаем его прогресс в процентах и даем ссылку на курс
+        link_to course_path(course) do
+          "<i class='fa fa-spinner'></i>".html_safe + " " +
+              number_to_percentage(course.progress(current_user), precision: 0)
+        end
 
         # Отстались только новые юзеры не связанны с текущим курсом
         # Если Курс платный, то отправляем на страницу Подписки
@@ -24,7 +28,7 @@ module CoursesHelper
     end
   end
 
-  def rewiew_button(course)
+  def review_button(course)
     # выбираем все подписки у данного курса, где пользователь current_user
     user_course = course.enrollments.where(user: current_user)
     # только зарегистрированные могут видеть

@@ -12,6 +12,8 @@ class Course < ApplicationRecord
   # Курс имеет множество уроков, которые удаляются вместе с курсом
   has_many :lessons, dependent: :destroy
   has_many :enrollments
+  # У Курса есть несколько записей UserLesson, отслеживаемые через Lesson
+  has_many :user_lessons, through: :lessons
 
   # Подключаем гем для отвлеживания событий в модели Курсы
   include PublicActivity::Model
@@ -19,9 +21,9 @@ class Course < ApplicationRecord
   tracked owner: Proc.new { |controller, model| controller.current_user }
 
   # Перенесли логику из Home_Controller
-  scope :latest, -> { limit(3).order(created_at: :desc)}
-  scope :top_rated, -> {limit(3).order(average_rating: :desc, created_at: :desc)}
-  scope :popular, -> {limit(3).order(enrollments_count: :desc, created_at: :desc)}
+  scope :latest, -> { limit(3).order(created_at: :desc) }
+  scope :top_rated, -> { limit(3).order(average_rating: :desc, created_at: :desc) }
+  scope :popular, -> { limit(3).order(enrollments_count: :desc, created_at: :desc) }
 
   # Метод для конвертации в строку полейБ возвращенных из БД (массивом)
   def to_s
@@ -49,6 +51,16 @@ class Course < ApplicationRecord
   def bought(user)
     self.enrollments.where(user_id: user.id, course_id: self.id).empty?
   end
+
+  # Прогресс текущего Usera по прохождению курса( ан базе кол-ва просмотренных уроков)
+  def progress(user)
+    unless self.lessons_count == 0
+      # Кол-во записей у этого курса в таблице UserLesson, где указан текущий пользователь
+      # Деленное на количество уроков в данном курсе
+      user_lessons.where(user: user).count / self.lessons_count.to_f * 100
+    end
+  end
+
 
   # Обновляем рейтинг Курса
   def update_rating
