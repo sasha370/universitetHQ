@@ -28,14 +28,13 @@ class Enrollment < ApplicationRecord
 
   # Область поиска для проверки наличия отзыва или рейтинга
   scope :pending_review, -> { where(rating: [0, nil, ""], review: [0, nil, ""]) }
-<<<<<<< Updated upstream
-=======
+
   # Область поиска   Все что имеют отзыв  не 0, nil или Пусто
   scope :reviewed, -> { where.not(review: [0, nil, ""]) }
-  # Перенесено из Home_controller
+  # Перенесkb логику из Home_controller
   scope :latest_good_reviews, -> { limit(3).order(rating: :desc, created_at: :desc) }
 
->>>>>>> Stashed changes
+
 
   def to_s
     user.to_s + ' ' + course.to_s
