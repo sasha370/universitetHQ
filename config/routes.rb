@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   end
 
   get 'home/index'
+  # Статистика
+  get 'analytics', to: 'home#analytics'
   # Для отслеживания активности на сайте в разделе Courses
   get 'activity', to: 'home#activity'
   root 'home#index'

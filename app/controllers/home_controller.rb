@@ -15,7 +15,7 @@ class HomeController < ApplicationController
     # Список Самых популярных курсов
     @popular = Course.popular
     # Мои курсы, Продолжить обучение
-    @purchased_courses = Course.joins(:enrollments).where(enrollments: {user: current_user}).order( created_at: :desc).limit(3)
+    @purchased_courses = Course.joins(:enrollments).where(enrollments: { user: current_user }).order(created_at: :desc).limit(3)
 
 
     # Список самых свежих курсов
@@ -24,6 +24,21 @@ class HomeController < ApplicationController
 
   # Собираем все активностипо разделу статьи
   def activity
-    @activities = PublicActivity::Activity.all
+    if current_user.has_role?(:admin)
+      @activities = PublicActivity::Activity.all
+    else
+      redirect_to root_path, alert: 'You are not authorized to access this page'
+    end
+  end
+
+  # Вывод статистики
+  def analytics
+    if current_user.has_role?(:admin)
+      @users = User.all
+      @enrollments = Enrollment.all
+      @courses = Course.all
+    else
+      redirect_to root_path, alert: 'You are not authorized to access this page'
+    end
   end
 end

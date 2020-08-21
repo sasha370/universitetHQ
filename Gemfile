@@ -49,8 +49,8 @@ gem 'rolify'  # для создания ролей у User-ов
 gem 'pundit' # для создания прав на различные роли
 gem 'exception_notification', group: :production # отправляет все ошибки Heroku на почту
 gem 'pagy'  # пагинатор
-gem 'chartkick'
-gem 'groupdate'
+gem 'chartkick' # отображение графиков
+gem 'groupdate' # групировка данных из БД по времени ( нужен для Графиков)
 gem 'rails-erd', group: :development # sudo apt-get install graphviz
 gem 'ranked-model'
 gem 'aws-sdk-s3', require: false

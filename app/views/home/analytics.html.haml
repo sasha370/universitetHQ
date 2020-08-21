@@ -1,0 +1,27 @@
+- content_for :title do
+  Universary
+  \|
+  Analytics
+
+%h3
+  .text-center
+    -#чтобы на каждой странице отображать Заголовок под эту страницу
+    -#Добавляем имя Экшена и переводим в читаемый формат
+    = action_name.humanize
+
+
+%h4
+  Users created
+= line_chart @users.group_by_day(:created_at).count
+%br
+%h4
+  Enrollment created
+= column_chart @enrollments.group_by_day(:created_at).count
+%br
+%h4
+  Course popularity
+-# = pie_chart @courses.group(:enrollments_count).count
+-#Список популярных курсов.
+/ берем подписки, объединяем их по курсам, группируем по названиям курсов, считаем
+-# = pie_chart @enrollments.joins(:course).group(:'courses.title').count
+= bar_chart @enrollments.joins(:course).group(:'courses.title').count
