@@ -9,9 +9,9 @@ class User < ApplicationRecord
 
   rolify # Модель попадает в распределение ролей. Gem Rolify(прописывается само)
 
-  has_many :courses # Юзер может иметь несколько Курсов
-  has_many :enrollments
-  has_many :user_lessons
+  has_many :courses, dependent: :nullify # При удалении юзера, обнуляем его связанные курсы
+  has_many :enrollments, dependent: :nullify # При удалении юзера, обнуляем его связанные курсы
+  has_many :user_lessons, dependent: :nullify # При удалении юзера, обнуляем его связанные курсы
 
   # Проверяем, чтобы при редактировании у пользователя была хотябы одна роль
   validate :must_have_a_role, on: :update

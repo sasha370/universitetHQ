@@ -1,7 +1,7 @@
 class Lesson < ApplicationRecord
   belongs_to :course, counter_cache: true
   validates :title, :content, :course, presence: true
-  has_many :user_lessons
+  has_many :user_lessons, dependent: :destroy
 
   # Подключаем встроенный редактор текста для поля вуыскшзешщт
   has_rich_text :content

@@ -7,8 +7,10 @@ class LessonsController < ApplicationController
 
   def show
   # Если пользователь Увидел Урок, то создается запись в User_lesson
-    current_user.view_lesson(@lesson)
     authorize @lesson # авторизация на просмотр  только у хозяина курса и админа
+    current_user.view_lesson(@lesson)
+    # Выбираем все уроки данного курса, курс достали из set_lesson
+    @lessons = @course.lessons
   end
 
   def new

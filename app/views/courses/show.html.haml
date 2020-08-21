@@ -30,8 +30,7 @@
 
     %h4
       .fa.fa-tasks
-        Lessons:
-        = @course.lessons_count
+        = pluralize(@course.lessons_count, 'lesson')
 
       .float-right
         .fa.fa-spinner
@@ -40,12 +39,12 @@
     %ul.list-group
       - @lessons.each do |lesson|
         / отображаем спиок курсов импользую List class прописанный в Activity
-        =  render "lessons/lesson_preview",  lesson: lesson
+        %li.list-group-item
+          =  render "lessons/lesson_preview",  lesson: lesson
     %p
     %h4
       .fa.fa-comment
-      Reviews:
-      = @enrollments_with_reviews.count
+      = pluralize(@enrollments_with_reviews.count, 'review')
 
     - @enrollments_with_reviews.each do |enrollment|
       = render 'enrollments/enrollment', enrollment: enrollment

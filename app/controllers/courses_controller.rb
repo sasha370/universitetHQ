@@ -98,9 +98,15 @@ class CoursesController < ApplicationController
 
   def destroy
     authorize @course
-    @course.destroy
-    respond_to do |format|
-      format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
+    # При удалении проверяем на ошибки. Если у курса нет зависимостей( подписок и т.д.), то ошибок не :будет
+    # Это прописанно в моделе has_many :enrollments, dependent: :restrict_with_error
+    if @course.destroy
+      respond_to do |format|
+        format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
+      end
+    else
+      # Если есть зависимости, то удаление неудачное = есть ошибки
+      redirect_to @course, alert: "Course has enrollments. Can not be destroyed"
     end
   end
 

@@ -11,7 +11,8 @@ class Course < ApplicationRecord
   belongs_to :user, counter_cache: true
   # Курс имеет множество уроков, которые удаляются вместе с курсом
   has_many :lessons, dependent: :destroy
-  has_many :enrollments
+  # Отслеживаем любые изменения, которые выдают ошибки ( когда есть зависимости)
+  has_many :enrollments, dependent: :restrict_with_error
   # У Курса есть несколько записей UserLesson, отслеживаемые через Lesson
   has_many :user_lessons, through: :lessons
 
