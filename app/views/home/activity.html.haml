@@ -21,7 +21,7 @@
       -# = activity.id
       = activity.created_at.strftime('%d-%m-%Y %H:%M')
       (#{ time_ago_in_words(activity.created_at) })
-      = activity.trackable_type
+      = model_label(activity.trackable_type)
       -# = activity.trackable_id
       -#/ если мы отслеживаем Урок
       - if activity.trackable_type == 'Lesson'
@@ -37,6 +37,8 @@
         = link_to activity.trackable, activity.trackable
         /ссылка на измененную статью
       = activity.key
+      /-#.Отображаем значек в зависимости от прописанного Экшена ( обрабатываем в application_helper?)
+      = crud_label(activity.key.match(/\.(.*)/)[1])
       -# = activity.owner
       by
       = link_to activity.owner, user_path(activity.owner)
