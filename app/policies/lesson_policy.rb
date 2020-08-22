@@ -15,11 +15,11 @@ class LessonPolicy < ApplicationPolicy
   def edit?
     # Только владелец курса может редактировать Лекцию
     # @record берется из application_policy и равна @lesson
-    @record.course.user == @user
+     @user.present? && @record.course.user_id == @user.id
   end
 
   def update?
-    @record.course.user == @user
+    @record.course.user_id == @user.id
   end
 
   def new?
@@ -28,10 +28,10 @@ class LessonPolicy < ApplicationPolicy
 
   def create?
     #@user.has_role?(:teacher)
-    @record.course.user == @user
+    @record.course.user_id == @user.id
   end
 
   def destroy?
-    @record.course.user == @user
+    @record.course.user_id == @user.id
   end
 end

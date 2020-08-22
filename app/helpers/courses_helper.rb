@@ -23,8 +23,8 @@ module CoursesHelper
         link_to 'Free', new_course_enrollment_path(course), class: 'btn btn-success'
       end
     else
-      # Если не зарегистрирован, то перенаправляем на страницу курса
-      link_to "Check price", course_path(course), class: 'btn btn-ms btn-success'
+      # Если не зарегистрирован, то перенаправляем на страницу оплаты
+      link_to "Check price", new_course_enrollment_path(course), class: 'btn btn-ms btn-success'
     end
   end
 

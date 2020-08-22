@@ -1,5 +1,8 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :unapprove]
+  # Скипаем проверку для всех, чтобы незарегистрированный мог просматривать Курс
+  skip_before_action :authenticate_user!, only: [:show]
+
 
 # В Экшене прописываем дополнительно поиск
   def index

@@ -9,11 +9,11 @@ class HomeController < ApplicationController
     # Все Подписки, у которых есть отзывы, 3 последнихб сортированы порейтингу
     @latest_good_reviews = Enrollment.reviewed.latest_good_reviews
     # Список самых свежих курсов (логику перенесли в Модель Courses)
-    @latest = Course.latest
+    @latest = Course.latest.published.approved
     # Список самых Лучших курсов
-    @top_rated = Course.top_rated
+    @top_rated = Course.top_rated.published.approved
     # Список Самых популярных курсов
-    @popular = Course.popular
+    @popular = Course.popular.published.approved
     # Мои курсы, Продолжить обучение
     @purchased_courses = Course.joins(:enrollments).where(enrollments: { user: current_user }).order(created_at: :desc).limit(3)
 

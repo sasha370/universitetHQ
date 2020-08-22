@@ -20,7 +20,7 @@
             %button.btn.btn-primary.btn-sm{type: 'submit'}
               %span.fa.fa-search{'aria-hidden' => 'true'}
 
-/ вводная информация о количестве курсов и ичеников
+/ вводная информация о количестве курсов и учеников
 .card-group
   .card.card-body
     %h1
@@ -52,35 +52,51 @@
     Learn on your schedule
 
 
-
-
-
-
-
 / отображаем различные списки курсов, переменную @courses задаем в home_controller
 %hr
+- if current_user
   %h2
-    Popular courses
+    Continue learning
+  .card-columns
+    - @purchased_courses.each do |course|
+      = render 'courses/course', course: course
+  .text-right
+    = link_to "All my purchased courses ", purchased_courses_path
+%hr
+%h2
+  Popular courses
 .card-columns
   - @popular.each do |course|
     = render 'courses/course', course: course
+  .text-right
+    -#Перенапряавляем на Список самых попоулярных курсов
+    -#для этого в параметрах передаем настройку для raksack: "поле enrollments_count отсортировать" )
+    = link_to "More popular courses", courses_path(courses_search: {s: 'enrollments_count desc'})
 
 %hr
-  %h2
-    Top rated courses
+%h2
+  Top rated courses
 .card-columns
   - @top_rated.each do |course|
     = render 'courses/course', course: course
+  .text-right
+    -#Перенапряавляем на Список самых Рейтинговых курсов
+    -#для этого в параметрах передаем настройку для raksack: "поле average_rating отсортировать" )
+    = link_to "More best rated courses", courses_path(courses_search: {s: 'average_rating desc'})
 %hr
-  %h2
-    Latest courses
+%h2
+  Latest courses
 .card-columns
   - @latest.each do |course|
     = render 'courses/course', course: course
+  .text-right
+    -#Перенапряавляем на Список самых новых курсов
+    -#для этого в параметрах передаем настройку для raksack: "поле average_rating отсортировать" )
+    = link_to "More new courses", courses_path(courses_search: {s: 'created_at desc'})
 %hr
-  %h2
-    .fa.fa-comment
-      What our student have to say
+%h2
+  .fa.fa-comment
+    What our student have to say
 .card-columns
   - @latest_good_reviews.each do |enrollment|
     = render 'enrollments/enrollment', enrollment: enrollment
