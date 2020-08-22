@@ -11,6 +11,7 @@ class LessonsController < ApplicationController
     current_user.view_lesson(@lesson)
     # Выбираем все уроки данного курса, курс достали из set_lesson
     @lessons = @course.lessons
+
   end
 
   def new

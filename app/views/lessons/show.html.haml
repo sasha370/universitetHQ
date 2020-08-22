@@ -18,6 +18,11 @@
   .fa.fa-check-square
   = @lesson.title
 %p
+-#счетчик  просмотра лекции
+-#Выбираем Лекцию, находим  ее запись с текущим пользователем и смотрим у нее счетчик
+-# = @lesson.user_lessons.where(user: current_user).first.impressions
+
+
 .row
   .col-lg-8
     = render 'lessons/lesson', lesson: @lesson

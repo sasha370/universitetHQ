@@ -56,10 +56,15 @@ class User < ApplicationRecord
     self.enrollments.create(course: course, price: course.price)
   end
 
-  # Метод создает запись о просмотренном уроке
+  # Метод создает запись о просмотренном уроке 
   def view_lesson(lesson)
+    user_lesson = self.user_lessons.where(lesson: lesson)
     # Но перед созданием проверяем, нет ли уже существующей записи
-    unless self.user_lessons.where(lesson: lesson).any?
+    if user_lesson.any?
+      # если запись ест, то увеличиваем счетчик просмотров на 1
+      user_lesson.first.increment!(:impressions)
+    else
+      # если записи нет, то создаем новую
       self.user_lessons.create(lesson: lesson)
     end
   end

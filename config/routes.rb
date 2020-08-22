@@ -21,6 +21,17 @@ Rails.application.routes.draw do
   end
 
   get 'home/index'
+  # Статистика
+  get 'analytics', to: 'home#analytics'
+
+  # Вместо перечисления всех Get отдельно, создаем Пространсво имен для Charts
+  namespace :charts do
+    get 'users_per_day'
+    get 'enrollments_per_day'
+    get 'course_popularity'
+    get 'money_makers'
+  end
+
   # Для отслеживания активности на сайте в разделе Courses
   get 'activity', to: 'home#activity'
   root 'home#index'
