@@ -12,8 +12,9 @@ Rails.application.routes.draw do
     resources :enrollments, only: [:new, :create, :index]
 
     # Для обработки события Подтверждения курса Админом
-    # Метод member передает ID курса
+    # Метод member передает ID курса и подмешивает в экшн Show дополнение
     member do
+      get :analytics
       patch :approve
       patch :unapprove
     end

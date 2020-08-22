@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :unapprove]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :unapprove, :analytics]
   # Скипаем проверку для всех, чтобы незарегистрированный мог просматривать Курс
   skip_before_action :authenticate_user!, only: [:show]
 
@@ -54,6 +54,11 @@ class CoursesController < ApplicationController
     # Выбираем все курсы, где автор - текущий пользователь
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
     render :index
+  end
+
+  # Обработчик аналитики для каждого отдельного курса.
+  def analytics
+    authorize @course, :owner?
   end
 
 
