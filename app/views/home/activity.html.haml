@@ -14,16 +14,34 @@
     .badge.badge-info
       = @activities.count
 %p
+!= pagy_bootstrap_nav(@pagy)
 %ul.list-group
   - @activities.each do |activity|
     %li.list-group-item
-      = activity.id
+      -# = activity.id
+      = activity.created_at.strftime('%d-%m-%Y %H:%M')
+      (#{ time_ago_in_words(activity.created_at) })
       = activity.trackable_type
-      = activity.trackable_id
-      / ссылка на измененную статью
-      -# = link_to activity.trackable, course_lesson_path(activity.trackable.course, activity.trackable)
+      -# = activity.trackable_id
+      -#/ если мы отслеживаем Урок
+      - if activity.trackable_type == 'Lesson'
+        -#Проеверяем существует ли еще урок
+        - if Lesson.where(id: activity.trackable_id).present?
+          -#Если существует, то отображаем его используя привязку к курсу
+          = link_to activity.trackable, course_lesson_path(activity.trackable.course, activity.trackable)
+        - else
+          -#Если удален
+          Lesson was deleted
+      - else
+        /-#Если отслеживаем НЕ урок, то просто отображаем активность
+        = link_to activity.trackable, activity.trackable
+        /ссылка на измененную статью
       = activity.key
-      = activity.parameters
-      = activity.owner
-
+      -# = activity.owner
+      by
+      = link_to activity.owner, user_path(activity.owner)
+      - if activity.parameters.any?
+        = activity.parameters
+%p
+!= pagy_bootstrap_nav(@pagy)
 -#TODO  сделать  табличный вид изменений
