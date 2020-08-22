@@ -39,11 +39,16 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.has_role?(:admin) || @record.user == @user
+    # @user.has_role?(:admin) ||
+    # только владелец может удалить и только если нет подписок
+    @record.user == @user && @record.enrollments.none?
   end
 
   def owner?
     @record.user == @user
+  end
+  def admin_or_owner?
+    @record.user == @user || @user.has_role?(:admin)
   end
 
   # Подтверждение курса
