@@ -23,6 +23,13 @@ Rails.application.routes.draw do
   get 'home/index'
   # Статистика
   get 'analytics', to: 'home#analytics'
+
+  namespace :charts do
+    get 'users_per_day'
+    get 'enrollments_per_day'
+    get 'course_popularity'
+  end
+
   # Для отслеживания активности на сайте в разделе Courses
   get 'activity', to: 'home#activity'
   root 'home#index'
