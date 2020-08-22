@@ -12,6 +12,19 @@ class CoursePolicy < ApplicationPolicy
     @record.user == @user
   end
 
+  def show?
+    # Курс виден если:
+    # - он опубликован и проверен
+    # если это Админ
+    # если это хозяин курса
+    # если курс уже купил студент
+    @record.published && @record.approved ||
+        @user.present? && @user.has_role?(:admin) ||
+        @user.present? && @record.user_id == @user.id ||
+        @record.bought(@user)
+
+  end
+
   def update?
     # @user.has_role?(:admin)  ||
     @record.user == @user
@@ -26,7 +39,7 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.has_role?(:admin)  || @record.user == @user
+    @user.has_role?(:admin) || @record.user == @user
   end
 
   def owner?

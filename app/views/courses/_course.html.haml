@@ -65,12 +65,12 @@
       .card-footer
         / добавляем кнопку для создания урока, при пересылке нужно передать ID курса в params
         - if policy(course).owner?
-          = link_to "Add lesson", new_course_lesson_path(course, @lesson), class: "btn btn-primary btn-sm "
+          = link_to "Add lesson", new_course_lesson_path(course, @lesson), class: "btn btn-outline-primary btn-sm "
           /Кнопка редактирования будет отображаться только если есть права на редактирование
           -#if policy(course).edit?
-          = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-warning"
+          = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-outline-warning"
           -#if policy(course).edit?
-          = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"
+          = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger"
 
     -#Только у админа и хозяина есть права на удаление, поэтому показываем статус Публикации только им
     - if policy(course).destroy?
@@ -87,6 +87,6 @@
     - if policy(course).approve?
       .card-footer
         - if course.approved?
-          = link_to "Unapprove", unapprove_course_path(course), method: :patch, class: "btn btn-sm btn-danger"
+          = link_to "Unapprove", unapprove_course_path(course), method: :patch, class: "btn btn-sm btn-outline-danger"
         -else
-          = link_to "Approve", approve_course_path(course), method: :patch, class: "btn btn-sm btn-success"
+          = link_to "Approve", approve_course_path(course), method: :patch, class: "btn btn-sm btn-outline-success"
