@@ -19,9 +19,5 @@ class ChartsController < ApplicationController
     # Выбираем все подписки и объеденяем их по Названиям курсов, суммируем все стоимости .
     render json: Enrollment.joins(:course).group(:'courses.title').sum(:price)
   end
-<<<<<<< Updated upstream
-=======
 
-
->>>>>>> Stashed changes
 end

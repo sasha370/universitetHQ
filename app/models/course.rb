@@ -26,6 +26,13 @@ class Course < ApplicationRecord
   scope :top_rated, -> { limit(3).order(average_rating: :desc, created_at: :desc) }
   scope :popular, -> { limit(3).order(enrollments_count: :desc, created_at: :desc) }
 
+  # выбираем все опубликованные/ проверенные курсы
+  scope :published, -> { where(published: true)}
+  scope :unpublished, -> { where(published: false)}
+  scope :approved, -> { where(approved: true)}
+  scope :unapproved, -> { where(approved: false)}
+
+
   # Метод для конвертации в строку полейБ возвращенных из БД (массивом)
   def to_s
     title

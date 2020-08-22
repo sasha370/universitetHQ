@@ -6,10 +6,17 @@ Rails.application.routes.draw do
   # Уроки идут в URL после курса в виде courses/lesson/22
   resources :courses do
     # Запрос сбрасываем на подобранную коллекцию ( отображает список Купленных курсов, и тех что ожидают отзывы)
-    get :purchased, :pending_review, :created, on: :collection
+    get :purchased, :pending_review, :created, :unapproved, on: :collection
     resources :lessons
     # Подписка может быть только создана
     resources :enrollments, only: [:new, :create, :index]
+
+    # Для обработки события Подтверждения курса Админом
+    # Метод member передает ID курса
+    member do
+      patch :approve
+      patch :unapprove
+    end
   end
 
   resources :users, only: [:index, :edit, :show, :update]

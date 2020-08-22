@@ -6,13 +6,15 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def edit?
-    # Только админ и владелец могу редактировать
+    # Только владелец могу редактировать
     # @record берется из application_policy и равна @course
-    @user.has_role?(:admin) || @record.user == @user
+    # @user.has_role?(:admin)  ||    Админа убрали, чтобы он не редактировал курс
+    @record.user == @user
   end
 
   def update?
-    @user.has_role?(:admin)  || @record.user == @user
+    # @user.has_role?(:admin)  ||
+    @record.user == @user
   end
 
   def new?
@@ -29,5 +31,10 @@ class CoursePolicy < ApplicationPolicy
 
   def owner?
     @record.user == @user
+  end
+
+  # Подтверждение курса
+  def approve?
+    @user.has_role?(:admin)
   end
 end

@@ -57,6 +57,11 @@
                 = link_to analytics_path, class: "dropdown-item" do
                   .fa.fa-chart-line
                   Analytics
+                = link_to unapproved_courses_path, class: "dropdown-item" do
+                  .fa.fa-graduation-cap
+                  Unapproved courses
+                  .badge.badge-danger
+                    = Course.unapproved.count
 
           / Выпадающее меню для Teacher
           - if current_user.has_role?(:teacher)
