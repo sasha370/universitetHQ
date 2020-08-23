@@ -10,7 +10,7 @@ class LessonsController < ApplicationController
     authorize @lesson # авторизация на просмотр  только у хозяина курса и админа
     current_user.view_lesson(@lesson)
     # Выбираем все уроки данного курса, курс достали из set_lesson
-    @lessons = @course.lessons
+    @lessons = @course.lessons.rank(:row_order) # ранжируем по порядку
 
   end
 

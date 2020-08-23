@@ -13,7 +13,7 @@ class Lesson < ApplicationRecord
   # Подключаем гем для отвлеживания событий в модели Lessons
   include PublicActivity::Model
   # Отслеживаем только активность текущего пользователя
-  tracked owner: Proc.new{|controller, model| controller.current_user}
+  tracked owner: Proc.new { |controller, model| controller.current_user }
 
   # Для ранжирования уроков (перестановки)
   include RankedModel
@@ -23,6 +23,17 @@ class Lesson < ApplicationRecord
 
   def to_s # преобразует массив выдачи в строчку
     title
+  end
+
+  # Методы для престановки уроков
+  def prev
+    # Предыдущий. Тот у которого порядковый номер меньше текущего (их много). Выбираем последний, т.е. предыдущий
+    course.lessons.where("row_order < ?", row_order).order(:row_order).last
+  end
+
+  def next
+    # Следующий. Все уроки у которых порядковй номер больше текущего. Выбираем первый из них
+    course.lessons.where("row_order > ?", row_order).order(:row_order).first
   end
 
   # Показывает, что данный урок был просмотрен учеником ( т.е. имеется запись в UserLessons)
