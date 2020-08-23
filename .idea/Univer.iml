@@ -41,13 +41,9 @@
     <orderEntry type="library" scope="PROVIDED" name="activestorage (v6.0.3.2, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v6.0.3.2, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.7.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="autoprefixer-rails (v9.8.6.1, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-eventstream (v1.1.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="aws-partitions (v1.353.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="aws-sdk-core (v3.104.3, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-sdk-kms (v1.36.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-sdk-s3 (v1.76.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="aws-sigv4 (v1.2.1, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.15, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bindex (v0.8.1, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.4.7, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
@@ -84,7 +80,6 @@
     <orderEntry type="library" scope="PROVIDED" name="jmespath (v1.4.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v4.4.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json (v2.3.1, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="jwt (v2.2.1, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="listen (v3.2.1, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.6.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.7.1, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
@@ -106,7 +101,6 @@
     <orderEntry type="library" scope="PROVIDED" name="omniauth-facebook (v6.0.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="omniauth-github (v1.4.0@d001ed, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="omniauth-google-oauth2 (v0.8.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="omniauth-oauth2 (v1.6.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.5.0, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pagy (v3.8.3, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pg (v1.2.3, Remote-rvm: ruby-2.7.0-p0) [gem]" level="application" />
