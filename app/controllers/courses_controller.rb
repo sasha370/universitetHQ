@@ -160,6 +160,9 @@ class CoursesController < ApplicationController
 
 
   def course_params
-    params.require(:course).permit(:title, :description, :short_description, :price, :level, :language, :published)
+    # White-list для параметров
+    #  published - галочка для "опубликовать"
+    # avatar  - прикрепленное изображение для аватарки, хранится на S3
+    params.require(:course).permit(:title, :description, :short_description, :price, :level, :language, :published, :avatar)
   end
 end
