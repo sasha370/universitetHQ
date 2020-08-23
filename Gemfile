@@ -53,6 +53,8 @@ gem 'chartkick' # отображение графиков
 gem 'groupdate' # групировка данных из БД по времени ( нужен для Графиков)
 gem 'rails-erd', group: :development # sudo apt-get install graphviz
 gem 'ranked-model' # ранжирование внутри модели
+# работает совместно с jquery -ui
+
 gem 'aws-sdk-s3', require: false
 gem 'active_storage_validations'
 gem 'image_processing'

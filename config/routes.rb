@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resources :courses do
     # Запрос сбрасываем на подобранную коллекцию ( отображает список Купленных курсов, и тех что ожидают отзывы)
     get :purchased, :pending_review, :created, :unapproved, on: :collection
-    resources :lessons
+    resources :lessons do
+      put :sort # метод для сортировки уроков внутри курса
+    end
     # Подписка может быть только создана
     resources :enrollments, only: [:new, :create, :index]
 

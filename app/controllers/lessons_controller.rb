@@ -1,6 +1,16 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
+  # Метод для обработки сортировки. нам нужно обновить значение Rank при каждом перетаскивании
+  def sort
+    @course = Course.friendly.find(params[:course_id])
+    # в параметрах ловим именно lesson_id. который передается с помощью созданного DIVa
+    lesson = Lesson.friendly.find(params[:lesson_id])
+    authorize lesson, :edit?  # доступно только с правами на редактирование
+    lesson.update(lesson_params) # обновляем массив params
+    render body: nil # запрещаем перерисовывать
+  end
+
   def index
     @lessons = Lesson.all
   end
@@ -65,6 +75,7 @@ class LessonsController < ApplicationController
     end
 
     def lesson_params
-      params.require(:lesson).permit(:title, :content)
+      # row_order_position - данные из сортировки c помощью JS на странице Курса
+      params.require(:lesson).permit(:title, :content, :row_order_position)
     end
 end

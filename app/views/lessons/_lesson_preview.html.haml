@@ -1,20 +1,23 @@
-
 - if current_user
-  - if lesson.course.bought(current_user) || @course.user == current_user
-    -#проверяем, просматривался ли данный урок
-    - if lesson.viewed(current_user)
-      -#Просмотренно
-      .text-success.far.fa-check-square
-    -else
-      -#Непросмотренно
-      .text-danger.far.fa-check-square
+  -# - if policy(lesson).show?
+  - if lesson.viewed(current_user)
+    -#Просмотренно
+    .text-success.far.fa-check-square
+  -else
+    -#Непросмотренно
+    .text-danger.far.fa-check-square
+  -# - else
+    .fa.fa-lock
+  = link_to course_lesson_path(@course, lesson) do
+    %b
+      #{lesson.row_order_rank + 1}.
+    = lesson.title
+- else
+  .fa.fa-lock
     = link_to course_lesson_path(@course, lesson) do
       %b
         #{lesson.row_order_rank + 1}.
       = lesson.title
-- else
-  .fa.fa-check-square
-  = link_to lesson.title, course_lesson_path(@course, lesson)
 
 
 

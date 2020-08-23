@@ -13,3 +13,10 @@ body { background: #fcf8f4; }
 
 .form-control.is-invalid{background-image: none;}
 .form-control.is-valid{background-image: none;}
+
+//Подсветка при перетаскиваниее Уроков
+.ui-state-highlight {
+  height: 3em;
+  line-height: 1.2em;
+  background-color:yellow;
+}

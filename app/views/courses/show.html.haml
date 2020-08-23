@@ -35,12 +35,15 @@
       .float-right
         .fa.fa-spinner
         = number_to_percentage(@course.progress(current_user), precision: 0)
-
-    %ul.list-group
+    -#.Добавили .lesson-sortable   - для обработки в JS ( сортировка )
+    %ul.list-group.lesson-sortable
       - @lessons.each do |lesson|
-        / отображаем спиок курсов импользую List class прописанный в Activity
-        %li.list-group-item
-          =  render "lessons/lesson_preview",  lesson: lesson
+        / #TODO  - непонятно что за строчка и что она передает. Нужна для Сортировки перестановкой и обработки в JS
+        / должна обновлять порядок сортиовки
+        / DIV создается с id = lesson_id. который мы ловим через params в контроллере экшн SORT
+        = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
+          %li.list-group-item
+            =  render "lessons/lesson_preview",  lesson: lesson
 
     %p
     %h4
@@ -54,3 +57,6 @@
   .col-lg-4.order-0.order-lg-1
     .sticky-top
       = render 'courses/course', course: @course
+
+
+
