@@ -14,6 +14,13 @@ class Lesson < ApplicationRecord
   include PublicActivity::Model
   # Отслеживаем только активность текущего пользователя
   tracked owner: Proc.new{|controller, model| controller.current_user}
+
+  # Для ранжирования уроков (перестановки)
+  include RankedModel
+  ranks :row_order,
+        :with_same => :course_id # уроки принадлежат Курсу,т.е сортировка внутри курса
+
+
   def to_s # преобразует массив выдачи в строчку
     title
   end
