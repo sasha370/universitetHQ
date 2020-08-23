@@ -55,7 +55,7 @@ gem 'rails-erd', group: :development # sudo apt-get install graphviz
 gem 'ranked-model' # ранжирование внутри модели
 # работает совместно с jquery -ui
 
-gem 'aws-sdk-s3', require: false
+gem 'aws-sdk-s3', require: false  # для хранения файлов на серверах Amazon
 gem 'active_storage_validations'
 gem 'image_processing'
 gem 'recaptcha'
