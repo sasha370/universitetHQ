@@ -57,7 +57,7 @@ gem 'ranked-model' # ранжирование внутри модели
 
 gem 'aws-sdk-s3', require: false  # для хранения файлов на серверах Amazon
 gem 'active_storage_validations'  # вылидация для загружаемых файлов ( тип, расширение и т.д.)
-gem 'image_processing'
+gem 'image_processing' # подгрузка картинок из S3
 gem 'recaptcha'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary', group: :development
