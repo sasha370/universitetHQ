@@ -17,6 +17,10 @@ require("channels")
 
 import "bootstrap"
 
+// добавляем скрип, который переписывает поведение с вложенными файлами внутри курса или урока
+import "../trix-editor-overrides"
+
+
 require("trix")
 require("@rails/actiontext")
 require("chartkick")
