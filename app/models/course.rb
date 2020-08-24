@@ -1,16 +1,19 @@
 class Course < ApplicationRecord
   # Валидация для новых курсов, обязательно присутствие названия и описания не менее 5 символов
-  validates :title, :short_description, :language, :level, :price, presence: true
-  validates :description, presence: true, length: { minimum: 5 }
-  validates :title, uniqueness: true
+  validates :title, :short_description, :description, :language, :level, :price, presence: true
+  validates :description, length: { minimum: 5, maximum: 3000 }
+  validates :short_description, length: { minimum: 5, maximum: 300 }
+  validates :title, uniqueness: true, length: {maximum: 70}
+  validates :price, numericality: { greater_than_or_equal_to: 0 } # цена должна быть Положительной
+
   # Подключаем встроенный редактор текста для поля вуыскшзешщт
   has_rich_text :description
 
   # У каждого курса есть прикрепленный файл ( аватар в нашем случае), который будет хранится на S3
   has_one_attached :avatar
-  # Валидация: наличие и тип файла
-  validates :avatar, attached: true, content_type: [:png, :jpg, :jpeg]
-  validates :avatar, size: {less_than: 500.kilobytes, message: "image must be less that 500 Kb"}
+  validates :avatar, presence: true, content_type: [:png, :jpg, :jpeg],
+            size: { less_than: 500.kilobytes, message: "image must be less that 500 Kb" }
+
 
   # Курс принадлежит только одному пользователю
   belongs_to :user, counter_cache: true
@@ -32,10 +35,10 @@ class Course < ApplicationRecord
   scope :popular, -> { limit(3).order(enrollments_count: :desc, created_at: :desc) }
 
   # выбираем все опубликованные/ проверенные курсы
-  scope :published, -> { where(published: true)}
-  scope :unpublished, -> { where(published: false)}
-  scope :approved, -> { where(approved: true)}
-  scope :unapproved, -> { where(approved: false)}
+  scope :published, -> { where(published: true) }
+  scope :unpublished, -> { where(published: false) }
+  scope :approved, -> { where(approved: true) }
+  scope :unapproved, -> { where(approved: false) }
 
 
   # Метод для конвертации в строку полейБ возвращенных из БД (массивом)

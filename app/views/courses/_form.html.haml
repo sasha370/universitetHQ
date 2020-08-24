@@ -7,16 +7,17 @@
     = f.input :title
 
     -#у курса есть прикрепленный файл = аватар, который будем хранить на S3 (прописанно в моделе))
-    = f.label :avatar
+    -# = f.label :avatar
     .row
     -#проверяем, есть ли аватар
     - if @course.avatar.attached?
       = image_tag @course.avatar, width:  "200px"
 
     .row
-    = f.file_field :avatar
+    -# = f.file_field :avatar  Первоначальный вариант по инструкции
     -#т.к. при валидации ActiveStorage не выдает ошибку, то мы добавляем ее и отображаем
-    = f.error :avatar, class: 'text-danger'
+    -# = f.error :avatar, class: 'text-danger'
+    = f.input :avatar
 
     .row
     = f.label :description
