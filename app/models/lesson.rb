@@ -1,11 +1,21 @@
 class Lesson < ApplicationRecord
   belongs_to :course, counter_cache: true
   validates :title, :content, :course, presence: true
-  validates :title, uniqueness: true, length: {maximum: 70}
+  validates :title, length: {maximum: 70}
+  validates_uniqueness_of :title, scope: :course # у одного курса не может быть два урока с одним названием
   has_many :user_lessons, dependent: :destroy
 
   # Подключаем встроенный редактор текста для поля вуыскшзешщт
   has_rich_text :content
+
+  # У каждого урока  есть прикрепленный файл ( видео и превьюха к нему), который будет хранится на S3
+  has_one_attached :video
+  has_one_attached :video_thumbnail
+  validates :video, content_type: ['video/mp4'],
+            size: { less_than: 50.megabytes, message: "image must be less that 50 MB" }
+  validates :video_thumbnail,content_type: [:png, :jpg, :jpeg],
+            size: { less_than: 500.kilobytes, message: "image must be less that 500 Kb" }
+
 
   # Расширяем наш класс дополнением для отображения дружественных ссылок
   extend FriendlyId

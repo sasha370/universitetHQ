@@ -76,6 +76,6 @@ class LessonsController < ApplicationController
 
     def lesson_params
       # row_order_position - данные из сортировки c помощью JS на странице Курса
-      params.require(:lesson).permit(:title, :content, :row_order_position)
+      params.require(:lesson).permit(:title, :content, :row_order_position, :video, :video_thumbnail)
     end
 end

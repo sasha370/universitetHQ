@@ -17,6 +17,11 @@
     /-# - if policy(lesson).show?
   .card-body
     = lesson.content
+    / video - html5 тег. controls - управление, poster-превьюха
+    / sourse - источник видео, src - ссылка на него
+    - if lesson.video.attached?
+      %video(controls="true" poster="#{url_for lesson.video_thumbnail}" width="100%" preload="metadata")
+        %source{src: rails_blob_url(lesson.video), type:"#{lesson.video.content_type}"}
 
   / Убираем кнопки для незарегистрированных и для НЕ хозяина
   - if policy(lesson).edit?
