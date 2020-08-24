@@ -7,8 +7,17 @@
     -#отключаем автозаполнение
     = f.input :title, input_html: {autocomplete: 'off'}
     = f.rich_text_area :content
+    %p
     = f.input :video
+    - if @lesson.video.attached?
+      = @lesson.video.filename
+    %p
     = f.input :video_thumbnail
+    - if @lesson.video_thumbnail.attached?
+      = image_tag @lesson.video_thumbnail
+      .row
+      = @lesson.video_thumbnail.filename
+
     -# = f.association :course
     -#при создании лекции нужно указать ID курса, берем или из params или из свойства лекции
     -#но в данном случае убираем, т.к. мы назначили все вручную в контроллере

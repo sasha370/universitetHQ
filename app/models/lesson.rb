@@ -16,6 +16,11 @@ class Lesson < ApplicationRecord
   validates :video_thumbnail,content_type: [:png, :jpg, :jpeg],
             size: { less_than: 500.kilobytes, message: "image must be less that 500 Kb" }
 
+  # validates :video_thumbnail, presence: true, if: :video_present?
+  # def video_present?
+  #   self.video.present?
+  # end
+
 
   # Расширяем наш класс дополнением для отображения дружественных ссылок
   extend FriendlyId
