@@ -20,3 +20,8 @@ body { background: #fcf8f4; }
   line-height: 1.2em;
   background-color:yellow;
 }
+
+//simple-form input for rich_text_area
+trix-editor.form-control{
+  height: auto;
+}

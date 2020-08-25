@@ -25,6 +25,7 @@ module Univer
       ActionText::ContentHelper.allowed_attributes.add 'controls'
 
       ActionText::ContentHelper.allowed_tags.add 'video'
+      ActionText::ContentHelper.allowed_tags << 'iframe' # youtube embed
       ActionText::ContentHelper.allowed_tags.add 'source'
       ActionText::ContentHelper.allowed_tags.add 'audio'
       # Settings in config/environments/* take precedence over those specified here.

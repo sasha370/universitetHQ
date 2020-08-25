@@ -34,6 +34,7 @@ require("chart.js")
 // Подключаем библиотеку для перестановки уроков переносом
 require("jquery")
 require("jquery-ui-dist/jquery-ui")
+import "youtube"
 
 
 // Метод для обработки drag_drop событий внутри курса ( перетаскивание уроков)
@@ -65,16 +66,16 @@ $(document).on('turbolinks:load', function () {
     });
 
     // инитциализация плеера (кастомного)
-let videoPlayer = videojs(document.getElementById('my-video'), {
-    // настройки для плеера
-    controls: true,
-    playbackRates: [0.5,1,1.5],
-    autoplay: false,
-    fluid: true,
-    preload: false,
-    liveui: true,
-    responsive:true,
-    loop: false,
+    let videoPlayer = videojs(document.getElementById('my-video'), {
+        // настройки для плеера
+        controls: true,
+        playbackRates: [0.5, 1, 1.5],
+        autoplay: false,
+        fluid: true,
+        preload: false,
+        liveui: true,
+        responsive: true,
+        loop: false,
     })
     videoPlayer.addClass('video-js')
     videoPlayer.addClass('vjs-big-play-centered')

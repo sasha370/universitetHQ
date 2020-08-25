@@ -6,7 +6,7 @@
   .form-inputs
     -#отключаем автозаполнение
     = f.input :title, input_html: {autocomplete: 'off'}
-    = f.rich_text_area :content
+    = f.input :content, as: :rich_text_area
     %p
     = f.input :video
     - if @lesson.video.attached?
