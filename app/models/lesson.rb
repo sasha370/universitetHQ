@@ -5,7 +5,7 @@ class Lesson < ApplicationRecord
   validates_uniqueness_of :title, scope: :course # у одного курса не может быть два урока с одним названием
   has_many :user_lessons, dependent: :destroy
 
-  # Подключаем встроенный редактор текста для поля вуыскшзешщт
+  # Подключаем встроенный редактор текста для поля description
   has_rich_text :content
 
   # У каждого урока  есть прикрепленный файл ( видео и превьюха к нему), который будет хранится на S3
