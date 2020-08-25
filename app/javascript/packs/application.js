@@ -20,6 +20,10 @@ import "bootstrap"
 // добавляем скрип, который переписывает поведение с вложенными файлами внутри курса или урока
 import "../trix-editor-overrides"
 
+// подключаем Js для кастомного видеоплеера
+import videojs from 'video.js'
+import 'video.js/dist/video-js.css'
+
 
 require("trix")
 require("@rails/actiontext")
@@ -60,4 +64,18 @@ $(document).on('turbolinks:load', function () {
         }
     });
 
+    // инитциализация плеера (кастомного)
+let videoPlayer = videojs(document.getElementById('my-video'), {
+    // настройки для плеера
+    controls: true,
+    playbackRates: [0.5,1,1.5],
+    autoplay: false,
+    fluid: true,
+    preload: false,
+    liveui: true,
+    responsive:true,
+    loop: false,
+    })
+    videoPlayer.addClass('video-js')
+    videoPlayer.addClass('vjs-big-play-centered')
 });
