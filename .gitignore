@@ -42,3 +42,5 @@ yarn-debug.log*
 
 university_accessKeys.csv
 credentials.yml.enc
+config/credentials.yml.enc
+config/credentials.yml.enc

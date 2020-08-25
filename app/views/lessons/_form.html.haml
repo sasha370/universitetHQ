@@ -11,6 +11,8 @@
     = f.input :video
     - if @lesson.video.attached?
       = @lesson.video.filename
+      .row
+      = link_to "Remove video and thumbnail", delete_video_course_lesson_path(@course, @lesson), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger'
     %p
     = f.input :video_thumbnail
     - if @lesson.video_thumbnail.attached?

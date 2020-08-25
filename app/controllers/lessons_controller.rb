@@ -1,5 +1,16 @@
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson, only: [:show, :edit, :update, :destroy, :delete_video]
+
+
+  # Удалять вложенное видео
+  def delete_video
+    authorize @lesson, :edit?
+    # Метод purge удаляет вложения из ActiveStarage - прописаано в документации
+    @lesson.video.purge
+    @lesson.video_thumbnail.purge
+    redirect_to edit_course_lesson_path(@course,@lesson), notice: "Video Deleted!"
+  end
+
 
   # Метод для обработки сортировки. нам нужно обновить значение Rank при каждом перетаскивании
   def sort
