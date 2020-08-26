@@ -18,6 +18,17 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @course = Course.friendly.find(params[:course_id])
+    @lesson = Lesson.friendly.find(params[:lesson_id])
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Comment was successfully destroyed.' }
+    end
+
+  end
+
   private
   def comment_params
     # row_order_position - данные из сортировки c помощью JS на странице Курса
