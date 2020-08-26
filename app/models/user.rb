@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :courses, dependent: :nullify # При удалении юзера, обнуляем его связанные курсы
   has_many :enrollments, dependent: :nullify # При удалении юзера, обнуляем его связанные курсы
   has_many :user_lessons, dependent: :nullify # При удалении юзера, обнуляем его связанные курсы
+  has_many :comments, dependent: :nullify # коменты удаляются.обнуляются вместе с Пользователем
+
 
   # Проверяем, чтобы при редактировании у пользователя была хотябы одна роль
   validate :must_have_a_role, on: :update

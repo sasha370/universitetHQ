@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get :purchased, :pending_review, :created, :unapproved, on: :collection
     resources :lessons do
       put :sort # метод для сортировки уроков внутри курса
+      resources :comments
       member do
         # переопределяем стандартный метод delete
         delete :delete_video

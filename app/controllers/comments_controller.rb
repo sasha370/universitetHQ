@@ -1,0 +1,27 @@
+class CommentsController < ApplicationController
+  # before_action :set_lesson, only: [:create]
+
+
+  def create
+    @comment = Comment.new(comment_params)
+    @course = Course.friendly.find(params[:course_id])
+    @lesson = Lesson.friendly.find(params[:lesson_id])
+    @comment.lesson = @lesson
+    @comment.user = current_user
+
+    respond_to do |format|
+      if @comment.save
+        format.html{redirect_to course_lesson_path(@course, @lesson), notice: 'Comment was successfully created.'}
+      else
+        format.html {redirect_to course_lesson_path(@course, @lesson), alert: 'Smt wrong! '}
+      end
+    end
+  end
+
+  private
+  def comment_params
+    # row_order_position - данные из сортировки c помощью JS на странице Курса
+    params.require(:comment).permit(:content)
+
+  end
+end
