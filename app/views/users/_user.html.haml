@@ -16,27 +16,34 @@
 
   .card-footer
     /humanize - приводит в текст название колонок
-    = 'sign_in_count'.humanize
+    %b= 'sign_in_count'.humanize
     = user.sign_in_count
     .row
-    = 'current_sign_in_at'.humanize
+    %b= 'current_sign_in_at'.humanize
     = user.current_sign_in_at
     .row
-    = 'last_sign_in_at'.humanize
+    %b= 'last_sign_in_at'.humanize
     = user.last_sign_in_at
     .row
-    = 'current_sign_in_ip'.humanize
+    %b= 'current_sign_in_ip'.humanize
     = user.current_sign_in_ip
     .row
-    = 'last_sign_in_ip'.humanize
+    %b= 'last_sign_in_ip'.humanize
     = user.last_sign_in_ip
 
   .card-footer
+    .fa.fa-plus
+    .fa.fa-graduation-cap
     Courses created:
     = user.courses_count
-    %br
+    .row
+    .fa.fa-lock-open
     Enrollments:
     = user.enrollments_count
+    .row
+    .fa.fa-comment
+    Comments:
+    = user.comments_count
   .card-footer
     -#отображаем значек, если пользователь подтвердил свою почту
     Confirmed email?

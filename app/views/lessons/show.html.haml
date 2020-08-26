@@ -30,7 +30,8 @@
     %h4
       .fa.fa-comment
       Comments
-      = @comments.count
+      / = @comments.count  - заменили счетчик на см.ниже, чтобы не грузить БД
+      = @lesson.comments_count
     .card
       .card-header
         New comment:
