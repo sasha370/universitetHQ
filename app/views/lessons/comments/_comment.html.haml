@@ -6,7 +6,7 @@
     - if comment.user.present?
       by
       = link_to comment.user.username, user_path(comment.user)
-      -# - if policy(comment).destroy?
+    - if policy(comment).destroy?
       = link_to [@course, @lesson, comment], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
         .fa.fa-trash
   .card-body
