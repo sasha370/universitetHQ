@@ -23,6 +23,7 @@
       (#{ time_ago_in_words(activity.created_at) })
       = model_label(activity.trackable_type)
       -# = activity.trackable_id
+
       -#/ если мы отслеживаем Урок
       - if activity.trackable_type == 'Lesson'
         -#Проеверяем существует ли еще урок
@@ -32,10 +33,21 @@
         - else
           -#Если удален
           Lesson was deleted
+
+        / если отслеживаем комментарий
+      - elsif activity.trackable_type == "Comment"
+        - if Comment.where(id: activity.trackable_id).present?
+          -#Если существует, то отображаем его используя привязку к курсу\лекции
+          = link_to activity.trackable.content, course_lesson_path( activity.trackable.lesson.course, activity.trackable.lesson)
+        - else
+          -#Если удален
+          Comment was deleted
+
       - else
         /-#Если отслеживаем НЕ урок, то просто отображаем активность
         = link_to activity.trackable, activity.trackable
         /ссылка на измененную статью
+      |
       = activity.key
       /-#.Отображаем значек в зависимости от прописанного Экшена ( обрабатываем в application_helper?)
       = crud_label(activity.key.match(/\.(.*)/)[1])
