@@ -35,7 +35,7 @@ class LessonsController < ApplicationController
 
     # Т.к. мы будеим показывать коменты только внутри урока, то прописваем только в SHOW
     @comment = Comment.new
-    @comments = @lesson.comments
+    @comments = @lesson.comments.order(created_at: :desc)
   end
 
   def new
