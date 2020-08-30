@@ -65,6 +65,11 @@ $(document).on('turbolinks:load', function () {
         }
     });
 
+    $("video").bind("contextmenu",function(){
+        return false;
+    });
+
+
     // инитциализация плеера (кастомного)
     let videoPlayer = videojs(document.getElementById('my-video'), {
         // настройки для плеера
