@@ -21,8 +21,8 @@ import "bootstrap"
 import "../trix-editor-overrides"
 
 // подключаем Js для кастомного видеоплеера
-import videojs from 'video.js'
-import 'video.js/dist/video-js.css'
+// import videojs from 'video.js'
+// import 'video.js/dist/video-js.css'
 
 
 require("trix")

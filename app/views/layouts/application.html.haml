@@ -7,7 +7,7 @@
     -# Динамический заголовок для всех страниц
     = favicon_link_tag 'logo.png'
     %title
-      = content_for?(:title) ? yield(:title) : "Universary"
+      = content_for?(:title) ? yield(:title) : "University"
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
