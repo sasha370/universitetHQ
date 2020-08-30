@@ -27,5 +27,29 @@
         </library>
       </libraries>
     </data-source>
+    <data-source source="LOCAL" name="Rails Univer: test" uuid="ddb2dfcd-739e-4664-a58d-13357e8f518a">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\rubytut2\UDEMY\Univer\db\test.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails Univer: production" uuid="da5a5b86-b61f-4b81-aa98-13f6b313dc4c">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/production</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails Univer: development" uuid="374ab5a2-9423-4458-87b2-97f6e3271cf9">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\rubytut2\UDEMY\Univer\db\development.sqlite3</jdbc-url>
+    </data-source>
   </component>
 </project>

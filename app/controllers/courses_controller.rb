@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
 
-# В Экшене прописываем дополнительно поиск
+  # В Экшене прописываем дополнительно поиск
   def index
     # Для корректного поиска задаем , по которому будет пересылаться запрос из формы @q
     @ransack_path = courses_path
@@ -21,7 +21,7 @@ class CoursesController < ApplicationController
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
   end
 
-# Купленные курсы. Объеденяем все курсы в которых есть  Подписка с текущим пользователем
+  # Купленные курсы. Объеденяем все курсы в которых есть  Подписка с текущим пользователем
   def purchased
     # Для корректного поиска задаем путь , по которому будет пересылаться запрос из формы @q
     @ransack_path = purchased_courses_path
@@ -32,7 +32,7 @@ class CoursesController < ApplicationController
     render :index
   end
 
-# Ожидающие отзыва курсы
+  # Ожидающие отзыва курсы
   def pending_review
     # Для корректного поиска задаем  путь, по которому будет пересылаться запрос из формы @q
     @ransack_path = pending_review_courses_path
@@ -44,7 +44,7 @@ class CoursesController < ApplicationController
     render :index
   end
 
-# Курсы, которые создал пользователь
+  # Курсы, которые создал пользователь
   def created
     # Для корректного поиска задаем  путь, по которому будет пересылаться запрос из формы @q
     @ransack_path = created_courses_path
@@ -69,6 +69,7 @@ class CoursesController < ApplicationController
     @course.update_attribute(:approved, true)
     redirect_to @course, notice: "Course Approved!"
   end
+
   def unapprove
     # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
     authorize @course, :approve?
@@ -84,7 +85,7 @@ class CoursesController < ApplicationController
     #  # Переменная для Поиска в навбаре ( повторяется в AppController)
     @ransack_courses = Course.unapproved.ransack(params[:courses_search], search_key: :courses_search)
     # И добавляем к выборке пагинацию
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes( :user))
     render :index
 
   end
