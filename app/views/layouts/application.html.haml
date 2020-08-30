@@ -11,6 +11,9 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    -#Включаем Гугл Аналитику только в production
+    - if Rails.env.production?
+      = render 'layouts/google_analytics'
   %body
     / добавляем строчку с логином и кнопка вход.выход
     = render 'layouts/header'
