@@ -10,29 +10,34 @@
     = action_name.humanize
 
 
-%h4.text-center
-  Users created
--# = line_chart @users.group_by_day(:created_at).count
-= line_chart charts_users_per_day_path
-%br
-%h4.text-center
-  Enrollment created
--# = column_chart @enrollments.group_by_day(:created_at).count
-= column_chart charts_enrollments_per_day_path
-%br
-%h4.text-center
-  Course popularity
--# = pie_chart @courses.group(:enrollments_count).count
--#Список популярных курсов.
-/ берем подписки, объединяем их по курсам, группируем по названиям курсов, считаем
--# = pie_chart @enrollments.joins(:course).group(:'courses.title').count
-= bar_chart charts_course_popularity_path
+.card
+  %h4.text-center
+    Users created
+  .card-body
+    -# = line_chart @users.group_by_day(:created_at).count
+    = line_chart charts_users_per_day_path
+  %br
+  %h4.text-center
+    Enrollment created
+  .card-body
+    -# = column_chart @enrollments.group_by_day(:created_at).count
+    = column_chart charts_enrollments_per_day_path
+  %br
+  %h4.text-center
+    Course popularity
+    -# = pie_chart @courses.group(:enrollments_count).count
+    -#Список популярных курсов.
+    / берем подписки, объединяем их по курсам, группируем по названиям курсов, считаем
+    -# = pie_chart @enrollments.joins(:course).group(:'courses.title').count
+  .card-body
+    = bar_chart charts_course_popularity_path
 
-%br
-%h4.text-center
-  Most paid courses
--# = pie_chart @courses.group(:enrollments_count).count
--#Список популярных курсов.
-/ берем подписки, объединяем их по курсам, группируем по названиям курсов, считаем
--# = pie_chart @enrollments.joins(:course).group(:'courses.title').count
-= bar_chart charts_money_makers_path
+  %br
+  %h4.text-center
+    Most paid courses
+    -# = pie_chart @courses.group(:enrollments_count).count
+    -#Список популярных курсов.
+    / берем подписки, объединяем их по курсам, группируем по названиям курсов, считаем
+    -# = pie_chart @enrollments.joins(:course).group(:'courses.title').count
+  .card-body
+    = bar_chart charts_money_makers_path
