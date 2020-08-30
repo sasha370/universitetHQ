@@ -5,6 +5,7 @@
     %meta{:content => "width=device-width, initial-scale=1.0, :name => 'viewport'"}/
     -#%title Universary
     -# Динамический заголовок для всех страниц
+    = favicon_link_tag 'logo.png'
     %title
       = content_for?(:title) ? yield(:title) : "Universary"
     = csrf_meta_tags
@@ -23,4 +24,5 @@
     %p
     = yield
   %br
-  = render 'layouts/footer'
+  .bg-dark.text-white
+    = render 'layouts/footer'
