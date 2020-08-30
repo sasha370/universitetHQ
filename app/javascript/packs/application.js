@@ -65,6 +65,8 @@ $(document).on('turbolinks:load', function () {
         }
     });
 
+
+    // Запрещаем правый клик на видео, чтобы не скачивали
     $("video").bind("contextmenu",function(){
         return false;
     });

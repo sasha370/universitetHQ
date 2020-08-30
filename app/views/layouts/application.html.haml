@@ -3,26 +3,39 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "width=device-width, initial-scale=1.0, :name => 'viewport'"}/
-    -#%title Universary
-    -# Динамический заголовок для всех страниц
+    -#ключевые слова
+    %meta{:content => "online education, course platform, video tutorials, udemy clone", :name => "keywords"}/
+    -#Описание
+    %meta{:content => "Online Learning and Skill sharing platform", :name => "description"}/
+    -#Автор
+    %meta{:content => "Alexander Karyakin", :name => "author"}/
+    -#Фавикон
     = favicon_link_tag 'logo.png'
+    -#%title University
+    -# Динамический заголовок для всех страниц
+
     %title
       = content_for?(:title) ? yield(:title) : "University"
     = csrf_meta_tags
     = csp_meta_tag
+
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
     -#Включаем Гугл Аналитику только в production
     - if Rails.env.production?
       = render 'layouts/google_analytics'
+
   %body
     / добавляем строчку с логином и кнопка вход.выход
     = render 'layouts/header'
     / добавляем всплывающие сообщения
     = render 'layouts/messages'
+
   .container
     %p
     = yield
   %br
+
   .bg-dark.text-white
     = render 'layouts/footer'

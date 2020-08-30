@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get 'home/index'
   # Статистика
   get 'analytics', to: 'home#analytics'
+  # Пользовательское соглашение
+  get 'privacy_policy', to: 'home#privacy_policy'
 
   # Вместо перечисления всех Get отдельно, создаем Пространсво имен для Charts
   namespace :charts do

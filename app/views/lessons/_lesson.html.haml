@@ -25,7 +25,7 @@
         %video(controls="true" poster="#{url_for lesson.video_thumbnail}" width="100%" preload="metadata" controlslist="nodownload")
           %source{src: rails_blob_url(lesson.video), type:"#{lesson.video.content_type}"}
       - else
-
+        / controlslist="nodownload" - запрещает правый клик (прописанов в js)
         %video(controls="true"  width="100%" preload="metadata" controlslist="nodownload")
           %source{src: rails_blob_url(lesson.video), type:"#{lesson.video.content_type}"}
           -#VIDEO JS

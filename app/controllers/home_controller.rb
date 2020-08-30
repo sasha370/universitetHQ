@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
-  # Скипаем провеку на вход для Главной страницы
-  skip_before_action :authenticate_user!, only: [:index]
+  # Скипаем провеку на вход для Главной страницы и для Пользователского соглашения
+  skip_before_action :authenticate_user!, only: [:index, :privacy_policy]
 
   def index
     # отображаем список из 3х курсов
@@ -40,5 +40,9 @@ class HomeController < ApplicationController
     else
       redirect_to root_path, alert: 'You are not authorized to access this page'
     end
+  end
+
+  # Пользовательсткое соглашение
+  def privacy_policy
   end
 end
