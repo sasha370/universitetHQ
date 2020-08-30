@@ -4,6 +4,8 @@ class Lesson < ApplicationRecord
   validates :title, length: {maximum: 70}
   validates_uniqueness_of :title, scope: :course # у одного курса не может быть два урока с одним названием
   has_many :user_lessons, dependent: :destroy
+  has_many :comments, dependent: :nullify # клменты удаляются.обнуляются вместе с уроком
+
 
   # Подключаем встроенный редактор текста для поля description
   has_rich_text :content

@@ -33,6 +33,9 @@ class LessonsController < ApplicationController
     # Выбираем все уроки данного курса, курс достали из set_lesson
     @lessons = @course.lessons.rank(:row_order) # ранжируем по порядку
 
+    # Т.к. мы будеим показывать коменты только внутри урока, то прописваем только в SHOW
+    @comment = Comment.new
+    @comments = @lesson.comments.order(created_at: :desc)
   end
 
   def new

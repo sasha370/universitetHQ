@@ -35,6 +35,7 @@
         %th= sort_link(@q, :email)
         %th= sort_link(@q, :created_at)
         %th= sort_link(@q, :sign_in_count)
+        -#%th= sort_link(@q, :user_lesson_count)
         %th= "current_sign_in".humanize
         %th= "last_sign_in_at".humanize
         %th= "current_sign_in_ip".humanize
@@ -58,6 +59,8 @@
             %small= user.created_at
           %td
             %small= user.sign_in_count
+          -#%td
+          -#  %small= user.user_lessons_count
           %td
             %small= user.current_sign_in_at
           %td
