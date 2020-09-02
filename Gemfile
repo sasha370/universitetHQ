@@ -64,8 +64,8 @@ gem 'wkhtmltopdf-binary', group: :development
 gem 'wkhtmltopdf-heroku', group: :production
 gem 'wicked'
 gem 'omniauth-google-oauth2' # аутентификация через Гугл
-gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
-gem 'omniauth-facebook'
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'   # аутентификация через GitHub
+gem 'omniauth-facebook'   # аутентификация через Facebook
 gem 'cocoon'
 gem 'stripe'
 
