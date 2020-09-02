@@ -6,7 +6,7 @@ class User < ApplicationRecord
          # при регитсрации черз почту.
          # инструкция в WIKI для devise
          :recoverable, :rememberable, :validatable, :trackable, :confirmable,
-         :omniauthable, omniauth_providers: [:google_oauth2, :github]
+         :omniauthable, omniauth_providers: [:google_oauth2, :github, :facebook]
 
   # Логика для OAuth2
   def self.from_omniauth(access_token)
