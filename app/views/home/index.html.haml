@@ -4,21 +4,57 @@
   \|
   Online Courses - Learn Anything, On Your Schedule
 
+-#
+-# .jumbotron
+-#   .display-4
+-#     What do you want to learn today?
+-#   .p-4
+-#     -#.form-inline.my-2.my-lg-0
+-#     / ПОИСК в Jumbotrone
+-#     - if current_user
+-#       = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+-#         .input-group
+-#           / поиск по Заголовку
+-#           = f.search_field :title_or_short_description_cont, class: 'form-control-sm', style: 'float: left; width: 150 px;', placeholder: 'Find a course', :autocomplete => :off
+-#           %span.input-group-append
+-#             %button.btn.btn-primary.btn-sm{type: 'submit'}
+-#               %span.fa.fa-search{'aria-hidden' => 'true'}
 
-.jumbotron
-  .display-4
-    What do you want to learn today?
+
+
+
+.jumbotron.shadow.parallax
+  %h1.text-shadow
+    %b What do you want to learn today?
+
   .p-4
-    -#.form-inline.my-2.my-lg-0
-    / ПОИСК в Jumbotrone
-    - if current_user
-      = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
-        .input-group
-          / поиск по Заголовку
-          = f.search_field :title_or_short_description_cont, class: 'form-control-sm', style: 'float: left; width: 150 px;', placeholder: 'Find a course', :autocomplete => :off
-          %span.input-group-append
-            %button.btn.btn-primary.btn-sm{type: 'submit'}
-              %span.fa.fa-search{'aria-hidden' => 'true'}
+
+  - if current_user
+    .p-3
+    = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+      .input-group
+        = f.search_field :title_cont, class: 'form-control-lg', style: 'float: left; width: 200px; ', placeholder: 'Find a course', :autocomplete => :off
+        %span.input-group-append
+          %button.btn.btn-primary.btn-lg{:type => "submit"}
+            %span.fa.fa-search{"aria-hidden" => "true"}
+    .p-2
+  - else
+    %h3.text-shadow Join to access all the courses
+    .p-2
+    = link_to 'Register', new_user_registration_path, class: 'btn btn-custom-purple btn-lg'
+    = link_to 'Login', new_user_session_path, class: 'btn btn-custom-purple btn-lg'
+    .row.mt-1
+    = link_to user_google_oauth2_omniauth_authorize_path, class: 'btn btn-danger btn-lg mr-1' do
+      Continue with
+      .fab.fa-google
+    .row.mt-1
+    = link_to user_github_omniauth_authorize_path, class: 'btn btn-dark btn-lg mr-1' do
+      Continue with
+      .fab.fa-github
+    .row.mt-1
+    = link_to user_facebook_omniauth_authorize_path, class: 'btn btn-primary btn-lg mr-1' do
+      Continue with
+      .fab.fa-facebook
 
 / вводная информация о количестве курсов и учеников
 .card-group

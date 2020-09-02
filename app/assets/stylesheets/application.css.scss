@@ -3,31 +3,69 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-
 @import "./actiontext.scss";
 
 
+body {
+  background: #2a4054;
+  color: white;
+}
 
-
-body { background: #2a4054;
-  color: white;}
-
-.card, .jumbotron, .list-group-item{
+.card, .jumbotron, .list-group-item {
   color: #2a4054;
 }
 
+//for all purple brand elements
+.purple-background {
+  background-color: #563d7c;
+}
 
-.form-control.is-invalid{background-image: none;}
-.form-control.is-valid{background-image: none;}
+//white background for all tables
+.table {
+  background: white;
+}
+
+//custom bootstrap button color
+$custompurple: #563d7c;
+.btn-custom-purple {
+  color: #fff;
+  background-color: $custompurple;
+  border-color: $custompurple;
+}
+
+.form-control.is-invalid {
+  background-image: none;
+}
+
+.form-control.is-valid {
+  background-image: none;
+}
 
 //Подсветка при перетаскиваниее Уроков
 .ui-state-highlight {
   height: 3em;
   line-height: 1.2em;
-  background-color:yellow;
+  background-color: yellow;
 }
 
 //simple-form input for rich_text_area
-trix-editor.form-control{
+trix-editor.form-control {
   height: auto;
+}
+
+//.jumbotron {
+//  background-image: image-url('background1.jpg');
+//}
+
+.parallax {
+  /* The image used */
+  background-image: image-url('background1.jpg');
+  /* Set a specific height */
+  height: auto;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
 }
