@@ -1,8 +1,20 @@
 -#Отображение названия статьи в заголовке страницы
 - content_for :title do
-  Universary
+  University
   \|
   = @user.username
   profile
 
 = render "users/user", user: @user
+
+-#Можем отображать дополнительные поля для пользователей, зарегистрировавшихся через Гугл
+/%br
+/= link_to user_google_oauth2_omniauth_authorize_path, class: 'nav-link' do
+/  .fab.fa-google
+/  Sign in with Google
+/%br
+/- if @user.image?
+/  .row
+/  = image_tag @user.image, size: '40x40', alt: "#{@user.email}", class: 'rounded-circle'
+/.row
+/= @user.name

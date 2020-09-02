@@ -59,13 +59,13 @@ gem 'aws-sdk-s3', require: false  # для хранения файлов на с
 gem 'active_storage_validations'  # вылидация для загружаемых файлов ( тип, расширение и т.д.)
 gem 'image_processing' # подгрузка картинок из S3
 gem 'recaptcha'
-gem 'wicked_pdf'
+gem 'wicked_pdf'  # выгрузка Карты зависимостей структур в PDF
 gem 'wkhtmltopdf-binary', group: :development
 gem 'wkhtmltopdf-heroku', group: :production
 gem 'wicked'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
-gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2' # аутентификация через Гугл
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'   # аутентификация через GitHub
+gem 'omniauth-facebook'   # аутентификация через Facebook
 gem 'cocoon'
 gem 'stripe'
 
