@@ -78,7 +78,7 @@
           .fa.fa-chart-bar
           Analytics
 
-    -#Только для админа и хозяина показываем статус Публикации 
+    -#Только для админа и хозяина показываем статус Публикации
     - if policy(course).admin_or_owner?
       .card-footer
         - if course.published?

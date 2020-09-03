@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
   def index
     # Для корректного поиска задаем , по которому будет пересылаться запрос из формы @q
     @ransack_path = courses_path
-
+    @tags = Tag.all
     # Переменная для Поиска в навбаре ( повторяется в AppController)
     # Отображаем в результатах только опубликованные курсы
     # В то время как для Купленных, Созданных, С отзывами и т.д. у нас есть другие методы( ниже)
@@ -18,13 +18,16 @@ class CoursesController < ApplicationController
 
     # подключаем пагинацию
     # ПРИМЕР  @pagy, @records = pagy(Product.some_scope)
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    #  :course_tags, :course_tags => :tags)  так реализуется зависимости has_many - trouth
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, :course_tags => :tag))
   end
 
   # Купленные курсы. Объеденяем все курсы в которых есть  Подписка с текущим пользователем
   def purchased
+    @tags = Tag.all
     # Для корректного поиска задаем путь , по которому будет пересылаться запрос из формы @q
     @ransack_path = purchased_courses_path
+
     # Переменная для Поиска в навбаре ( повторяется в AppController)
     @ransack_courses = Course.joins(:enrollments).where(enrollments: { user: current_user }).ransack(params[:courses_search], search_key: :courses_search)
     # И добавляем к выборке пагинацию
@@ -34,6 +37,7 @@ class CoursesController < ApplicationController
 
   # Ожидающие отзыва курсы
   def pending_review
+    @tags = Tag.all
     # Для корректного поиска задаем  путь, по которому будет пересылаться запрос из формы @q
     @ransack_path = pending_review_courses_path
     # В COURSES выбрать все подписки в которых есть Подписки, в которых нет еще отзывов (scope из enrollment.rb) текущего пользователя
@@ -46,6 +50,7 @@ class CoursesController < ApplicationController
 
   # Курсы, которые создал пользователь
   def created
+    @tags = Tag.all
     # Для корректного поиска задаем  путь, по которому будет пересылаться запрос из формы @q
     @ransack_path = created_courses_path
     #  # Переменная для Поиска в навбаре ( повторяется в AppController)
@@ -99,11 +104,13 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new
+    @tags = Tag.all
     authorize @course
   end
 
 
   def edit
+    @tags = Tag.all
     # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
     authorize @course
   end
@@ -111,6 +118,7 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    @tags = Tag.all
     # У каждого курса должен быть User? поэтому берем текущего (зарегистрированного)
     authorize @course
     @course.user = current_user
@@ -132,6 +140,7 @@ class CoursesController < ApplicationController
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
       else
+        @tags = Tag.all
         format.html { render :edit }
       end
     end

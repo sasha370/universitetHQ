@@ -5,7 +5,7 @@
 
   .form-inputs
     = f.input :title, input_html: {autocomplite: 'off'}
-    = f.select :tag_ids, Tag.all.pluck(:name, :id), {}, { multiple: true, class: "selectize" }
+    = f.select :tag_ids, @tags.pluck(:name, :id), {}, { multiple: true, class: "selectize" }
     -# = f.input :tag_ids
 
     -#у курса есть прикрепленный файл = аватар, который будем хранить на S3 (прописанно в моделе))
