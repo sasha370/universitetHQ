@@ -49,7 +49,7 @@ class CoursesController < ApplicationController
   end
 
   # Курсы, которые создал пользователь
-  def created
+  def created   #teaching
     @tags = Tag.all
     # Для корректного поиска задаем  путь, по которому будет пересылаться запрос из формы @q
     @ransack_path = created_courses_path
