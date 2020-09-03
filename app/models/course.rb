@@ -23,6 +23,10 @@ class Course < ApplicationRecord
   has_many :enrollments, dependent: :restrict_with_error
   # У Курса есть несколько записей UserLesson, отслеживаемые через Lesson
   has_many :user_lessons, through: :lessons
+  # У курса есть много тегов, через промежуточную таблицу
+  has_many :course_tags, dependent: :destroy # в случае удаления курса, удаляются записи СВЯЗЕЙ с тегами
+  has_many :tags, through: :course_tags
+
 
   # Подключаем гем для отвлеживания событий в модели Курсы
   include PublicActivity::Model

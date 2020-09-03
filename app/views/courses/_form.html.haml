@@ -4,7 +4,9 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
-    = f.input :title
+    = f.input :title, input_html: {autocomplite: 'off'}
+    = f.select :tag_ids, Tag.all.pluck(:name, :id), {}, { multiple: true, class: "selectize" }
+    -# = f.input :tag_ids
 
     -#у курса есть прикрепленный файл = аватар, который будем хранить на S3 (прописанно в моделе))
     -# = f.label :avatar
@@ -33,6 +35,5 @@
     = f.input :level, collection: Course.levels
     = f.input :price
     = f.input :published
-
   .form-actions
     = f.button :submit

@@ -164,6 +164,6 @@ class CoursesController < ApplicationController
     # White-list для параметров
     #  published - галочка для "опубликовать"
     # avatar  - прикрепленное изображение для аватарки, хранится на S3
-    params.require(:course).permit(:title, :description, :short_description, :price, :level, :language, :published, :avatar)
+    params.require(:course).permit(:title, :description, :short_description, :price, :level, :language, :published, :avatar, tag_ids: [])
   end
 end
