@@ -1,8 +1,10 @@
 class EnrollmentsController < ApplicationController
-  before_action :set_enrollment, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_enrollment, only: [:show, :edit, :update, :destroy, :certificate]
   # при создании новой подписки нам надо выбарть курс, на который будем подписываться
   before_action :set_course, only: [:new, :create]
+
+  # Доступ к сертификату возможен без регистрации - для просмотра по прямой ссылке из PDF
+  skip_before_action :authenticate_user!, only: [:certificate]
 
   def index
     # Для корректного поиска задаем , по которому будет пересылаться запрос из формы @q
@@ -27,6 +29,26 @@ class EnrollmentsController < ApplicationController
     @pagy, @enrollments = pagy(@q.result.includes(:user))
     render :index
   end
+
+  # метод для формирования PDF сертификата
+  def certificate
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
+               page_size: "A4",
+               # Содержание берется из course/show
+               template: "enrollments/show.pdf.haml",
+               # Подложка берется из layout
+               layout: "pdf.html.haml",
+               orientation: "Landscape",
+               lowquality: true,
+               zoom: 1,
+               dpi: 75
+      end
+    end
+  end
+
 
   def show
 

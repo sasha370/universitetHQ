@@ -111,23 +111,6 @@ class CoursesController < ApplicationController
         @courses.push(course) # во вьюхе уже отрисовываем полученный массив
       end
     end
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "#{@course.title}, #{current_user.email}",
-               page_size: "A4",
-               # Содержание берется из course/show
-               template: "courses/show.pdf.haml",
-               # Подложка берется из layout
-               layout: "pdf.html.haml",
-               orientation: "Portrait",
-               lowquality: true,
-               zoom: 1,
-               dpi: 75
-      end
-    end
-
-
   end
 
   def new

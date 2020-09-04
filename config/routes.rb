@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         delete :delete_video
       end
     end
-    # Подписка может быть только создана
+    # Подписка может быть только создана, отображена
     resources :enrollments, only: [:new, :create, :index]
 
     # Для обработки события Подтверждения курса Админом
@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       patch :approve
       patch :unapprove
     end
+
   end
 
   resources :users, only: [:index, :edit, :show, :update]
@@ -41,6 +42,11 @@ Rails.application.routes.draw do
   resources :enrollments do
     # Запрос сбрасывается на доп.метод, который отображает всех студентов текущего преподователя
     get :my_students, on: :collection
+
+    # Для формирования pdf нам нужен путь вида enrollment/certificate
+    member do
+      get :certificate
+    end
   end
 
   get 'home/index'

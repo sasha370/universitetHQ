@@ -7,7 +7,7 @@
     = wicked_pdf_javascript_include_tag "number_pages"
   %body{:onload => "number_pages"}
     #header
-      = wicked_pdf_image_tag 'logo.png'
+      -# = image_tag wicked_pdf_asset_base64('logo.png'), height: "30", width: "auto"
     #content
       = yield
 
