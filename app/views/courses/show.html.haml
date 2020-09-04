@@ -41,6 +41,10 @@
       .float-right
         .fa.fa-spinner
         = number_to_percentage(@course.progress(current_user), precision: 0)
+        -#Отображаем доступность Сертификата, прописано в Хелпере
+      %h6.text-right
+        = certificate_button(@course)
+
     -#.Добавили .lesson-sortable   - для обработки в JS ( сортировка )
     %ul.list-group.lesson-sortable
       - @lessons.each do |lesson|

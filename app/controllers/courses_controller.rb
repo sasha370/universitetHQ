@@ -69,6 +69,7 @@ class CoursesController < ApplicationController
 
   # Поддтвердить и снять для Курсов( функционал  Админа)
   def approve
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
     authorize @course, :approve?
     @course.update_attribute(:approved, true)
@@ -76,6 +77,7 @@ class CoursesController < ApplicationController
   end
 
   def unapprove
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
     authorize @course, :approve?
     @course.update_attribute(:approved, false)
@@ -84,6 +86,7 @@ class CoursesController < ApplicationController
 
   # Курсы, которые требуют подтверждения ( Для Админа)
   def unapproved
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # Для корректного поиска задаем  путь, по которому будет пересылаться запрос из формы @q
     @ransack_path = unapproved_courses_path
     # В COURSES выбрать все подписки в которых есть Подписки, в которых нет еще отзывов (scope из enrollment.rb) текущего пользователя
@@ -108,10 +111,9 @@ class CoursesController < ApplicationController
       # Ищем совпадение в ID тегов у текущего курса и у перебираемых
       # Считаем их, и если собпадение >0, то добавляем курс в список похожих
       if @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count > 0
-        @courses.push(course)  # во вьюхе уже отрисовываем полученный массив
+        @courses.push(course) # во вьюхе уже отрисовываем полученный массив
       end
     end
-
   end
 
   def new

@@ -63,6 +63,7 @@
               .text-warning.fa.fa-comment
               = sort_link(@q, :updated_at)
             %th Progress
+            %th Certificate
             %th
             %th
             %th
@@ -80,7 +81,10 @@
                   = enrollment.updated_at.strftime("%d/%b/%Y - %H:%M")
               %td= enrollment.rating
               %td= enrollment.review
+              -#Прогресс
               %td= number_to_percentage(enrollment.course.progress(enrollment.user), precision: 0)
+              -#Ссылка на PDF сертификат
+              %td= link_to "Certificate", certificate_enrollment_path(enrollment, format: :pdf)
               %td= link_to 'See review', enrollment
               %td
                 - if policy(enrollment).edit?

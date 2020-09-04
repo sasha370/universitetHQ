@@ -54,4 +54,22 @@ module CoursesHelper
       end
     end
   end
+
+  def certificate_button(course)
+    # т.к. у Владельца курса нет подписки на себя, то ссылку должны видеть только при наличии подписки
+    user_course = course.enrollments.where(user: current_user)
+    if current_user
+      if user_course.any?
+        if @course.progress(current_user) == 100
+          link_to  certificate_enrollment_path( user_course.first, format: :pdf), class: 'btn btn-sm btn-success' do
+          "<i class='fa fa-file-pdf'></i>".html_safe + " " +
+              "Certificate от Completion"
+          end
+        else
+          "Certificate available after completion"
+        end
+      end
+    end
+  end
+
 end
