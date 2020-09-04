@@ -32,13 +32,16 @@ class EnrollmentsController < ApplicationController
 
   # метод для формирования PDF сертификата
   def certificate
+    # Сертификат можно посмотреть только если закончил курс на 100%
+    # задаем это правило в policies
+    authorize @enrollment, :certificate?
     respond_to do |format|
       format.html
       format.pdf do
         render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
                page_size: "A4",
                # Содержание берется из course/show
-               template: "enrollments/show.pdf.haml"
+               template: "enrollments/certificate.pdf.haml"
         # Часть настроек PDF шаблона перенесена в initialize/wicked_pdf и будет универсальна для любого фалй PDF на сайте
       end
     end
