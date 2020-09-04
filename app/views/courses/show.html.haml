@@ -64,5 +64,10 @@
     .sticky-top
       = render 'courses/course', course: @course
 
-
-
+%h4
+  .fa.fa-clone
+    Similar Courses
+.col-md-10
+  .card-columns
+    - @courses.each do |course|
+      = render 'courses/course', course: course

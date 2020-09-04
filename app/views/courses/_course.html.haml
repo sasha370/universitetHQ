@@ -78,7 +78,7 @@
           .fa.fa-chart-bar
           Analytics
 
-    -#Только у админа и хозяина есть права на удаление, поэтому показываем статус Публикации только им
+    -#Только для админа и хозяина показываем статус Публикации
     - if policy(course).admin_or_owner?
       .card-footer
         - if course.published?
@@ -89,10 +89,15 @@
           .badge.badge-success Approved
         -else
           .badge.badge-danger Unapproved
+        -#Кнопка Для одобрения курса ( только для Админа))
+        - if policy(course).approve?
+          - if course.approved?
+            = link_to "Unapprove", unapprove_course_path(course), method: :patch, class: "btn btn-sm btn-outline-danger"
+          -else
+            = link_to "Approve", approve_course_path(course), method: :patch, class: "btn btn-sm btn-outline-success"
 
-    - if policy(course).approve?
+      / Теги Курса
       .card-footer
-        - if course.approved?
-          = link_to "Unapprove", unapprove_course_path(course), method: :patch, class: "btn btn-sm btn-outline-danger"
-        -else
-          = link_to "Approve", approve_course_path(course), method: :patch, class: "btn btn-sm btn-outline-success"
+        - course.tags.each do |tag|
+          .badge.badge-info
+            = tag.name

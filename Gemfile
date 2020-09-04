@@ -69,3 +69,4 @@ gem 'omniauth-facebook'   # аутентификация через Facebook
 gem 'cocoon'
 gem 'stripe'
 
+#yarn add selectize   -  гем для быстрого выбора тегов

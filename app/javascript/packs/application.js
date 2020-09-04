@@ -36,6 +36,9 @@ require("jquery")
 require("jquery-ui-dist/jquery-ui")
 import "youtube"
 
+// Библиотека для выбора тегов
+require("selectize")
+
 
 // Метод для обработки drag_drop событий внутри курса ( перетаскивание уроков)
 // Ждем полной загрузки турболинков
@@ -44,7 +47,7 @@ $(document).on('turbolinks:load', function () {
     $('.lesson-sortable').sortable({
         cursor: "grabbing",
         //cursorAt: { left: 10 },
-        // плейсхолдер прописали в application.css.scss
+        // плейсхолдер прописали в application.scss
         placeholder: "ui-state-highlight",
 
         update: function (e, ui) {
@@ -67,8 +70,37 @@ $(document).on('turbolinks:load', function () {
 
 
     // Запрещаем правый клик на видео, чтобы не скачивали
-    $("video").bind("contextmenu",function(){
+    $("video").bind("contextmenu", function () {
         return false;
+    });
+
+    // ТЕГИ
+    // Инициализируем JS как только появляется чтото с классом selectize
+    if ($('.selectize')) {
+        $('.selectize').selectize({
+            sortField: 'text',
+        });
+    }
+
+    // Возможность создания новых тегов
+    $(".selectize-tags").selectize({
+        plugins: ['remove_button'],
+        delimiter: ',',
+        persist: false,
+
+        // Создание нового тега
+        create: function (input, callback) {
+            // Методом пост отправляем имя созданного тега
+            $.post('/tags.json', {tag: {name: input}})
+                .done(function (response) {
+                    console.log(response)
+                    callback({value: response.id, text: response.name});
+                })
+            // return {
+            //     value: input,
+            //     text: input
+            // };
+        }
     });
 
 
@@ -83,7 +115,9 @@ $(document).on('turbolinks:load', function () {
         liveui: true,
         responsive: true,
         loop: false,
-    })
-    videoPlayer.addClass('video-js')
-    videoPlayer.addClass('vjs-big-play-centered')
+    });
+    videoPlayer.addClass('video-js');
+    videoPlayer.addClass('vjs-big-play-centered');
+
+
 });
