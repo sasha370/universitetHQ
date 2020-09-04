@@ -29,6 +29,8 @@ class EnrollmentPolicy < ApplicationPolicy
 
   def certificate?
     # количество лекций в Курсе данной полписки  ====  кол-ву записей просмотренных пользователем
-    @record.course.lessons_count == @record.course.user_lessons.where(user: @record.user).count
+    # @record.course.lessons_count == @record.course.user_lessons.where(user: @record.user).count
+    @record.course.progress(@record.user) == 100
+
   end
 end
