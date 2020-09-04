@@ -108,9 +108,25 @@ class CoursesController < ApplicationController
       # Ищем совпадение в ID тегов у текущего курса и у перебираемых
       # Считаем их, и если собпадение >0, то добавляем курс в список похожих
       if @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count > 0
-        @courses.push(course)  # во вьюхе уже отрисовываем полученный массив
+        @courses.push(course) # во вьюхе уже отрисовываем полученный массив
       end
     end
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@course.title}, #{current_user.email}",
+               page_size: "A4",
+               # Содержание берется из course/show
+               template: "courses/show.pdf.haml",
+               # Подложка берется из layout
+               layout: "pdf.html.haml",
+               orientation: "Portrait",
+               lowquality: true,
+               zoom: 1,
+               dpi: 75
+      end
+    end
+
 
   end
 
