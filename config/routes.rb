@@ -67,5 +67,7 @@ Rails.application.routes.draw do
   get 'activity', to: 'home#activity'
   root 'home#index'
 
+  # Для создания Мультиформ
+  resources :course_creator
 
 end
