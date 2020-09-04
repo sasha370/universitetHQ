@@ -76,11 +76,33 @@ $(document).on('turbolinks:load', function () {
 
     // ТЕГИ
     // Инициализируем JS как только появляется чтото с классом selectize
-    if ($('.selectize')){
+    if ($('.selectize')) {
         $('.selectize').selectize({
-            sortField: 'text'
+            sortField: 'text',
         });
     }
+
+    // Возможность создания новых тегов
+    $(".selectize-tags").selectize({
+        plugins: ['remove_button'],
+        delimiter: ',',
+        persist: false,
+
+        // Создание нового тега
+        create: function (input, callback) {
+            // Методом пост отправляем имя созданного тега
+            $.post('/tags.json', {tag: {name: input}})
+                .done(function (response) {
+                    console.log(response)
+                    callback({value: response.id, text: response.name});
+                })
+            // return {
+            //     value: input,
+            //     text: input
+            // };
+        }
+    });
+
 
     // инитциализация плеера (кастомного)
     let videoPlayer = videojs(document.getElementById('my-video'), {
@@ -98,14 +120,4 @@ $(document).on('turbolinks:load', function () {
     videoPlayer.addClass('vjs-big-play-centered');
 
 
-
-    // $(".selectize-tags").selectize({
-    //     create: function (input, callback) {
-    //         $.post('/tags.json', {tag: {name: input}})
-    //             .done(function (response) {
-    //                 console.log(response)
-    //                 callback({value: response.id, text: response.name});
-    //             })
-    //     }
-    // });
 });

@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :edit, :show, :update]
   resources :youtube, only: :show
+  resources :tags, only: [:create]
+
 
   resources :enrollments do
     # Запрос сбрасывается на доп.метод, который отображает всех студентов текущего преподователя
