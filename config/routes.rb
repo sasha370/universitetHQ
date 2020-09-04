@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :edit, :show, :update]
   resources :youtube, only: :show
-  resources :tags, only: [:create]
+  resources :tags, only: [:create, :index, :destroy]
 
 
   resources :enrollments do

@@ -20,6 +20,8 @@ class HomeController < ApplicationController
 
     # Список самых свежих курсов
     @latest_courses = Course.all.limit(3).order(created_at: :desc)
+
+    @popular_tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc).limit(10)
   end
 
   # Собираем все активностипо разделу статьи

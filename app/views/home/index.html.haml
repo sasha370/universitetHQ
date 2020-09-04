@@ -134,7 +134,21 @@
     -#Перенапряавляем на Список самых новых курсов
     -#для этого в параметрах передаем настройку для raksack: "поле average_rating отсортировать" )
     = link_to "More new courses", courses_path(courses_search: {s: 'created_at desc'})
+
 %hr
+%h3
+  .fa.fa-tags
+  Popular Tags
+- @popular_tags.each do |tag|
+  -#Перенапряавляем на Курсы, содержащие данный тег
+  -#для этого в параметрах передаем настройку для поиска raksack: В таблице зависимостей найти все Записи с данным ID тега  )
+  = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
+    .badge.badge-info
+      %h5
+        = tag.name
+        |
+        = tag.course_tags_count
+
 %h2
   .fa.fa-comment
     What our student have to say

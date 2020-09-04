@@ -53,14 +53,15 @@
       .fa.fa-sync
 
     .row
-    - @tags.order(course_tags_count: :desc).each do |tag|
-      .badge.badge-info
+    - @tags.each do |tag|
+      = link_to controller: controller_name, action: action_name,  courses_search: {course_tags_tag_id_eq: tag.id} do
         -#Перенапряавляем на Курсы , содержащие данный тег
         -#для этого в параметрах передаем настройку для поиска raksack: В таблице зависимостей найти все Записи с данным ID тега  )
         -# = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
         -#чтобы оставаться на текущей странице, с которой делаем выборку по Тегу, нам нужно передать текущий контроллер и текущий экшн
-        = link_to controller: controller_name, action: action_name,  courses_search: {course_tags_tag_id_eq: tag.id} do
+        .badge.badge-info
           = tag.name
+          |
           = tag.course_tags_count
 
 
