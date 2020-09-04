@@ -8,7 +8,7 @@
 - @tags.each do |tag|
   .row
   = tag.name
-  |
-  = tag.course_tags_count
+  .badge.badge-light
+    = tag.course_tags_count
   - if policy(tag).destroy?
     = link_to "X", tag, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger"

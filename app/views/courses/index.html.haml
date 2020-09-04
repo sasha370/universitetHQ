@@ -61,8 +61,8 @@
         -#чтобы оставаться на текущей странице, с которой делаем выборку по Тегу, нам нужно передать текущий контроллер и текущий экшн
         .badge.badge-info
           = tag.name
-          |
-          = tag.course_tags_count
+          .badge.badge-light
+            = tag.course_tags_count
 
 
   .col-md-10

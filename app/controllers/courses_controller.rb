@@ -49,7 +49,7 @@ class CoursesController < ApplicationController
   end
 
   # Курсы, которые создал пользователь
-  def created   #teaching
+  def created #teaching
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # Для корректного поиска задаем  путь, по которому будет пересылаться запрос из формы @q
     @ransack_path = created_courses_path
@@ -90,7 +90,7 @@ class CoursesController < ApplicationController
     #  # Переменная для Поиска в навбаре ( повторяется в AppController)
     @ransack_courses = Course.unapproved.ransack(params[:courses_search], search_key: :courses_search)
     # И добавляем к выборке пагинацию
-    @pagy, @courses = pagy(@ransack_courses.result.includes( :user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
     render :index
 
   end
@@ -100,6 +100,18 @@ class CoursesController < ApplicationController
     authorize @course
     @lessons = @course.lessons.rank(:row_order).all # приписка для ранжирования по порядку
     @enrollments_with_reviews = @course.enrollments.reviewed
+
+    # Выборка Похожих курсов
+    @courses = [] # пустой массив для хранения выборки
+    Course.all.where.not(id: @course.id).each do |course|
+      # выбираем все курсы, кроме текущего
+      # Ищем совпадение в ID тегов у текущего курса и у перебираемых
+      # Считаем их, и если собпадение >0, то добавляем курс в список похожих
+      if @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count > 0
+        @courses.push(course)  # во вьюхе уже отрисовываем полученный массив
+      end
+    end
+
   end
 
   def new
