@@ -6,9 +6,9 @@ class CoursesController < ApplicationController
 
   # В Экшене прописываем дополнительно поиск
   def index
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # Для корректного поиска задаем , по которому будет пересылаться запрос из формы @q
     @ransack_path = courses_path
-    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # Переменная для Поиска в навбаре ( повторяется в AppController)
     # Отображаем в результатах только опубликованные курсы
     # В то время как для Купленных, Созданных, С отзывами и т.д. у нас есть другие методы( ниже)
@@ -122,23 +122,27 @@ class CoursesController < ApplicationController
     authorize @course
   end
 
-
-  def edit
-    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
-    # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
-    authorize @course
-  end
+  # Перенесено в Wizard
+  # def edit
+  #   @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+  #   # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
+  #   authorize @course
+  # end
 
 
   def create
     @course = Course.new(course_params)
+    @course.description = "Curriculum Description"
+    @course.short_description = "Marketing Description"
+
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # У каждого курса должен быть User? поэтому берем текущего (зарегистрированного)
     authorize @course
     @course.user = current_user
+
     respond_to do |format|
       if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
+        format.html { redirect_to course_course_wizard_index_path(@course), notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new }
@@ -147,18 +151,18 @@ class CoursesController < ApplicationController
     end
   end
 
-
-  def update
-    authorize @course
-    respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
-      else
-        @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
-        format.html { render :edit }
-      end
-    end
-  end
+  # Перенесено в Wizard
+  # def update
+  #   authorize @course
+  #   respond_to do |format|
+  #     if @course.update(course_params)
+  #       format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+  #     else
+  #       @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+  #       format.html { render :edit }
+  #     end
+  #   end
+  # end
 
 
   def destroy

@@ -59,13 +59,13 @@ gem 'aws-sdk-s3', require: false  # для хранения файлов на с
 gem 'active_storage_validations'  # вылидация для загружаемых файлов ( тип, расширение и т.д.)
 gem 'image_processing' # подгрузка картинок из S3
 gem 'recaptcha'
-gem 'wicked'  # haml2pdf generator для создания сертификатов об окончании курса
-gem 'wicked_pdf'  # выгрузка Карты зависимостей структур в PDF
-gem 'wkhtmltopdf-binary', group: :development  # вспомогательный гем для wicked
+gem 'wicked_pdf'  # haml2pdf generator для создания сертификатов об окончании курса
+gem 'wkhtmltopdf-binary', group: :development  # вспомогательный гем для wicked_pdf
 gem 'wkhtmltopdf-heroku', group: :production # вспомогательный гем для wicked, т.к. без него приложение занимает в 5 раз больше места на сервере, т..к хранит все pdf
 gem 'omniauth-google-oauth2' # аутентификация через Гугл
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'   # аутентификация через GitHub
 gem 'omniauth-facebook'   # аутентификация через Facebook
+gem 'wicked'  # multistep-form
 gem 'cocoon'
 gem 'stripe'
 

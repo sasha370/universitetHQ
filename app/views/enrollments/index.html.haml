@@ -59,9 +59,9 @@
             %th
               .text-warning.fa.fa-star
               = sort_link(@q, :rating)
-            %th
-              .text-warning.fa.fa-comment
-              = sort_link(@q, :updated_at)
+            -#%th
+            -#  .text-warning.fa.fa-comment
+            -#  = sort_link(@q, :progress)
             %th Progress
             %th Certificate
             %th
@@ -80,7 +80,7 @@
                 - if  enrollment.rating.present?
                   = enrollment.updated_at.strftime("%d/%b/%Y - %H:%M")
               %td= enrollment.rating
-              %td= enrollment.review
+              -#%td= enrollment.review
               -#Прогресс
               %td= number_to_percentage(enrollment.course.progress(enrollment.user), precision: 0)
               -#Ссылка на PDF сертификат

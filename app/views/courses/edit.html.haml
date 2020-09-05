@@ -5,6 +5,11 @@
   Edit
   = @course.title
 
+/Хлебные крошки в заголовке карточки
+
+= link_to 'Courses/', courses_path
+= link_to @course.title, course_path(@course)
+
 .card
   .card-body
     %h3

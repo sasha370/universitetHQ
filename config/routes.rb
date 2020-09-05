@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # все пути для Курсов проаиснные генератором
   # Уроки идут в URL после курса в виде courses/lesson/22
-  resources :courses do
+  resources :courses, except: [:edit] do # Edit реализован через Wizard
     # Запрос сбрасываем на подобранную коллекцию ( отображает список Купленных курсов, и тех что ожидают отзывы)
     get :purchased, :pending_review, :created, :unapproved, on: :collection
     resources :lessons do
@@ -31,7 +31,8 @@ Rails.application.routes.draw do
       patch :approve
       patch :unapprove
     end
-
+    # Для создания Мультиформ
+    resources :course_wizard, controller: 'courses/course_wizard'
   end
 
   resources :users, only: [:index, :edit, :show, :update]
