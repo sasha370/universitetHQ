@@ -1,29 +1,21 @@
-.card
-  .progress{ style: "width: #{@progress}%; height: 8px;", class: "progress-bar progress-bar-striped progress-bar-animated"}
-  .card-header
-    %h1
-      = wizard_steps.index(step) + 1
-      \/
-      = wizard_steps.count
-      = step.to_s.humanize
+= render layout: 'courses/course_wizard/step' do
+  = @course.title
+  = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
+    = f.input :title
+    - if @course.avatar.attached?
+      = image_tag @course.avatar, width:  "200px"
+    = f.input :avatar
+    = f.input :description, as: :rich_text_area
+    = f.input :short_description
+    = f.input :language, collection: Course.languages
+    = f.button  :submit, class: 'btn btn-success'
 
-  .card-body
-    = @course.title
-    = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
-      = f.input :title
-      - if @course.avatar.attached?
-        = image_tag @course.avatar, width:  "200px"
-      = f.input :avatar
-      = f.input :short_description
-      = f.input :language, collection: Course.languages
-      = f.button  :submit, class: 'btn btn-success'
-
-  .card-footer
-    .float-left
-      = link_to  previous_wizard_path, class: 'btn btn-sm btn-info' do
-        .fa.fa-arrow-left
-          Previous
-    .float-right
-      = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
-        .fa.fa-arrow-right
-          Skip
+.card-footer
+  .float-left
+    = link_to  course_path(@course), class: 'btn btn-sm btn-secondary' do
+      .fa.fa-arrow-left
+        Cancel
+  .float-right
+    = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
+      .fa.fa-arrow-right
+        Skip

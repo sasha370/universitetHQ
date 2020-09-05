@@ -71,7 +71,11 @@
         /добавляем кнопку для создания урока, при пересылке нужно передать ID курса в params
         = link_to "Add lesson", new_course_lesson_path(course, @lesson), class: "btn btn-outline-primary btn-sm "
         /Кнопка редактирования будет отображаться только если есть права на редактирование
-        = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-outline-warning"
+        -# = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-outline-warning"
+
+        = link_to  course_course_wizard_index_path(course), class: "btn btn-sm btn-outline-warning" do
+          .fa.fa-edit
+          Edit
         - if policy(course).destroy?
           = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger"
         = link_to analytics_course_path(course), class: 'btn btn-sm btn-outline-info' do

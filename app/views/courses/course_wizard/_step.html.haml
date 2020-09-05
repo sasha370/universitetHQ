@@ -1,0 +1,39 @@
+-#Отображение названия статьи в заголовке страницы
+- content_for :title do
+  University
+  \|
+  Edit
+  = @course.title
+
+  /Хлебные крошки в заголовке карточки
+
+= link_to 'Courses', courses_path
+|
+.fa.fa-graduation-cap
+= link_to @course.title, course_path(@course)
+|
+= link_to  course_course_wizard_path(@course) do
+  Edit
+  = step.to_s.humanize
+
+.card
+  .progress{ style: "width: #{@progress}%; height: 8px;", class: "progress-bar progress-bar-striped progress-bar-animated"}
+  .card-header
+    %h1
+      = wizard_steps.index(step) + 1
+      \/
+      = wizard_steps.count
+      = step.to_s.humanize
+
+  .card-body
+    = yield
+
+  -#.card-footer
+    -#.float-left
+    -#  = link_to  course_path(@course), class: 'btn btn-sm btn-secondary' do
+    -#    .fa.fa-arrow-left
+    -#      Cancel
+    -#.float-right
+    -#  = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
+    -#    .fa.fa-arrow-right
+    -#      Skip

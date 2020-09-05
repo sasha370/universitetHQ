@@ -122,12 +122,12 @@ class CoursesController < ApplicationController
     authorize @course
   end
 
-
-  def edit
-    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
-    # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
-    authorize @course
-  end
+  # Перенесено в Wizard
+  # def edit
+  #   @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+  #   # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
+  #   authorize @course
+  # end
 
 
   def create
@@ -147,18 +147,18 @@ class CoursesController < ApplicationController
     end
   end
 
-
-  def update
-    authorize @course
-    respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
-      else
-        @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
-        format.html { render :edit }
-      end
-    end
-  end
+  # Перенесено в Wizard
+  # def update
+  #   authorize @course
+  #   respond_to do |format|
+  #     if @course.update(course_params)
+  #       format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+  #     else
+  #       @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+  #       format.html { render :edit }
+  #     end
+  #   end
+  # end
 
 
   def destroy
