@@ -1,0 +1,30 @@
+.card
+  .progress{ style: "width: #{@progress}%; height: 8px;", class: "progress-bar progress-bar-striped progress-bar-animated"}
+  .card-header
+    %h1
+      = wizard_steps.index(step) + 1
+      \/
+      = wizard_steps.count
+      = step.to_s.humanize
+
+
+  .card-body
+    = @course.title
+    = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
+      = f.input :level, collection: Course.levels
+      = f.input :price
+      = f.input :published
+      /-#форма для ТЕГОВ
+      = f.select :tag_ids, @tags.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }
+      = f.button :submit, class: 'btn btn-success'
+
+
+  .card-footer
+    .float-left
+      = link_to  previous_wizard_path, class: 'btn btn-sm btn-info' do
+        .fa.fa-arrow-left
+          Previous
+    .float-right
+      = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
+        .fa.fa-arrow-right
+          Skip

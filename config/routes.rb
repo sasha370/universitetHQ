@@ -31,7 +31,8 @@ Rails.application.routes.draw do
       patch :approve
       patch :unapprove
     end
-
+    # Для создания Мультиформ
+    resources :course_wizard, controller: 'courses/course_wizard'
   end
 
   resources :users, only: [:index, :edit, :show, :update]
@@ -67,7 +68,5 @@ Rails.application.routes.draw do
   get 'activity', to: 'home#activity'
   root 'home#index'
 
-  # Для создания Мультиформ
-  resources :course_creator
 
 end

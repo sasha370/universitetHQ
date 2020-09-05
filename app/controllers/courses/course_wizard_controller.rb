@@ -1,24 +1,44 @@
-class CourseCreatorController < ApplicationController
+class Courses::CourseWizardController < ApplicationController
   # Подключаем гем внутри именно этого контроллера
   include Wicked::Wizard
 
-  before_action :set_progress, only: [:show]
-
+  before_action :set_progress, only: [:show, :update]
+  before_action :set_course, only: [:show, :update, :finish_wizard_path]
   # разбиваем Мультиформу на два шага и даем им названия
   # В первой Title description аватар
   # во второй язык, цена и т.п.
   steps :basic_info, :details
 
   def show
+
+    case step
+      when :basic_info
+      when :details
+        @tags = Tag.all
+    end
     render_wizard
+
   end
+
+  def update
+    case step
+      when :basic_info
+        @course.update_attributes(course_params)
+      when :details
+        @tags = Tag.all
+        @course.update_attributes(course_params)
+    end
+    render_wizard @course
+  end
+
 
   # Путь по которому переходим, когда форма заполенна
   def finish_wizard_path
-    courses_path
+    course_path(@course)
   end
 
   private
+
   # счетчик прогресса заполнения формы
   def set_progress
     # Если есть хоть один шаг и у нас есть текущий шаг
@@ -27,6 +47,13 @@ class CourseCreatorController < ApplicationController
     else
       @progress = 0
     end
+  end
 
+  def set_course
+    @course = Course.friendly.find(params[:course_id])
+  end
+
+  def course_params
+    params.require(:course).permit(:title, :description, :short_description, :price, :level, :language, :published, :avatar, tag_ids: [])
   end
 end

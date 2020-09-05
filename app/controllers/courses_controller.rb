@@ -6,9 +6,9 @@ class CoursesController < ApplicationController
 
   # В Экшене прописываем дополнительно поиск
   def index
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # Для корректного поиска задаем , по которому будет пересылаться запрос из формы @q
     @ransack_path = courses_path
-    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # Переменная для Поиска в навбаре ( повторяется в AppController)
     # Отображаем в результатах только опубликованные курсы
     # В то время как для Купленных, Созданных, С отзывами и т.д. у нас есть другие методы( ниже)
