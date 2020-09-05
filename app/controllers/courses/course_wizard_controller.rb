@@ -7,7 +7,7 @@ class Courses::CourseWizardController < ApplicationController
   # разбиваем Мультиформу на два шага и даем им названия
   # В первой Title description аватар
   # во второй язык, цена и т.п.
-  steps :basic_info, :details
+  steps :basic_info, :details, :publish
 
   def show
     # авторизвуем по курсу и его политике на Edit
@@ -16,6 +16,8 @@ class Courses::CourseWizardController < ApplicationController
       when :basic_info
       when :details
         @tags = Tag.all
+      when :publish
+
     end
     render_wizard
 
@@ -23,12 +25,12 @@ class Courses::CourseWizardController < ApplicationController
 
   def update
     authorize @course, :edit?
+    @course.update_attributes(course_params)
     case step
       when :basic_info
-        @course.update_attributes(course_params)
       when :details
         @tags = Tag.all
-        @course.update_attributes(course_params)
+      when :publish
     end
     render_wizard @course
   end

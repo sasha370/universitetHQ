@@ -132,13 +132,17 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    @course.description = "Curriculum Description"
+    @course.short_description = "Marketing Description"
+
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # У каждого курса должен быть User? поэтому берем текущего (зарегистрированного)
     authorize @course
     @course.user = current_user
+
     respond_to do |format|
       if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
+        format.html { redirect_to course_course_wizard_index_path(@course), notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new }

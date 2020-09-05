@@ -24,11 +24,11 @@ class CoursePolicy < ApplicationPolicy
         @user.present? && @record.bought(@user)
 
   end
-
-  def update?
-    # @user.has_role?(:admin)  ||
-    @record.user == @user
-  end
+  #
+  # def update?
+  #   # @user.has_role?(:admin)  ||
+  #   @record.user == @user
+  # end
 
   def new?
     @user.has_role?(:teacher)

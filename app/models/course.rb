@@ -11,7 +11,8 @@ class Course < ApplicationRecord
 
   # У каждого курса есть прикрепленный файл ( аватар в нашем случае), который будет хранится на S3
   has_one_attached :avatar
-  validates :avatar, presence: true, content_type: [:png, :jpg, :jpeg],
+  validates :avatar, presence: true, on: :update
+  validates :avatar, content_type: [:png, :jpg, :jpeg],
             size: { less_than: 500.kilobytes, message: "image must be less that 500 Kb" }
 
 

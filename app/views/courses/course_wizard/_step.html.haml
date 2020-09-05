@@ -17,23 +17,43 @@
   = step.to_s.humanize
 
 .card
-  .progress{ style: "width: #{@progress}%; height: 8px;", class: "progress-bar progress-bar-striped progress-bar-animated"}
+  .progress
+    .progress-bar{ style: "width: #{@progress}%"}= number_to_percentage(@progress, precision: 0)
+  .progress
+    - wizard_steps.each do |s|
+      - if current_page?(course_course_wizard_path(@course, s))
+        - @color = 'bg-success'
+      - else
+        - @color = 'bg-secondary'
+
+      = link_to course_course_wizard_path(@course, s), class: "progress-bar #{@color}", style: "width: #{@progress}%" do
+        = wizard_steps.index(s) + 1
+        = step.to_s.humanize
+
+
   .card-header
-    %h1
+    %h3
+
       = wizard_steps.index(step) + 1
       \/
       = wizard_steps.count
       = step.to_s.humanize
 
+    = @course.title
   .card-body
+    .container.text-danger
+      - if @course.errors.any?
+        - @course.errors.full_messages.each do |msg|
+          %li= msg
     = yield
 
-  -#.card-footer
-    -#.float-left
-    -#  = link_to  course_path(@course), class: 'btn btn-sm btn-secondary' do
-    -#    .fa.fa-arrow-left
-    -#      Cancel
-    -#.float-right
-    -#  = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
-    -#    .fa.fa-arrow-right
-    -#      Skip
+
+  .card-footer
+    .float-left
+      = link_to  previous_wizard_path, class: 'btn btn-sm btn-info' do
+        .fa.fa-arrow-left
+          Previous
+    .float-right
+      = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
+        .fa.fa-arrow-right
+          Next

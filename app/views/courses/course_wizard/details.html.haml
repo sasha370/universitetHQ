@@ -1,20 +1,11 @@
 = render layout: 'courses/course_wizard/step' do
-  = @course.title
+
   = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
     = f.input :level, collection: Course.levels
     = f.input :price
-    = f.input :published
+
     /-#форма для ТЕГОВ
+    Tags:
     = f.select :tag_ids, @tags.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }
     = f.button :submit, class: 'btn btn-success'
 
-
-.card-footer
-  .float-left
-    = link_to  previous_wizard_path, class: 'btn btn-sm btn-info' do
-      .fa.fa-arrow-left
-        Previous
-  .float-right
-    = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
-      .fa.fa-arrow-right
-        Final

@@ -1,5 +1,5 @@
 = render layout: 'courses/course_wizard/step' do
-  = @course.title
+
   = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
     = f.input :title
     - if @course.avatar.attached?
@@ -9,13 +9,3 @@
     = f.input :short_description
     = f.input :language, collection: Course.languages
     = f.button  :submit, class: 'btn btn-success'
-
-.card-footer
-  .float-left
-    = link_to  course_path(@course), class: 'btn btn-sm btn-secondary' do
-      .fa.fa-arrow-left
-        Cancel
-  .float-right
-    = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
-      .fa.fa-arrow-right
-        Skip
