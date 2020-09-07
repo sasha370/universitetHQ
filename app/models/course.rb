@@ -19,7 +19,9 @@ class Course < ApplicationRecord
   # Курс принадлежит только одному пользователю
   belongs_to :user, counter_cache: true
   # Курс имеет множество уроков, которые удаляются вместе с курсом
-  has_many :lessons, dependent: :destroy
+  # inverse_of и accepts...   - из настроек Cocoon
+  has_many :lessons, dependent: :destroy, inverse_of: :course
+  accepts_nested_attributes_for :lessons, reject_if:  :all_blank, allow_destroy: true
   # Отслеживаем любые изменения, которые выдают ошибки ( когда есть зависимости)
   has_many :enrollments, dependent: :restrict_with_error
   # У Курса есть несколько записей UserLesson, отслеживаемые через Lesson

@@ -7,7 +7,7 @@ class Courses::CourseWizardController < ApplicationController
   # разбиваем Мультиформу на два шага и даем им названия
   # В первой Title description аватар
   # во второй язык, цена и т.п.
-  steps :basic_info, :details, :publish
+  steps :basic_info, :details, :lessons, :publish
 
   def show
     # авторизвуем по курсу и его политике на Edit
@@ -16,6 +16,10 @@ class Courses::CourseWizardController < ApplicationController
       when :basic_info
       when :details
         @tags = Tag.all
+      when :lessons
+        unless @course.lessons.any?
+          @course.lessons.build
+        end
       when :publish
 
     end
@@ -29,6 +33,7 @@ class Courses::CourseWizardController < ApplicationController
       when :basic_info
       when :details
         @tags = Tag.all
+      when :lessons
       when :publish
     end
     render_wizard @course
@@ -58,6 +63,7 @@ class Courses::CourseWizardController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:title, :description, :short_description, :price, :level, :language, :published, :avatar, tag_ids: [])
+    params.require(:course).permit(:title, :description, :short_description, :price, :level, :language, :published,
+                                   :avatar, tag_ids: [],  lessons_attributes: [:id, :title, :content, :_destroy])
   end
 end

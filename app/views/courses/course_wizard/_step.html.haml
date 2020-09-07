@@ -16,19 +16,19 @@
   Edit
   = step.to_s.humanize
 
-.card
+.card.shadow
   .progress
-    .progress-bar{ style: "width: #{@progress}%"}= number_to_percentage(@progress, precision: 0)
+    .progress-bar{style: "width: #{@progress}%"}= number_to_percentage(@progress, precision: 0)
   .progress
     - wizard_steps.each do |s|
-      - if current_page?(course_course_wizard_path(@course, s))
-        - @color = 'bg-success'
-      - else
-        - @color = 'bg-secondary'
-
+      - @color = current_page?(course_course_wizard_path(@course, s)) ? "bg-success" : "bg-secondary"
+      /- if current_page?(course_course_wizard_path(@course, s))
+      /  - @color = 'bg-success'
+      /- else
+      /  - @color = 'bg-secondary'
       = link_to course_course_wizard_path(@course, s), class: "progress-bar #{@color}", style: "width: #{@progress}%" do
         = wizard_steps.index(s) + 1
-        = step.to_s.humanize
+        = s.to_s.humanize
 
 
   .card-header
