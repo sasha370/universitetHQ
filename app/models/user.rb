@@ -8,6 +8,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable, :confirmable,
          :omniauthable, omniauth_providers: [:google_oauth2, :github, :facebook]
 
+
+  after_create do
+    UserMailer.new_user(self).deliver_later
+  end
+
   # Логика для OAuth2
   def self.from_omniauth(access_token)
     data = access_token.info

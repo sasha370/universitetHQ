@@ -20,7 +20,6 @@ class Courses::CourseWizardController < ApplicationController
 
     end
     render_wizard
-
   end
 
   def update
