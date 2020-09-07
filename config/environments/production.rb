@@ -10,7 +10,7 @@ Rails.application.configure do
                                            email: {
                                                deliver_with: :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
                                                email_prefix: '[PREFIX] ',
-                                               sender_address: %{"universary error" <support@universary.com>},
+                                               sender_address: %{"universary error" <support@university.com>},
                                                exception_recipients: %w{budka52@bk.ru}
                                            }
   # Code is not reloaded between requests.

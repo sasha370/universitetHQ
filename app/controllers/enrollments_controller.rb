@@ -67,11 +67,17 @@ class EnrollmentsController < ApplicationController
       #пока заглушка
       flash[:alert] = "You can not acess paid courses yet"
       redirect_to new_course_enrolment_url(@course) # редирект на новeю подписку
+      # При новой подписке рассылаем письмо владельцу курса и студенту
+      EnrollmentMailer.student_enrollment(@enrollment).deliver_now
+      EnrollmentMailer.teacher_enrollment(@enrollment).deliver_now
     else
       # Если курс бесплатный
       # то для текущего пользователя делаем метод ПОКУПКА = создаем запись Подписка
       @enrollment = current_user.buy_course(@course)
       # и редиректим на страницу курса
+      # При новой подписке рассылаем письмо владельцу курса и студенту
+      EnrollmentMailer.student_enrollment(@enrollment).deliver_now
+      EnrollmentMailer.teacher_enrollment(@enrollment).deliver_now
       redirect_to course_url(@course), notice: "You are enrolled!"
     end
   end
