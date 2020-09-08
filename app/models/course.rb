@@ -98,4 +98,10 @@ class Course < ApplicationRecord
     end
   end
 
-end
+  # Суммарный доход/ Обновить колонку доход, найдя все подписки ( данного курса) и просумировав все суммы
+  def calculate_income
+    update_column :income, (enrollments.pluck(:price).sum)
+    user.calculate_balance
+  end
+  pluck
+  end

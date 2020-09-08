@@ -62,24 +62,41 @@ class EnrollmentsController < ApplicationController
 
   def create
     # Создание новой подписки
-    # елси цена курса больше нуля
+    # елси Курс Платный
     if @course.price > 0
-      #пока заглушка
-      flash[:alert] = "You can not acess paid courses yet"
-      redirect_to new_course_enrolment_url(@course) # редирект на новeю подписку
-      # При новой подписке рассылаем письмо владельцу курса и студенту
-      EnrollmentMailer.student_enrollment(@enrollment).deliver_now
-      EnrollmentMailer.teacher_enrollment(@enrollment).deliver_now
+      # Оздаем новую оплату
+      @amount = (@course.price * 100).to_i
+      customer = Stripe::Customer.create(
+          email: params[:stripeEmail],
+          source: params[:stripeToken]
+      )
+      charge = Stripe::Charge.create(
+          customer: customer.id,
+          amount: @amount,
+          description: "University Premium content",
+          currency: "usd"
+      )
+
+      # Создаем новую Подписку
+      @enrollment = current_user.buy_course(@course)
+      # и редиректим на страницу курса
+      redirect_to course_url(@course), notice: "You are enrolled!"
+
+
     else
       # Если курс бесплатный
       # то для текущего пользователя делаем метод ПОКУПКА = создаем запись Подписка
       @enrollment = current_user.buy_course(@course)
-      # и редиректим на страницу курса
-      # При новой подписке рассылаем письмо владельцу курса и студенту
-      EnrollmentMailer.student_enrollment(@enrollment).deliver_now
-      EnrollmentMailer.teacher_enrollment(@enrollment).deliver_now
       redirect_to course_url(@course), notice: "You are enrolled!"
+      # и редиректим на страницу курса
     end
+    # При новой подписке рассылаем письмо владельцу курса и студенту
+    EnrollmentMailer.student_enrollment(@enrollment).deliver_now
+    EnrollmentMailer.teacher_enrollment(@enrollment).deliver_now
+    # редирект в случае неудачной оплаты
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to new_course_enrollment_path(@course)
   end
 
   def update

@@ -53,6 +53,13 @@ class Enrollment < ApplicationRecord
     course.update_rating
   end
 
+  # После того как создалась или удалилась подписка - пересчитать ьалансы Курса и пользователя ( в модлеи курса)
+  after_create :calculate_balance
+  after_destroy :calculate_balance
+  def calculate_balance
+    course.calculate_income
+    user.calculate_enrollment_expences
+   end
 
   protected
 

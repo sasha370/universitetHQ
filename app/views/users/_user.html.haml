@@ -32,6 +32,15 @@
     = user.last_sign_in_ip
 
   .card-footer
+    Доходы:
+    = user.course_income
+    .row
+    Расходы:
+    = user.enrollment_expences
+    .row
+    Баланс:
+    = user.balance
+  .card-footer
     .fa.fa-plus
     .fa.fa-graduation-cap
     Courses created:

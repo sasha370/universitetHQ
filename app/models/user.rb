@@ -112,6 +112,21 @@ class User < ApplicationRecord
     end
   end
 
+  # Пересчитываем баланса Пользователя
+  def calculate_balance
+    # Сначала считаем доход по всем его курсам
+    update_column :course_income, (courses.pluck(:income).sum)
+    # # Затем считаем все его покупки
+    # update_column :enrollment_expences, (enrollments.pluck(:price).sum)
+    # Считаем разницу и сохраняем в Баланс
+    update_column :balance, (course_income - enrollment_expences)
+  end
+
+  def calculate_enrollment_expences
+    # Затем считаем все его покупки
+    update_column :enrollment_expences, (enrollments.pluck(:price).sum)
+    update_column :balance, (course_income - enrollment_expences)
+  end
 
   private
 

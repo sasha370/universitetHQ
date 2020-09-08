@@ -73,7 +73,7 @@ class CoursesController < ApplicationController
     # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
     authorize @course, :approve?
     @course.update_attribute(:approved, true)
-    redirect_to @course, notice: "Course Approved!"
+    redirect_to unapproved_courses_path, notice: "Course Approved!"
   end
 
   def unapprove
@@ -81,7 +81,7 @@ class CoursesController < ApplicationController
     # Метод из Pundit? задает права на редактирование только определенным. Прописано в policies
     authorize @course, :approve?
     @course.update_attribute(:approved, false)
-    redirect_to @course, notice: "Course Unapproved and hidden!"
+    redirect_to unapproved_courses_path, notice: "Course Unapproved and hidden!"
   end
 
   # Курсы, которые требуют подтверждения ( Для Админа)

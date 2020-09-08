@@ -67,6 +67,6 @@ gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'   # 
 gem 'omniauth-facebook'   # аутентификация через Facebook
 gem 'wicked'  # multistep-form
 gem 'cocoon' # помогает редактировать дочерние зависимости - Курс - Подписка  и т.п.
-gem 'stripe'
+gem 'stripe' #оплата картой
 
 #yarn add selectize   -  гем для быстрого выбора тегов
