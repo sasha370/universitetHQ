@@ -1,10 +1,10 @@
 class Course < ApplicationRecord
   # Валидация для новых курсов, обязательно присутствие названия и описания не менее 5 символов
-  validates :title, :short_description, :description, :language, :level, :price, presence: true
+  validates :title, :marketing_description, :description, :language, :level, :price, presence: true
   validates :description, length: { minimum: 5, maximum: 3000 }
-  validates :short_description, length: { minimum: 5, maximum: 300 }
+  validates :marketing_description, length: { minimum: 5, maximum: 300 }
   validates :title, uniqueness: true, length: {maximum: 70}
-  validates :price, numericality: { greater_than_or_equal_to: 0 } # цена должна быть Положительной
+  validates :price, numericality: { greater_than_or_equal_to: 0 , less_than: 50000} # цена должна быть Положительной и не более 50 тыс.
 
   # Подключаем встроенный редактор текста для поля вуыскшзешщт
   has_rich_text :description

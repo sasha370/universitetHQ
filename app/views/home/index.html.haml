@@ -15,7 +15,7 @@
 -#       = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
 -#         .input-group
 -#           / поиск по Заголовку
--#           = f.search_field :title_or_short_description_cont, class: 'form-control-sm', style: 'float: left; width: 150 px;', placeholder: 'Find a course', :autocomplete => :off
+-#           = f.search_field :title_or_marketing_description_cont, class: 'form-control-sm', style: 'float: left; width: 150 px;', placeholder: 'Find a course', :autocomplete => :off
 -#           %span.input-group-append
 -#             %button.btn.btn-primary.btn-sm{type: 'submit'}
 -#               %span.fa.fa-search{'aria-hidden' => 'true'}
@@ -26,6 +26,16 @@
 .jumbotron.shadow.parallax
   %h1.text-shadow
     %b What do you want to learn today?
+    .row
+    Test users:
+    admin@admin.ru
+    user1@test.ru
+    user2@test.ru
+    .row
+    / вводная информация о количестве курсов и учеников
+    = link_to url_for("https://github.com/sasha370/universitetHQ") do
+      GitHub repo
+
 
   .p-4
 
@@ -56,8 +66,8 @@
       Continue with
       .fab.fa-facebook
 
-/ вводная информация о количестве курсов и учеников
 .card-group
+
   .card.card-body
     %h1
       .fa.fa-graduation-cap

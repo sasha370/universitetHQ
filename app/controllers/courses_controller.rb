@@ -133,7 +133,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     @course.description = "Curriculum Description"
-    @course.short_description = "Marketing Description"
+    @course.marketing_description = "Marketing Description"
 
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     # У каждого курса должен быть User? поэтому берем текущего (зарегистрированного)
@@ -191,6 +191,6 @@ class CoursesController < ApplicationController
     # White-list для параметров
     #  published - галочка для "опубликовать"
     # avatar  - прикрепленное изображение для аватарки, хранится на S3
-    params.require(:course).permit(:title, :description, :short_description, :price, :level, :language, :published, :avatar, tag_ids: [])
+    params.require(:course).permit(:title, :description, :marketing_description, :price, :level, :language, :published, :avatar, tag_ids: [])
   end
 end

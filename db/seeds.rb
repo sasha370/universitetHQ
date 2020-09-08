@@ -25,7 +25,7 @@ PublicActivity.enabled = false
                       description: Faker::TvShows::GameOfThrones.quote,
                       #  навешиваем все курсы к тестовому юзеру
                       user_id: User.first.id,
-                      short_description: Faker::Quote.famous_last_words,
+                      marketing_description: Faker::Quote.famous_last_words,
                       language: Faker::ProgrammingLanguage.name,
                       level: "Beginner",
                       price: Faker::Number.between(from: 1000, to: 20000)

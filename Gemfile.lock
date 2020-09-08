@@ -143,7 +143,7 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    groupdate (5.1.0)
+    groupdate (5.2.0)
       activesupport (>= 5)
     haml (5.1.2)
       temple (>= 0.8.0)
@@ -348,7 +348,7 @@ GEM
     wicked_pdf (2.1.0)
       activesupport
     wkhtmltopdf-binary (0.12.6.3)
-    wkhtmltopdf-heroku (2.12.5.0)
+    wkhtmltopdf-heroku (2.12.6.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.0)

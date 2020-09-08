@@ -49,7 +49,7 @@
     -#.Добавили .lesson-sortable   - для обработки в JS ( сортировка )
     %ul.list-group.lesson-sortable
       - @lessons.each do |lesson|
-        / #TODO  - непонятно что за строчка и что она передает. Нужна для Сортировки перестановкой и обработки в JS
+        / Нужна для Сортировки перестановкой и обработки в JS
         / должна обновлять порядок сортиовки
         / DIV создается с id = lesson_id. который мы ловим через params в контроллере экшн SORT
         = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do

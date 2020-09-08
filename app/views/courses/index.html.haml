@@ -29,7 +29,7 @@
       = f.search_field :course_tags_tag_name_cont, placeholder: "Tag name", class: "form-control form-control-sm"
       / метод _eq для чисел - "равен"
       = f.label :description,  class: "col-form-label"
-      = f.search_field :short_description_cont, placeholder: "Short-description", class: "form-control form-control-sm"
+      = f.search_field :marketing_description_cont, placeholder: "Short-description", class: "form-control form-control-sm"
       = f.label :language,  class: "col-form-label"
       = f.select :language_cont,  Course.languages,  include_blank: true
       = f.label :level,  class: "col-form-label"

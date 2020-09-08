@@ -10,7 +10,7 @@
       -# = image_tag course.avatar.variant(resize_to_limit: [100,100])
 
   .card-body
-    %small= simple_format(course.short_description)
+    %small= simple_format(course.marketing_description)
   .card-footer
     .text-center
       -#Кнопка для подписки/ описана в course helper
@@ -18,6 +18,7 @@
       .row
       / кнопка для отзыва
       = review_button(course)
+
   .card-footer
 
     -#Кол-во подписчиков, которое считается налету ( и жрет ресурсы)
@@ -69,16 +70,17 @@
     - if policy(course).owner?
       .card-footer
         /добавляем кнопку для создания урока, при пересылке нужно передать ID курса в params
-        = link_to "Add lesson", new_course_lesson_path(course, @lesson), class: "btn btn-outline-primary btn-sm "
+        = link_to  new_course_lesson_path(course, @lesson), class: "btn btn-outline-primary btn-sm " do
+          Add lesson
         /Кнопка редактирования будет отображаться только если есть права на редактирование
         -# = link_to 'Edit', edit_course_path(course), class: "btn btn-sm btn-outline-warning"
 
-        = link_to  course_course_wizard_index_path(course), class: "btn btn-sm btn-outline-warning" do
+        = link_to  course_course_wizard_index_path(course), class: "btn btn-sm btn-outline-warning mr-1" do
           .fa.fa-edit
           Edit
         - if policy(course).destroy?
           = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger"
-        = link_to analytics_course_path(course), class: 'btn btn-sm btn-outline-info' do
+        = link_to analytics_course_path(course), class: 'btn btn-sm btn-outline-info mt-1' do
           .fa.fa-chart-bar
           Analytics
 

@@ -72,3 +72,20 @@ trix-editor.form-control {
   background-size: cover;
   color: white;
 }
+
+//sticky footer
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin: 0 0 100px;
+}
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  //height: 200px;
+  width: 100%;
+  overflow: hidden;
+}

@@ -8,6 +8,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable, :confirmable,
          :omniauthable, omniauth_providers: [:google_oauth2, :github, :facebook]
 
+  # Подключаем отслеживание активности Пользователя ( регистрация и т.п.)
+  include PublicActivity::Model
+  tracked only: [:create, :destroy], owner: :itself # создан собой, т.к. вбез этого показывает, что Удаленный пользоватлеь
+
 
   after_create do
     UserMailer.new_user(self).deliver_later
