@@ -12,6 +12,7 @@
       %hr
       .fa.fa-lock-open
       Buy course:
+      = number_to_currency(@course.price)
 
   .card-body
     - if @course.price > 0
@@ -20,13 +21,13 @@
         %script.stripe-button{ "data-amount" => "#{(@course.price * 100).to_i}",
                               "data-description" => "#{@course.title} (#{number_to_currency @course.price})",
                               "data-email" => "#{current_user.email}",
-                              "data-key" => "pk_test_51H6ZGHHtJ9XMkl4Hy70xbacwBBa90sxij3MMOXjiEQi1upTtG2lLw8IWcOw0QjO9DEZLGkBtLFmtT96vJwwKVOEb00FFw7rpiY",
+                              "data-key" => "#{Rails.application.credentials[Rails.env.to_sym][:stripe][:publishable_key]}",
                               "data-locale" => "auto",
                               :src => "https://checkout.stripe.com/checkout.js"}
     - else
       / Бесплатно
       = form_tag course_enrollments_path(@course) do
-        = submit_tag "Free", class: 'btn btn-lg btn-success'
+        = submit_tag "Enroll for free", class: 'btn btn-lg btn-success'
 
   .card-footer
     = link_to 'Back', course_path(@course)

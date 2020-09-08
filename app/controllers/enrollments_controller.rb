@@ -65,38 +65,29 @@ class EnrollmentsController < ApplicationController
     # елси Курс Платный
     if @course.price > 0
       # Оздаем новую оплату
-      @amount = (@course.price * 100).to_i
       customer = Stripe::Customer.create(
           email: params[:stripeEmail],
           source: params[:stripeToken]
       )
       charge = Stripe::Charge.create(
           customer: customer.id,
-          amount: @amount,
-          description: "University Premium content",
+          amount: (@course.price * 100).to_i,
+          description: @course.title,
           currency: "usd"
       )
-
-      # Создаем новую Подписку
-      @enrollment = current_user.buy_course(@course)
-      # и редиректим на страницу курса
-      redirect_to course_url(@course), notice: "You are enrolled!"
-
-
-    else
-      # Если курс бесплатный
-      # то для текущего пользователя делаем метод ПОКУПКА = создаем запись Подписка
-      @enrollment = current_user.buy_course(@course)
-      redirect_to course_url(@course), notice: "You are enrolled!"
-      # и редиректим на страницу курса
     end
+    # Если курс Оплачен/подписан
+    # то для текущего пользователя делаем метод ПОКУПКА = создаем запись Подписка
+    @enrollment = current_user.buy_course(@course)
+    # и редиректим на страницу курса
+    redirect_to course_url(@course), notice: "You are enrolled!"
     # При новой подписке рассылаем письмо владельцу курса и студенту
     EnrollmentMailer.student_enrollment(@enrollment).deliver_now
     EnrollmentMailer.teacher_enrollment(@enrollment).deliver_now
     # редирект в случае неудачной оплаты
-    rescue Stripe::CardError => e
-      flash[:error] = e.message
-      redirect_to new_course_enrollment_path(@course)
+  rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to new_course_enrollment_path(@course)
   end
 
   def update
