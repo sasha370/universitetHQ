@@ -1,8 +1,4 @@
 class ChartsController < ApplicationController
-  # Контроллер для графиков.
-  # Чтобы постоянно он-лайн не пересчитывать Юзеров, уроки и т.д. создали этот контроллер,
-  # который будет считать все на сервере и отправлять в браузер подготовленный JSON
-
   def users_per_day
     render json: User.group_by_day(:created_at).count
   end
@@ -16,8 +12,6 @@ class ChartsController < ApplicationController
   end
 
   def money_makers
-    # Выбираем все подписки и объеденяем их по Названиям курсов, суммируем все стоимости .
     render json: Enrollment.joins(:course).group(:'courses.title').sum(:price)
   end
-
 end

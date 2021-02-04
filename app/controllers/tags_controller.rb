@@ -1,13 +1,10 @@
 class TagsController < ApplicationController
-
-  # Для тегов нам нужен только 'ri Cjplfnm'
   def create
-    # Создаем новый тег? используя параметры из переданных
     @tag = Tag.new(tag_params)
-    if @tag.save  # если тег успешно сохранился
-      render json: @tag # отрисовываем его
+    if @tag.save
+      render json: @tag
     else
-      render json: { errors: @tag.errors.full_messages } # или покказываем ошибку
+      render json: { errors: @tag.errors.full_messages }
     end
   end
 

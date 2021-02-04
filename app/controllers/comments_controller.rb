@@ -1,7 +1,4 @@
 class CommentsController < ApplicationController
-  # before_action :set_lesson, only: [:create]
-
-
   def create
     @comment = Comment.new(comment_params)
     @course = Course.friendly.find(params[:course_id])
@@ -31,9 +28,8 @@ class CommentsController < ApplicationController
   end
 
   private
-  def comment_params
-    # row_order_position - данные из сортировки c помощью JS на странице Курса
-    params.require(:comment).permit(:content)
 
+  def comment_params
+    params.require(:comment).permit(:content)
   end
 end

@@ -1,7 +1,3 @@
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
 require('cocoon')
 import "cocoon"
 
@@ -10,50 +6,26 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-// Uncomment to copy all static images under ../images to the output folder and reference
-// them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
-// or the `imagePath` JavaScript helper below.
-//
-// const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)
-
 import "bootstrap"
-
-// добавляем скрип, который переписывает поведение с вложенными файлами внутри курса или урока
 import "../trix-editor-overrides"
 
-// подключаем Js для кастомного видеоплеера
-// import videojs from 'video.js'
-// import 'video.js/dist/video-js.css'
 
 
 require("trix")
 require("@rails/actiontext")
 require("chartkick")
 require("chart.js")
-
-
-// Подключаем библиотеку для перестановки уроков переносом
 require("jquery")
 require("jquery-ui-dist/jquery-ui")
 import "youtube"
 
-// Библиотека для выбора тегов
 require("selectize")
 
-// import "cocoon-js";
 
-
-
-
-// Метод для обработки drag_drop событий внутри курса ( перетаскивание уроков)
-// Ждем полной загрузки турболинков
+// drag_drop
 $(document).on('turbolinks:load', function () {
-    // берем элемент с классом .lesson-sortable
     $('.lesson-sortable').sortable({
         cursor: "grabbing",
-        //cursorAt: { left: 10 },
-        // плейсхолдер прописали в application.scss
         placeholder: "ui-state-highlight",
 
         update: function (e, ui) {
@@ -61,7 +33,6 @@ $(document).on('turbolinks:load', function () {
             let item_data = item.data();
             let params = {_method: 'put'};
             params[item_data.modelName] = {row_order_position: item.index()}
-            // обновляем номера Уроков
             $.ajax({
                 type: 'POST',
                 url: item_data.updateUrl,
@@ -75,55 +46,30 @@ $(document).on('turbolinks:load', function () {
     });
 
 
-    // Запрещаем правый клик на видео, чтобы не скачивали
     $("video").bind("contextmenu", function () {
         return false;
     });
 
     // ТЕГИ
-    // Инициализируем JS как только появляется чтото с классом selectize
     if ($('.selectize')) {
         $('.selectize').selectize({
             sortField: 'text',
         });
     }
 
-    // Возможность создания новых тегов
     $(".selectize-tags").selectize({
         plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
 
-        // Создание нового тега
         create: function (input, callback) {
-            // Методом пост отправляем имя созданного тега
             $.post('/tags.json', {tag: {name: input}})
                 .done(function (response) {
                     console.log(response)
                     callback({value: response.id, text: response.name});
                 })
-            // return {
-            //     value: input,
-            //     text: input
-            // };
         }
     });
-
-
-    // инитциализация плеера (кастомного)
-    // let videoPlayer = videojs(document.getElementById('my-video'), {
-    //     // настройки для плеера
-    //     controls: true,
-    //     playbackRates: [0.5, 1, 1.5],
-    //     autoplay: false,
-    //     fluid: true,
-    //     preload: false,
-    //     liveui: true,
-    //     responsive: true,
-    //     loop: false,
-    // });
-    // videoPlayer.addClass('video-js');
-    // videoPlayer.addClass('vjs-big-play-centered');
 
 
 });

@@ -5,17 +5,12 @@ class LessonPolicy < ApplicationPolicy
     end
   end
 
-
-  #Только админ и владелец могут видеть описание лекции
-  # Проверка покупки - выдает true? если записи нет? т.е. нам надо false
   def show?
     @user.has_role?(:admin) || @record.course.user_id == @user.id || @record.course.bought(@user) == false
   end
 
   def edit?
-    # Только владелец курса может редактировать Лекцию
-    # @record берется из application_policy и равна @lesson
-     @user.present? && @record.course.user_id == @user.id
+    @user.present? && @record.course.user_id == @user.id
   end
 
   def update?
@@ -23,11 +18,9 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def new?
-    #@user.has_role?(:teacher)
   end
 
   def create?
-    #@user.has_role?(:teacher)
     @record.course.user_id == @user.id
   end
 

@@ -1,8 +1,6 @@
 module ApplicationHelper
-  # фронтенд для пагинации
   include Pagy::Frontend
 
-  # Метод, который получает на входе имя по CRUD и в зависимости от него возыращает иконку ( используется в Activity )
   def crud_label(key)
     case key
       when 'create'

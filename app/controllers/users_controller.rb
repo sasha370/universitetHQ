@@ -2,26 +2,17 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :show]
 
   def index
-    # Методы из gem ransack, которые формирует поисковую выдачу
     @q = User.ransack(params[:q])
-    # @users = @q.result(distinct: true)   # отключили , т.к. перешли на пагинацию
-
-    # подключаем пагинацию
-    #  вот в оригинале @pagy, @records = pagy(Product.some_scope)
     @pagy, @users = pagy(@q.result(distinct: true))
     authorize @users
-
   end
 
-
   def show
-
   end
 
   def edit
     authorize @user
   end
-
 
   def update
     authorize @user
@@ -31,7 +22,6 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-
 
   private
 

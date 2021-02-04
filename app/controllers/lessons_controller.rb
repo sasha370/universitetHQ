@@ -1,25 +1,19 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy, :delete_video]
 
-
-  # Удалять вложенное видео
   def delete_video
     authorize @lesson, :edit?
-    # Метод purge удаляет вложения из ActiveStarage - прописаано в документации
     @lesson.video.purge
     @lesson.video_thumbnail.purge
     redirect_to edit_course_lesson_path(@course,@lesson), notice: "Video Deleted!"
   end
 
-
-  # Метод для обработки сортировки. нам нужно обновить значение Rank при каждом перетаскивании
   def sort
     @course = Course.friendly.find(params[:course_id])
-    # в параметрах ловим именно lesson_id. который передается с помощью созданного DIVa
     lesson = Lesson.friendly.find(params[:lesson_id])
-    authorize lesson, :edit?  # доступно только с правами на редактирование
-    lesson.update(lesson_params) # обновляем массив params
-    render body: nil # запрещаем перерисовывать
+    authorize lesson, :edit?
+    lesson.update(lesson_params)
+    render body: nil
   end
 
   def index
@@ -27,13 +21,9 @@ class LessonsController < ApplicationController
   end
 
   def show
-  # Если пользователь Увидел Урок, то создается запись в User_lesson
-    authorize @lesson # авторизация на просмотр  только у хозяина курса и админа
+    authorize @lesson
     current_user.view_lesson(@lesson)
-    # Выбираем все уроки данного курса, курс достали из set_lesson
-    @lessons = @course.lessons.rank(:row_order) # ранжируем по порядку
-
-    # Т.к. мы будеим показывать коменты только внутри урока, то прописваем только в SHOW
+    @lessons = @course.lessons.rank(:row_order)
     @comment = Comment.new
     @comments = @lesson.comments.order(created_at: :desc)
   end
@@ -44,7 +34,7 @@ class LessonsController < ApplicationController
   end
 
   def edit
-    authorize @lesson # авторизация на редактирование только у хозяина курса
+    authorize @lesson
     @course = Course.friendly.find(params[:course_id])
   end
 
@@ -52,7 +42,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @course = Course.friendly.find(params[:course_id])
     @lesson.course_id = @course.id
-    authorize @lesson # авторизация на создание только у хозяина курса
+    authorize @lesson
     respond_to do |format|
       if @lesson.save
         format.html { redirect_to course_lesson_url(@course, @lesson), notice: 'Lesson was successfully created.' }
@@ -63,7 +53,7 @@ class LessonsController < ApplicationController
   end
 
   def update
-    authorize @lesson # авторизация на редактирование только у хозяина курса
+    authorize @lesson
     @course = Course.friendly.find(params[:course_id])
     respond_to do |format|
       if @lesson.update(lesson_params)
@@ -75,7 +65,7 @@ class LessonsController < ApplicationController
   end
 
   def destroy
-    authorize @lesson # авторизация на удаление только у хозяина курса
+    authorize @lesson
     @lesson.destroy
     respond_to do |format|
       format.html { redirect_to course_url(@course), notice: 'Lesson was successfully destroyed.' }
@@ -89,7 +79,6 @@ class LessonsController < ApplicationController
     end
 
     def lesson_params
-      # row_order_position - данные из сортировки c помощью JS на странице Курса
       params.require(:lesson).permit(:title, :content, :row_order_position, :video, :video_thumbnail)
     end
 end
