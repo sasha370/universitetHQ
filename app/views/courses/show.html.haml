@@ -1,10 +1,8 @@
--#Отображение названия статьи в заголовке страницы
 - content_for :title do
   University
   \|
   = @course.title
 
-/Хлебные крошки в заголовке карточки
 
 = link_to 'Courses/', courses_path
 = link_to @course.title, course_path(@course)
@@ -15,13 +13,6 @@
       %h3
         .fa.fa-graduation-cap
         = @course.title
-
-        -#.row
-        -#проверяем, есть ли аватар
-        -# - if @course.avatar.attached?
-        -#  = image_tag @course.avatar, width:  "200px"
-          -#.row
-          -# = @course.avatar.filename
       .p-3
       .row
       .fa.fa-clock
@@ -42,16 +33,11 @@
       .float-right
         .fa.fa-spinner
         = number_to_percentage(@course.progress(current_user), precision: 0)
-        -#Отображаем доступность Сертификата, прописано в Хелпере
       %h6.text-right
         = certificate_button(@course)
 
-    -#.Добавили .lesson-sortable   - для обработки в JS ( сортировка )
     %ul.list-group.lesson-sortable
       - @lessons.each do |lesson|
-        / Нужна для Сортировки перестановкой и обработки в JS
-        / должна обновлять порядок сортиовки
-        / DIV создается с id = lesson_id. который мы ловим через params в контроллере экшн SORT
         = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
           %li.list-group-item
             =  render "lessons/lesson_preview",  lesson: lesson

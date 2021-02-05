@@ -1,12 +1,8 @@
 - if current_user
-  -# - if policy(lesson).show?
   - if lesson.viewed(current_user)
-    -#Просмотренно
     .text-success.far.fa-check-square
   -else
-    -#Непросмотренно
     .text-danger.far.fa-check-square
-  -# - else
     .fa.fa-lock
   = link_to course_lesson_path(@course, lesson) do
     %b
@@ -19,19 +15,14 @@
         #{lesson.row_order_rank + 1}.
       = lesson.title
 
-
-
 .float-right
 
   .fa.fa-comment
   = lesson.comments_count
   - if policy(lesson).edit?
-    -#общее кол-во просмотров по данной лекции
-    -#пробижаться по всем записям и проссумировать значения
     .fa.fa-eye
     Impressions:
     = lesson.user_lessons.map(&:impressions).sum
-    -#количество Уникальных пользователей, просмотревших урок
     .fa.fa-eye
     Unique:
     = lesson.user_lessons_count

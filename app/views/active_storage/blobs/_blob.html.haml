@@ -1,11 +1,5 @@
-
-
-
--#representable = можно отобразить
 %figure{:class => "attachment attachment--#{blob.representable? ? "preview" : "file"} attachment--#{blob.filename.extension}"}
-  -#если Blob - вложение  можно отобразить, то показываем его как картинку
   - if blob.representable?
-    -#Если есть вставленное видео, то отображаем его
     - if blob.video?
       %video(controls="true" width="100%" preload="metadata")
         %source{src: rails_blob_url(blob), type:"#{blob.content_type}"}
@@ -23,10 +17,6 @@
       %span.attachment__name= blob.filename
       %span.attachment__size= number_to_human_size blob.byte_size
 
-    -#предпосмотр
     = link_to  rails_blob_path(blob, disposition: "preview"), target: :_blank do
       .fa.fa-download
         - blob.filename
-
-      -#ссылка на закачку  файла
-      -# = link_to blob.filename, rails_blob_path(blob, disposition: "attachment"), target: :_blank

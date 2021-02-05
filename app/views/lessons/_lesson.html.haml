@@ -1,12 +1,8 @@
 .card
   .card-header
-    -#.far.fa.fa-check-square
-      -#проверяем, просматривался ли данный урок
     - if lesson.viewed(current_user)
-      -#Просмотренно
       .text-success.far.fa-check-square
     -else
-      -#Непросмотренно
       .text-danger.far.fa-check-square
 
     = link_to course_lesson_path(@course, lesson) do
@@ -14,44 +10,27 @@
         #{lesson.row_order_rank + 1}.
       = lesson.title
 
-    /-# - if policy(lesson).show?
   .card-body
-    / video - html5 тег. controls - управление, poster-превьюха
-    / sourse - источник видео, src - ссылка на него
-    -#,если у урока есть вложения
     - if lesson.video.attached?
-      -#Если есть превью - отображем его, если нет, то само видео
       - if lesson.video_thumbnail.attached?
         %video(controls="true" poster="#{url_for lesson.video_thumbnail}" width="100%" preload="metadata" controlslist="nodownload")
           %source{src: rails_blob_url(lesson.video), type:"#{lesson.video.content_type}"}
       - else
-        / controlslist="nodownload" - запрещает правый клик (прописанов в js)
         %video(controls="true"  width="100%" preload="metadata" controlslist="nodownload")
           %source{src: rails_blob_url(lesson.video), type:"#{lesson.video.content_type}"}
-          -#VIDEO JS
-          -#заменяем отображение видео от стандартного html5 на JS (скрипт плеера описан в application.js)
-        -# = content_tag :video, id: 'my-video' do
-        -#   = tag :source, src: url_for(@lesson.video), type: @lesson.video.content_type
-
     = lesson.content
-
-
-  / Убираем кнопки для незарегистрированных и для НЕ хозяина
   - if policy(lesson).edit?
     .card-footer
       = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-outline-warning'
       = link_to 'Destroy', [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger'
 
-      -#Навигация по урокам
     .card-footer
-      -#Надо проверить что есть предыдущий урок
       - if lesson.prev.present?
         .float-left
           = link_to course_lesson_path(@course, lesson.prev), class: 'btn btn-sm btn-info' do
             .fa.fa-arrow-left
             Previous
 
-      -#Надо проверить, что есть следующий урок
       - if  lesson.next.present?
         .float-right
           = link_to course_lesson_path(@course, lesson.next), class: 'btn btn-sm btn-info' do

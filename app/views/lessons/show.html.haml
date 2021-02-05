@@ -1,12 +1,9 @@
--#Отображение названия статьи в заголовке страницы
 - content_for :title do
   University
   \|
   = @course.title
   \/
   = @lesson.title
-
-/Хлебные крошки в заголовке карточки
 
 = link_to 'Courses', courses_path
 \/
@@ -18,10 +15,6 @@
   .fa.fa-check-square
   = @lesson.title
 %p
-/-#счетчик  просмотра лекции
-/-#Выбираем Лекцию, находим  ее запись с текущим пользователем и смотрим у нее счетчик
-/-# = @lesson.user_lessons.where(user: current_user).first.impressions
-
 
 .row
   .col-lg-8
@@ -30,7 +23,6 @@
     %h4
       .fa.fa-comment
       Comments
-      / = @comments.count  - заменили счетчик на см.ниже, чтобы не грузить БД
       = @lesson.comments_count
     .card
       .card-header
@@ -43,10 +35,8 @@
       %p
 
 
-  / боковое меню с перечнем всех уроков
   .col-lg-4
     %ul.list-group
-      / Заголовок с ссылкой на сам курс
       %li.list-group-item
         = link_to  course_path(@lesson.course) do
           .fa.fa-graduation-cap
@@ -54,9 +44,7 @@
         .row
         .fa.fa-spinner
         = number_to_percentage(@course.progress(current_user), precision: 0)
-        / перечень уроков
       - @lessons.each do |lesson|
-        / Для подсветки текущего урока. Проверяем если этот урок равен текущему, то подсвечиваем его
         - if lesson ==@lesson
           %li.list-group-item.list-group-item-success
             =  render "lessons/lesson_preview",  lesson: lesson

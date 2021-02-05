@@ -1,9 +1,7 @@
--#индивидуальная краточка Usera
 .card
   .card-header
     .fa.fa-user
     = link_to user.email, user_path(user)
-    / если пользователь он-лайн - зажигаем лампочку
     - if user.online?
       .text-success.fa.fa-circle
     - else
@@ -15,7 +13,6 @@
     ago
 
   .card-footer
-    /humanize - приводит в текст название колонок
     %b= 'sign_in_count'.humanize
     = user.sign_in_count
     .row
@@ -54,14 +51,12 @@
     Comments:
     = user.comments_count
   .card-footer
-    -#отображаем значек, если пользователь подтвердил свою почту
     Confirmed email?
     - if user.confirmed_at.present?
       .badge.badge-success Yes
     - else
       .badge.badge-danger No
 
-  / показываем текущую роль пользователя
   .card-footer
     - user.roles.each do |role|
       .badge.badge-info

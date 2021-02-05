@@ -1,4 +1,3 @@
--#Отображение названия статьи в заголовке страницы
 - content_for :title do
   University
   \|
@@ -25,9 +24,6 @@ Enrollments per day, revenue
 = line_chart  @course.enrollments.group_by_day(:created_at).sum(:price)
 
 Impressions per lesson ( how many times the lesson was viewed)
--#выбираем все уроки данного пользователя
--#объединяем их по Названию
--#суммируем ихние просмотры
 = bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').sum(:impressions)
 
 Unique user views (how many unique users viewed the lesson)

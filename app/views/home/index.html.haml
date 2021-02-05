@@ -1,27 +1,7 @@
--#Отображение названия статьи в заголовке страницы
 - content_for :title do
   University
   \|
   Online Courses - Learn Anything, On Your Schedule
-
--#
--# .jumbotron
--#   .display-4
--#     What do you want to learn today?
--#   .p-4
--#     -#.form-inline.my-2.my-lg-0
--#     / ПОИСК в Jumbotrone
--#     - if current_user
--#       = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
--#         .input-group
--#           / поиск по Заголовку
--#           = f.search_field :title_or_marketing_description_cont, class: 'form-control-sm', style: 'float: left; width: 150 px;', placeholder: 'Find a course', :autocomplete => :off
--#           %span.input-group-append
--#             %button.btn.btn-primary.btn-sm{type: 'submit'}
--#               %span.fa.fa-search{'aria-hidden' => 'true'}
-
-
-
 
 .jumbotron.shadow.parallax
   %h1.text-shadow
@@ -32,7 +12,6 @@
   user1@test.ru
   user2@test.ru
   .row
-  / вводная информация о количестве курсов и учеников
   = link_to url_for("https://github.com/sasha370/universitetHQ") do
     GitHub repo
   .row
@@ -98,8 +77,6 @@
     .row
     Learn on your schedule
 
-
-/ отображаем различные списки курсов, переменную @courses задаем в home_controller
 %hr
 - if current_user
   %h2
@@ -118,8 +95,6 @@
   - @popular.each do |course|
     = render 'courses/course', course: course
   .text-right
-    -#Перенапряавляем на Список самых попоулярных курсов
-    -#для этого в параметрах передаем настройку для raksack: "поле enrollments_count отсортировать" )
     = link_to "More popular courses", courses_path(courses_search: {s: 'enrollments_count desc'})
 
 %hr
@@ -130,8 +105,6 @@
   - @top_rated.each do |course|
     = render 'courses/course', course: course
   .text-right
-    -#Перенапряавляем на Список самых Рейтинговых курсов
-    -#для этого в параметрах передаем настройку для raksack: "поле average_rating отсортировать" )
     = link_to "More best rated courses", courses_path(courses_search: {s: 'average_rating desc'})
 %hr
 %h2
@@ -142,8 +115,6 @@
   - @latest.each do |course|
     = render 'courses/course', course: course
   .text-right
-    -#Перенапряавляем на Список самых новых курсов
-    -#для этого в параметрах передаем настройку для raksack: "поле average_rating отсортировать" )
     = link_to "More new courses", courses_path(courses_search: {s: 'created_at desc'})
 
 %hr
@@ -151,8 +122,6 @@
   .fa.fa-tags
   Popular Tags
 - @popular_tags.each do |tag|
-  -#Перенапряавляем на Курсы, содержащие данный тег
-  -#для этого в параметрах передаем настройку для поиска raksack: В таблице зависимостей найти все Записи с данным ID тега  )
   = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
     .badge.badge-info
       %h5

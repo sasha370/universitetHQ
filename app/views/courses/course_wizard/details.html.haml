@@ -4,7 +4,6 @@
     = f.input :level, collection: Course.levels
     = f.input :price
 
-    /-#форма для ТЕГОВ
     Tags:
     = f.select :tag_ids, @tags.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }
     = f.button :submit, class: 'btn btn-success'

@@ -1,8 +1,3 @@
--#Страница отображает активность для текущего пользователя
--#Сделана c использование PublickActivity
--#прописана в ApplicationController. HomeController и Course.rb
-
--#Отображение названия статьи в заголовке страницы
 - content_for :title do
   University
   \|
@@ -18,40 +13,26 @@
 %ul.list-group
   - @activities.each do |activity|
     %li.list-group-item
-      -# = activity.id
       = activity.created_at.strftime('%d-%m-%Y %H:%M')
       (#{ time_ago_in_words(activity.created_at) })
       = model_label(activity.trackable_type)
-      -# = activity.trackable_id
-
-      -#/ если мы отслеживаем Урок
       - if activity.trackable_type == 'Lesson'
-        -#Проеверяем существует ли еще урок
         - if Lesson.where(id: activity.trackable_id).present?
-          -#Если существует, то отображаем его используя привязку к курсу
           = link_to activity.trackable, course_lesson_path(activity.trackable.course, activity.trackable)
         - else
-          -#Если удален
           Lesson was deleted
 
-        / если отслеживаем комментарий
       - elsif activity.trackable_type == "Comment"
         - if Comment.where(id: activity.trackable_id).present?
-          -#Если существует, то отображаем его используя привязку к курсу\лекции
           = link_to activity.trackable.content, course_lesson_path( activity.trackable.lesson.course, activity.trackable.lesson)
         - else
-          -#Если удален
           Comment was deleted
 
       - else
-        /-#Если отслеживаем НЕ урок, то просто отображаем активность
         = link_to activity.trackable, activity.trackable
-        /ссылка на измененную статью
       |
       = activity.key
-      /-#.Отображаем значек в зависимости от прописанного Экшена ( обрабатываем в application_helper?)
       = crud_label(activity.key.match(/\.(.*)/)[1])
-      -# = activity.owner
       by
       = link_to activity.owner, user_path(activity.owner)
       - if activity.parameters.any?

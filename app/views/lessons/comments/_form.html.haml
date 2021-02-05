@@ -1,7 +1,3 @@
--#Форма для комментариев.
--#Т.к. у нас тройное вложение Курс - Урок - Комент, то мы должны передавать все три ID
-
-
 = simple_form_for([@course, @lesson, @comment]) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?

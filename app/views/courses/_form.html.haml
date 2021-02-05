@@ -8,36 +8,3 @@
 
   .form-actions
     = f.button :submit
-    -#Все поля Формы перенесены в Wizard
-
-    -#у курса есть прикрепленный файл = аватар, который будем хранить на S3 (прописанно в моделе))
-    -# = f.label :avatar
-    .row
-    -#проверяем, есть ли аватар
-    -# - if @course.avatar.attached?
-    -#   = image_tag @course.avatar, width:  "200px"
-
-    .row
-    -# = f.file_field :avatar  Первоначальный вариант по инструкции
-    -#т.к. при валидации ActiveStorage не выдает ошибку, то мы добавляем ее и отображаем
-    -# = f.error :avatar, class: 'text-danger'
-    -# = f.input :avatar
-
-    .row
-    -#ЗАМЕНИЛИ rich_text поля на одно поле simple_form
-    -# = f.label :description
-    -# = f.rich_text_area :description
-    -# %small= f.error :description, class: 'text-danger'
-
-    -# = f.input :description, as: :rich_text_area
-
-
-    -# = f.input :marketing_description
-    -# -#/ параметром collextion можно пересичлить необходимые наборы ( см. справку по gem simple-form)
-    -# = f.input :language, collection: Course.languages
-    -# = f.input :level, collection: Course.levels
-    -# = f.input :price
-    -# = f.input :published
-    -# -#форма для ТЕГОВ
-    -# = f.select :tag_ids, @tags.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }
-    -# = f.input :tag_ids

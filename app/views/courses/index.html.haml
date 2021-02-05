@@ -1,40 +1,30 @@
--#Отображение названия статьи в заголовке страницы
 - content_for :title do
   University
   \|
-  -#чтобы на каждой странице отображать Заголовок под эту страницу
-    -#Добавляем имя Экшена и переводим в читаемый формат
   = action_name.humanize
   сourses
 
 %h3
   .text-center
-    -#чтобы на каждой странице отображать Заголовок под эту страницу
-    -#Добавляем имя Экшена и переводим в читаемый формат
     = action_name.humanize
     courses
     .badge.badge-info
       = @courses.count
 %p
 .row
-  / отделяем слева отдельную колонку, чтобы разместить в ней поисковую строчку
   .col-md-2
-    -#Форма поиска для gem ransack/ Первая только для бокового меню, вторая для  Навбара + боковое
-    / = search_form_for @q do |f|
     = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path  do |f|
       / метод _cont для строк  -  "содержит"
       = f.label :title,  class: "col-form-label"
       = f.search_field :title_cont, placeholder: "Title", class: "form-control form-control-sm"
       = f.label :tag, class: "col-form-label"
       = f.search_field :course_tags_tag_name_cont, placeholder: "Tag name", class: "form-control form-control-sm"
-      / метод _eq для чисел - "равен"
       = f.label :description,  class: "col-form-label"
       = f.search_field :marketing_description_cont, placeholder: "Short-description", class: "form-control form-control-sm"
       = f.label :language,  class: "col-form-label"
       = f.select :language_cont,  Course.languages,  include_blank: true
       = f.label :level,  class: "col-form-label"
       = f.select :level_cont,  Course.levels, include_blank: true
-      -# = f.label :price,  class: "col-form-label"
       = f.search_field :price_eq, placeholder: "Price", class: "form-control form-control-sm"
       = f.label :teacher,  class: "col-form-label"
       = f.search_field :user_email_cont, placeholder: "User Email", class: "form-control form-control-sm"
@@ -48,17 +38,12 @@
       = sort_link(@ransack_courses, :created_at, "Fresh" )
       .row
       = f.submit
-      /кнопка обновления, сделаная как редирект на новую страницу
     = link_to @ransack_path, class: 'btn btn-sm btn-secondary' do
       .fa.fa-sync
 
     .row
     - @tags.each do |tag|
       = link_to controller: controller_name, action: action_name,  courses_search: {course_tags_tag_id_eq: tag.id} do
-        -#Перенапряавляем на Курсы , содержащие данный тег
-        -#для этого в параметрах передаем настройку для поиска raksack: В таблице зависимостей найти все Записи с данным ID тега  )
-        -# = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
-        -#чтобы оставаться на текущей странице, с которой делаем выборку по Тегу, нам нужно передать текущий контроллер и текущий экшн
         .badge.badge-info
           = tag.name
           .badge.badge-light
@@ -68,12 +53,9 @@
   .col-md-10
     != pagy_bootstrap_nav(@pagy)
     .card-columns
-      / выводим все курсы в виде карточек колонками(3 шт)
       - @courses.each do |course|
         = render 'courses/course', course: course
     != pagy_bootstrap_nav(@pagy)
-
-
   %br
 
 

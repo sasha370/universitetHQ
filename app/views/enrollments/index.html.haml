@@ -1,39 +1,27 @@
--#Отображение названия статьи в заголовке страницы
 - content_for :title do
   University
   \|
-  -#чтобы на каждой странице отображать Заголовок под эту страницу
-    -#Добавляем имя Экшена и переводим в читаемый формат
   = action_name.humanize
   enrollments
 
 %h3
   .text-center
-    -#чтобы на каждой странице отображать Заголовок под эту страницу
-    -#Добавляем имя Экшена и переводим в читаемый формат
     = action_name.humanize
     enrollments
     .badge.badge-info
       = @enrollments.count
 
--#Форма поиска для gem ransack
--#в форму прописали url, чтобы разделить поиски на разных страницах ( для Админа и для Teacher)
--#Чтобы поиск был только по ихним выборкам
 = search_form_for @q, url: @ransack_path do |f|
-  / метод _eq для чисел - "равен"
-  / метод _cont для строк  -  "содержит"
   = f.search_field :user_email_cont, placeholder: "User"
   = f.search_field :course_title_cont, placeholder: "Course"
   = f.search_field :price_eq, placeholder: "Price"
   = f.search_field :rating_eq, placeholder: "Rating"
   = f.search_field :review_cont, placeholder: "Review"
   = f.submit
-  -#.кнопка обновления, сделаная как редирект на общую  страницу
   = link_to '', @ransack_path, class: 'btn btn-sm fa fa-sync'
 %br
 .card
   .card-body
-    -#Пагинаци
     != pagy_bootstrap_nav(@pagy)
     .table-responsive
       %table.table.table-bordered.table-striped.table-sm
@@ -59,9 +47,6 @@
             %th
               .text-warning.fa.fa-star
               = sort_link(@q, :rating)
-            -#%th
-            -#  .text-warning.fa.fa-comment
-            -#  = sort_link(@q, :progress)
             %th Progress
             %th Certificate
             %th
@@ -80,10 +65,7 @@
                 - if  enrollment.rating.present?
                   = enrollment.updated_at.strftime("%d/%b/%Y - %H:%M")
               %td= enrollment.rating
-              -#%td= enrollment.review
-              -#Прогресс
               %td= number_to_percentage(enrollment.course.progress(enrollment.user), precision: 0)
-              -#Ссылка на PDF сертификат
               %td= link_to "Certificate", certificate_enrollment_path(enrollment, format: :pdf)
               %td= link_to 'See review', enrollment
               %td
@@ -92,6 +74,5 @@
               %td
                 - if policy(enrollment).destroy?
                   = link_to 'Delete', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
-      -#пагинация
       != pagy_bootstrap_nav(@pagy)
     %br

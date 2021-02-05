@@ -1,10 +1,8 @@
--# frozen_string_literal: true
 = simple_form_for([@course, @lesson]) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
-    -#отключаем автозаполнение
     = f.input :title, input_html: {autocomplete: 'off'}
     = f.input :content, as: :rich_text_area
     %p
@@ -20,10 +18,6 @@
       .row
       = @lesson.video_thumbnail.filename
 
-    -# = f.association :course
-    -#при создании лекции нужно указать ID курса, берем или из params или из свойства лекции
-    -#но в данном случае убираем, т.к. мы назначили все вручную в контроллере
-    -# = f.input :course_id, input_html: {value: @lesson.course_id || params[:course_id]}, as: :hidden
   %p
   .form-actions
     = f.button :submit
