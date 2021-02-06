@@ -6,17 +6,6 @@
 .jumbotron.shadow.parallax
   %h1.text-shadow
     %b What do you want to learn today?
-  .row
-  Test users:
-  admin@admin.ru
-  user1@test.ru
-  user2@test.ru
-  .row
-  = link_to url_for("https://github.com/sasha370/universitetHQ") do
-    GitHub repo
-  .row
-  %small на почтовую рассылку стоит заглушка ( при регистрации, подтверждении)
-
   .p-4
 
   - if current_user
@@ -55,6 +44,7 @@
     online courses
     .row
     Explore a variety of fresh topics
+
   .card.card-body
     %h1
       .fa.fa-chalkboard-teacher
@@ -76,6 +66,13 @@
     Lifetime access
     .row
     Learn on your schedule
+%hr
+  %small На почтовую рассылку стоит заглушка ( при регистрации, подтверждении)
+  %p Test users:
+  %p admin@admin.ru 123456
+  %p user1@test.ru  123456
+  = link_to url_for("https://github.com/sasha370/universitetHQ") do
+    GitHub repo
 
 %hr
 - if current_user

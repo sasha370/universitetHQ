@@ -4,7 +4,7 @@
     = link_to course.title, course_path(course)
   - if course.avatar.attached?
     .card-img-top
-      = image_tag course.avatar,height: "200px", width:  "100%"
+      = image_tag course.avatar, width:  "100%"
 
   .card-body
     %small= simple_format(course.marketing_description)

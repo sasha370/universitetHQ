@@ -93,41 +93,29 @@ class User < ApplicationRecord
     end
   end
 
-  # Проверяем он-лайн ли еще пользователь
   def online?
     updated_at > 5.minutes.ago
   end
 
-  # Покупка курса = создаем запись в которую передаем Id курса и цену
   def buy_course(course)
     self.enrollments.create(course: course, price: course.price)
   end
 
-  # Метод создает запись о просмотренном уроке 
   def view_lesson(lesson)
     user_lesson = self.user_lessons.where(lesson: lesson)
-    # Но перед созданием проверяем, нет ли уже существующей записи
     if user_lesson.any?
-      # если запись ест, то увеличиваем счетчик просмотров на 1
       user_lesson.first.increment!(:impressions)
     else
-      # если записи нет, то создаем новую
       self.user_lessons.create(lesson: lesson)
     end
   end
 
-  # Пересчитываем баланса Пользователя
   def calculate_balance
-    # Сначала считаем доход по всем его курсам
     update_column :course_income, (courses.pluck(:income).sum)
-    # # Затем считаем все его покупки
-    # update_column :enrollment_expences, (enrollments.pluck(:price).sum)
-    # Считаем разницу и сохраняем в Баланс
     update_column :balance, (course_income - enrollment_expences)
   end
 
   def calculate_enrollment_expences
-    # Затем считаем все его покупки
     update_column :enrollment_expences, (enrollments.pluck(:price).sum)
     update_column :balance, (course_income - enrollment_expences)
   end

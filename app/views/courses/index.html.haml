@@ -14,7 +14,6 @@
 .row
   .col-md-2
     = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path  do |f|
-      / метод _cont для строк  -  "содержит"
       = f.label :title,  class: "col-form-label"
       = f.search_field :title_cont, placeholder: "Title", class: "form-control form-control-sm"
       = f.label :tag, class: "col-form-label"
