@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
 
   after_create do
-    UserMailer.new_user(self).deliver_later
+    # UserMailer.new_user(self).deliver_later
   end
 
   # Логика для OAuth2
