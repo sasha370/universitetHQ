@@ -33,7 +33,8 @@ class Course < ApplicationRecord
   scope :unpublished, -> { where(published: false) }
   scope :approved, -> { where(approved: true) }
   scope :unapproved, -> { where(approved: false) }
-
+  LANGUAGES = ["English", "Russian", "France", "Spanish"]
+  LEVELS = ["Beginner", "Intermediate", "Advance"]
 
   def to_s
     title
@@ -42,14 +43,9 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-
-  LANGUAGES = ["English", "Russian", "France", "Spanish"]
-
   def self.languages
     LANGUAGES.map { |language| [language, language] }
   end
-
-  LEVELS = ["Beginner", "Intermediate", "Advance"]
 
   def self.levels
     LEVELS.map { |level| [level, level] }
@@ -77,6 +73,5 @@ class Course < ApplicationRecord
     update_column :income, (enrollments.pluck(:price).sum)
     user.calculate_balance
   end
-
   pluck
 end
